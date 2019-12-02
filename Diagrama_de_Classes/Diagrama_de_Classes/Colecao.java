@@ -7,13 +7,13 @@ public class Colecao {
 	private int ID;
 	private String Titulo;
 	private List<String> CollectionIDs;
-	private string Criador;
-	private string Categoria;
+	private String Criador;
+	private String Categoria;
 	private Collection<Integer> Tamanho;
 	private boolean isPublic;
 	private boolean isMusic;
 
-	public string getTitulo() {
+	public String getTitulo() {
 		// TODO - implement Coleção.getTitulo
 		throw new UnsupportedOperationException();
 	}
@@ -23,7 +23,7 @@ public class Colecao {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getCategoria() {
+	public String getCategoria() {
 		// TODO - implement Coleção.getCategoria
 		throw new UnsupportedOperationException();
 	}
@@ -37,7 +37,7 @@ public class Colecao {
 	 * 
 	 * @param t
 	 */
-	public void setTitulo(string t) {
+	public void setTitulo(String t) {
 		// TODO - implement Coleção.setTitulo
 		throw new UnsupportedOperationException();
 	}
@@ -46,7 +46,7 @@ public class Colecao {
 	 * 
 	 * @param c
 	 */
-	public void setCategoria(string c) {
+	public void setCategoria(String c) {
 		// TODO - implement Coleção.setCategoria
 		throw new UnsupportedOperationException();
 	}
@@ -114,7 +114,7 @@ public class Colecao {
 	 * @param isPublic
 	 * @param isMusic
 	 */
-	public Colecao(string titulo, string criador, boolean isPublic, boolean isMusic) {
+	public Colecao(String titulo, String criador, boolean isPublic, boolean isMusic) {
 		// TODO - implement Coleção.Colecão
 		throw new UnsupportedOperationException();
 	}
@@ -131,4 +131,7 @@ public class Colecao {
 		this.isMusic = isMusic;
 	}
 
+	public Colecao Clone() throws CloneNotSupportedException {
+		return null;
+	}
 }

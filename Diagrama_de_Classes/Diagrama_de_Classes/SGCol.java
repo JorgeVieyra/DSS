@@ -1,8 +1,11 @@
 package Diagrama_de_Classes;
 
+import java.util.List;
+import java.util.Map;
+
 public class SGCol {
 
-	private Map<Int, Colecao> Colecoes;
+	private Map<Integer, Colecao> Colecoes;
 	private List<Media> ColecaoTemp;
 
 	/**
@@ -12,7 +15,7 @@ public class SGCol {
 	 * @param isPublic
 	 * @param isMusic
 	 */
-	public void addColecao(string titulo, string criador, string isPublic, boolean isMusic) {
+	public void addColecao(String titulo, String criador, String isPublic, boolean isMusic) {
 		// TODO - implement SGCol.addColeção
 		throw new UnsupportedOperationException();
 	}
@@ -22,7 +25,7 @@ public class SGCol {
 	 * @param col
 	 * @param user
 	 */
-	public boolean removeColecao(int col, string user) {
+	public boolean removeColecao(int col, String user) {
 		// TODO - implement SGCol.removeColeção
 		throw new UnsupportedOperationException();
 	}
@@ -54,7 +57,7 @@ public class SGCol {
 	 * 
 	 * @param id
 	 */
-	public boolean addMediaColTemp(string id) {
+	public boolean addMediaColTemp(String id) {
 		// TODO - implement SGCol.addMediaColTemp
 		throw new UnsupportedOperationException();
 	}
@@ -72,7 +75,7 @@ public class SGCol {
 	 * 
 	 * @param criador
 	 */
-	public boolean removePrivateCol(string criador) {
+	public boolean removePrivateCol(String criador) {
 		// TODO - implement SGCol.removePrivateCol
 		throw new UnsupportedOperationException();
 	}
@@ -86,7 +89,7 @@ public class SGCol {
 	 * 
 	 * @param cols
 	 */
-	public Map<String, Int> getTitulosCategorias(List<Int> cols) {
+	public Map<String, Integer> getTitulosCategorias(List<Integer> cols) {
 		// TODO - implement SGCol.getTitulosCategorias
 		throw new UnsupportedOperationException();
 	}
@@ -96,7 +99,7 @@ public class SGCol {
 	 * @param idCol
 	 * @param categoria
 	 */
-	public boolean alterarCategoria(int idCol, string categoria) {
+	public boolean alterarCategoria(int idCol, String categoria) {
 		// TODO - implement SGCol.alterarCategoria
 		throw new UnsupportedOperationException();
 	}

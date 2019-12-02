@@ -1,17 +1,23 @@
 package Diagrama_de_Classes;
 
+import java.util.List;
+
 public class Media_Center_Facade {
 
 	private SGContas SGContas;
 	private SGCol SGCol;
-	private SGMedia SGMedia;
+	private MediaDAO SGMedia;
 
+	public static void main(String[] arg){
+		System.out.println("I'm Alive.");
+	}
+	
 	/**
 	 * 
 	 * @param username
 	 * @param password
 	 */
-	public boolean login(string username, string password) {
+	public boolean login(String username, String password) {
 		// TODO - implement Media_Center_Facade.login
 		throw new UnsupportedOperationException();
 	}
@@ -30,9 +36,8 @@ public class Media_Center_Facade {
 	 * @param username
 	 * @param password
 	 * @param email
-	 * @param tipo
 	 */
-	public boolean registarConta(string username, string password, string email, boolean tipo) {
+	public boolean registarConta(String username, String password, String email) {
 		// TODO - implement Media_Center_Facade.registarConta
 		throw new UnsupportedOperationException();
 	}
@@ -43,7 +48,7 @@ public class Media_Center_Facade {
 	 * @param atributo
 	 * @param isPassword
 	 */
-	public boolean editarConta(string username, string atributo, boolean isPassword) {
+	public boolean editarConta(String username, String atributo, boolean isPassword) {
 		// TODO - implement Media_Center_Facade.editarConta
 		throw new UnsupportedOperationException();
 	}
@@ -52,7 +57,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param username
 	 */
-	public boolean eliminarConta(string username) {
+	public boolean eliminarConta(String username) {
 		// TODO - implement Media_Center_Facade.eliminarConta
 		throw new UnsupportedOperationException();
 	}
@@ -72,7 +77,7 @@ public class Media_Center_Facade {
 	 * @param privacy
 	 * @param genero
 	 */
-	public boolean upload(string diretorio, boolean privacy, string genero) {
+	public boolean upload(String diretorio, boolean privacy, String genero) {
 		// TODO - implement Media_Center_Facade.upload
 		throw new UnsupportedOperationException();
 	}
@@ -90,7 +95,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param id
 	 */
-	public boolean apagarMedia(string id) {
+	public boolean apagarMedia(String id) {
 		// TODO - implement Media_Center_Facade.apagarMedia
 		throw new UnsupportedOperationException();
 	}
@@ -107,9 +112,9 @@ public class Media_Center_Facade {
 	/**
 	 * 
 	 * @param id
-	 * @param coleção
+	 * @param colecao
 	 */
-	public List<String> reproduzirFrom(int id, List<Media> coleção) {
+	public List<String> reproduzirFrom(int id, List<Media> colecao) {
 		// TODO - implement Media_Center_Facade.reproduzirFrom
 		throw new UnsupportedOperationException();
 	}
@@ -129,7 +134,7 @@ public class Media_Center_Facade {
 	 * @param creator
 	 * @param tipo
 	 */
-	public boolean criarColecao(string nome, string creator, string tipo) {
+	public boolean criarColecao(String nome, String creator, String tipo) {
 		// TODO - implement Media_Center_Facade.criarColecao
 		throw new UnsupportedOperationException();
 	}
@@ -138,7 +143,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param id
 	 */
-	public boolean adicionarMediaColecao(string id) {
+	public boolean adicionarMediaColecao(String id) {
 		// TODO - implement Media_Center_Facade.adicionarMediaColecao
 		throw new UnsupportedOperationException();
 	}
@@ -147,18 +152,18 @@ public class Media_Center_Facade {
 	 * 
 	 * @param tipo
 	 */
-	public List<String> getMedia(string tipo) {
+	public List<String> getMedia(String tipo) {
 		// TODO - implement Media_Center_Facade.getMedia
 		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * 
-	 * @param calssificaçao
+	 * @param calssificacao
 	 * @param col
 	 */
-	public boolean calssificarColeçao(string calssificaçao, int col) {
-		// TODO - implement Media_Center_Facade.calssificarColeçao
+	public boolean calssificarColecao(String calssificacao, int col) {
+		// TODO - implement Media_Center_Facade.calssificarColeï¿½ao
 		throw new UnsupportedOperationException();
 	}
 
@@ -166,12 +171,12 @@ public class Media_Center_Facade {
 	 * 
 	 * @param id
 	 */
-	public boolean apagarColeção(int id) {
-		// TODO - implement Media_Center_Facade.apagarColeção
+	public boolean apagarColecao(int id) {
+		// TODO - implement Media_Center_Facade.apagarColeï¿½ï¿½o
 		throw new UnsupportedOperationException();
 	}
 
-	public List<Int> getCollectionsUser() {
+	public List<Integer> getCollectionsUser() {
 		// TODO - implement Media_Center_Facade.getCollectionsUser
 		throw new UnsupportedOperationException();
 	}
@@ -180,8 +185,8 @@ public class Media_Center_Facade {
 	 * 
 	 * @param id
 	 */
-	public List<String> getColeção(int id) {
-		// TODO - implement Media_Center_Facade.getColeção
+	public List<String> getColecao(int id) {
+		// TODO - implement Media_Center_Facade.getColeï¿½ï¿½o
 		throw new UnsupportedOperationException();
 	}
 
@@ -189,7 +194,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param pass
 	 */
-	public boolean verificaPassword(string pass) {
+	public boolean verificaPassword(String pass) {
 		// TODO - implement Media_Center_Facade.verificaPassword
 		throw new UnsupportedOperationException();
 	}
@@ -208,7 +213,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param diretorio
 	 */
-	public int checkTempoMedia(string diretorio) {
+	public int checkTempoMedia(String diretorio) {
 		// TODO - implement Media_Center_Facade.checkTempoMedia
 		throw new UnsupportedOperationException();
 	}
@@ -217,7 +222,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param diretorio
 	 */
-	public string checkTituloMedia(string diretorio) {
+	public String checkTituloMedia(String diretorio) {
 		// TODO - implement Media_Center_Facade.checkTituloMedia
 		throw new UnsupportedOperationException();
 	}
@@ -226,7 +231,7 @@ public class Media_Center_Facade {
 	 * 
 	 * @param username
 	 */
-	public boolean verificaUsername(string username) {
+	public boolean verificaUsername(String username) {
 		// TODO - implement Media_Center_Facade.verificaUsername
 		throw new UnsupportedOperationException();
 	}

@@ -1,10 +1,13 @@
 package Diagrama_de_Classes;
 
+import java.util.List;
+import java.util.Map;
+
 public class SGContas {
 
 	private Map<String, Conta> Contas;
 	private Conta ContaTemp;
-	private boolean isConvidado = False;
+	private boolean isConvidado = false;
 
 	/**
 	 * 
@@ -13,7 +16,7 @@ public class SGContas {
 	 * @param username
 	 * @param isAdmin
 	 */
-	public boolean addConta(string email, int password, string username, boolean isAdmin) {
+	public boolean addConta(String email, int password, String username, boolean isAdmin) {
 		// TODO - implement SGContas.addConta
 		throw new UnsupportedOperationException();
 	}
@@ -46,7 +49,7 @@ public class SGContas {
 	 * @param password
 	 * @param username
 	 */
-	public void changePassword(string password, string username) {
+	public void changePassword(String password, String username) {
 		// TODO - implement SGContas.changePassword
 		throw new UnsupportedOperationException();
 	}
@@ -56,7 +59,7 @@ public class SGContas {
 	 * @param email
 	 * @param username
 	 */
-	public boolean changeEmail(string email, string username) {
+	public boolean changeEmail(String email, String username) {
 		// TODO - implement SGContas.changeEmail
 		throw new UnsupportedOperationException();
 	}
@@ -75,7 +78,7 @@ public class SGContas {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getUsernameTemp() {
+	public String getUsernameTemp() {
 		// TODO - implement SGContas.getUsernameTemp
 		throw new UnsupportedOperationException();
 	}
@@ -84,7 +87,7 @@ public class SGContas {
 	 * 
 	 * @param username
 	 */
-	public boolean verificaUsername(string username) {
+	public boolean verificaUsername(String username) {
 		// TODO - implement SGContas.verificaUsername
 		throw new UnsupportedOperationException();
 	}
@@ -115,12 +118,12 @@ public class SGContas {
 	 * 
 	 * @param username
 	 */
-	public boolean verificaUsernameExistente(string username) {
+	public boolean verificaUsernameExistente(String username) {
 		// TODO - implement SGContas.verificaUsernameExistente
 		throw new UnsupportedOperationException();
 	}
 
-	public List<Int> getColecoesUser() {
+	public List<Integer> getColecoesUser() {
 		// TODO - implement SGContas.getColecoesUser
 		throw new UnsupportedOperationException();
 	}
