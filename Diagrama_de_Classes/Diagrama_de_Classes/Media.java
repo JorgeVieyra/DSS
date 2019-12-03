@@ -1,166 +1,151 @@
 package Diagrama_de_Classes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.*;
 
 public class Media {
 
-	private String ID;
-	private String Titulo;
-	private int Tempo;
-	private Collection<String> Género;
+	private int id;
+	private String titulo;
+	private int tempo;
+	private Set<String> genero;
 	private LocalDate addDate;
-	private double TamanhoBytes;
-	private String Diretório;
+	private double tamanhoBytes;
+	private String diretorio;
 	private boolean isPublic;
 	private String uploader;
 
 	public String getTitulo() {
-		// TODO - implement Media.getTitulo
-		throw new UnsupportedOperationException();
+		return this.titulo;
 	}
 
-	public LocalDate getTempo() {
-		// TODO - implement Media.getTempo
-		throw new UnsupportedOperationException();
+	public int getTempo() {
+		return this.tempo;
 	}
 
-	public String getGenero() {
-		// TODO - implement Media.getGenero
-		throw new UnsupportedOperationException();
+	public Set<String> getGenero() {
+		return this.genero;
 	}
 
 	public LocalDate getAddDate() {
 		return this.addDate;
 	}
 
-	/**
-	 * 
-	 * @param g
-	 */
-	public void setGenero(String g) {
-		// TODO - implement Media.setGenero
-		throw new UnsupportedOperationException();
-	}
-
 	public double getTamanho() {
-		// TODO - implement Media.getTamanho
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param addDate
-	 */
-	public void setAddDate(LocalDate addDate) {
-		this.addDate = addDate;
-	}
-
-	/**
-	 * 
-	 * @param TamanhoBytes
-	 */
-	public void setTamanhoBytes(double TamanhoBytes) {
-		// TODO - implement Media.setTamanhoBytes
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param Género
-	 */
-	public void setGénero(String Género) {
-		// TODO - implement Media.setGénero
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param Titulo
-	 */
-	public void setTitulo(String Titulo) {
-		// TODO - implement Media.setTitulo
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param Tempo
-	 */
-	public void setTempo(int Tempo) {
-		// TODO - implement Media.setTempo
-		throw new UnsupportedOperationException();
+		return this.tamanhoBytes;
 	}
 
 	public int getID() {
-		// TODO - implement Media.getID
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param ID
-	 */
-	public void setID(int ID) {
-		// TODO - implement Media.setID
-		throw new UnsupportedOperationException();
+		return this.id;
 	}
 
 	public String getDiretorio() {
-		// TODO - implement Media.getDiretório
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param Diretório
-	 */
-	public void setDiretorio(String Diretório) {
-		// TODO - implement Media.setDiretório
-		throw new UnsupportedOperationException();
+		return this.diretorio;
 	}
 
 	public boolean getIsPublic() {
 		return this.isPublic;
 	}
 
+	public String getUploader() {
+		return this.uploader;
+	}
+
+	public File getFile(String diretorio) throws FileNotFoundException {
+		File file = new File(diretorio);
+		if (file.exists() && file.isFile()){
+			return file;
+		}else{
+			throw new FileNotFoundException("Erro: Ficheiro não existe!");
+		}
+	}
+
+
 	/**
 	 * 
-	 * @param isPublic
+	 * @param g generos novos
+	 */
+	public void setGenero(Set<String> g) {
+		this.genero = new HashSet<>(g);
+	}
+
+	/**
+	 * 
+	 * @param tamanhoBytes tamanho do ficheiro
+	 */
+	public void setTamanhoBytes(double tamanhoBytes) {
+		this.tamanhoBytes = tamanhoBytes;
+	}
+
+	/**
+	 * 
+	 * @param titulo titulo do ficheiro
+	 */
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	/**
+	 * 
+	 * @param tempo duracao do ficheiro
+	 */
+	public void setTempo(int tempo) {
+		this.tempo = tempo;
+	}
+
+	/**
+	 * 
+	 * @param id identificador do ficheiro
+	 */
+	public void setID(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * 
+	 * @param diretorio localizaçao do ficheiro
+	 */
+	public void setDiretorio(String diretorio) {
+		this.diretorio = diretorio;
+	}
+
+
+	/**
+	 * 
+	 * @param isPublic partilhado entre utilizadores ou privado
 	 */
 	public void setIsPublic(boolean isPublic) {
 		this.isPublic = isPublic;
 	}
 
-	public String getUploader() {
-		return this.uploader;
-	}
-
 	/**
 	 * 
-	 * @param uploader
+	 * @param uploader utiilizador que due upload do ficheiro
 	 */
 	public void setUploader(String uploader) {
 		this.uploader = uploader;
 	}
 
-	public List<String> getInfoMedia() {
-		// TODO - implement Media.getInfoMedia
-		throw new UnsupportedOperationException();
-	}
-
 	/**
 	 * 
-	 * @param Titulo
-	 * @param Tempo
-	 * @param genero
-	 * @param diretorio
-	 * @param isPublic
-	 * @param uploader
+	 * @param titulo Titulo da media
+	 * @param tempo Tempo da media
+	 * @param genero Generos
+	 * @param diretorio localizacao do ficheiro
+	 * @param isPublic partilhado entre utilizadores ou privado
+	 * @param uploader utilizador que deu upload do ficheiro
 	 */
-	public Media(String Titulo, int Tempo, String genero, int diretorio, boolean isPublic, String uploader) {
-		// TODO - implement Media.Media
-		throw new UnsupportedOperationException();
+	public Media(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
+		this.id = id;
+		try{ this.tamanhoBytes = this.getFile(diretorio).length();} catch (FileNotFoundException e) {this.tamanhoBytes = -1;}
+		this.addDate = LocalDate.now();
+		this.titulo = titulo;
+		this.genero = genero;
+		this.diretorio = diretorio;
+		this.isPublic = isPublic;
+		this.uploader = uploader;
 	}
 
 }

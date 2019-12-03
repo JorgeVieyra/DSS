@@ -1,32 +1,35 @@
 package Diagrama_de_Classes;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Musica extends Media {
 
-	private Collection<String> Artista;
-	private int BitRate;
+	private Collection<String> artistas;
+	private int bitRate;
 
 	/**
-	 * @param Titulo
-	 * @param Tempo
-	 * @param genero
-	 * @param diretorio
-	 * @param isPublic
-	 * @param uploader
+     * @param id id da super
+	 * @param titulo titulo da super
+     * @param artistas artistas da musica
+	 * @param tempo tempo da super
+	 * @param genero genero da super
+	 * @param diretorio diretorio da super
+	 * @param isPublic isPublic da super
+	 * @param uploader uploader da super
 	 */
-	public Musica(String Titulo, int Tempo, String genero, int diretorio, boolean isPublic, String uploader) {
-		super(Titulo, Tempo, genero, diretorio, isPublic, uploader);
+	public Musica(int id, String titulo,Collection<String> artistas, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
+		super(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+		this.artistas = artistas;
+		this.bitRate = 128*1024; //Meio estranho ter a bitrate, mas por agora vamos deixar
 	}
 
-	public String getArtista() {
-		// TODO - implement Musica.getArtista
-		throw new UnsupportedOperationException();
+	public Collection<String> getArtista() {
+	    return new ArrayList<>(this.artistas);
 	}
 
 	public int getBitRate() {
-		// TODO - implement Musica.getBitRate
-		throw new UnsupportedOperationException();
+	    return this.bitRate;
 	}
 
 }

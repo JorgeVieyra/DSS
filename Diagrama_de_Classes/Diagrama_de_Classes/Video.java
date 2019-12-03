@@ -1,32 +1,35 @@
 package Diagrama_de_Classes;
 
+import javafx.util.Pair;
+
 import java.util.List;
+import java.util.Set;
 
 public class Video extends Media {
 
-	private List<Integer> Resolucao;
-	private int Framerate;
+	private Pair<Integer,Integer> resolucao;
+	private int framerate;
 
 	/**
-	 * @param Titulo
-	 * @param Tempo
+	 * @param titulo
+	 * @param tempo
 	 * @param genero
 	 * @param diretorio
 	 * @param isPublic
 	 * @param uploader
 	 */
-	public Video(String Titulo, int Tempo, String genero, int diretorio, boolean isPublic, String uploader) {
-		super(Titulo, Tempo, genero, diretorio, isPublic, uploader);
+	public Video(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader, Pair<Integer, Integer> resolucao, int framerate) {
+        super(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+        this.resolucao = resolucao;
+        this.framerate = framerate;
 	}
 
-	public List<Integer> getResolucao() {
-		// TODO - implement Video.getResolução
-		throw new UnsupportedOperationException();
+	public Pair<Integer,Integer> getResolucao() {
+	    return this.resolucao;
 	}
 
 	public int getFramerate() {
-		// TODO - implement Video.getFramerate
-		throw new UnsupportedOperationException();
+	    return this.framerate;
 	}
 
 }
