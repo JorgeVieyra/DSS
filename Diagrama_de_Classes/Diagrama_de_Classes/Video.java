@@ -2,7 +2,6 @@ package Diagrama_de_Classes;
 
 import javafx.util.Pair;
 
-import java.util.List;
 import java.util.Set;
 
 public class Video extends Media {
@@ -11,12 +10,12 @@ public class Video extends Media {
 	private int framerate;
 
 	/**
-	 * @param titulo
-	 * @param tempo
-	 * @param genero
-	 * @param diretorio
-	 * @param isPublic
-	 * @param uploader
+	 * @param titulo titulo super
+	 * @param tempo tempo super
+	 * @param genero genero super
+	 * @param diretorio diretorio super
+	 * @param isPublic isPublic super
+	 * @param uploader uploader super
 	 */
 	public Video(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader, Pair<Integer, Integer> resolucao, int framerate) {
         super(id,titulo,tempo,genero,diretorio,isPublic,uploader);

@@ -2,7 +2,7 @@ package Diagrama_de_Classes;
 
 import java.util.List;
 
-public class Media_Center_Facade {
+public class MediaCenterFacade {
 
 	private SGContas SGContas;
 	private SGCol SGCol;
