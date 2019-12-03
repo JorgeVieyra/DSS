@@ -68,7 +68,7 @@ public class Colecao {
 		isMusic = music;
 	}
 
-	public Colecao(int Id, String t, String c, boolean ispub, boolean ismus) {
+	public Colecao(int id, String t, String c, boolean ispub, boolean ismus) {
 		this.id = id;
 		this.titulo = t;
 		this.collectionIDs = new ArrayList<String>();

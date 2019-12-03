@@ -1,112 +1,121 @@
 package Diagrama_de_Classes;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SGContas {
 
-	private Map<String, Conta> Contas;
-	private Conta ContaTemp;
+	private Map<String, Conta> contas;
+	private Conta contaTemp;
 	private boolean isConvidado = false;
 
-	/**
-	 * 
-	 * @param email
-	 * @param password
-	 * @param username
-	 * @param isAdmin
-	 */
-	public boolean addConta(String email, int password, String username, boolean isAdmin) {
-		// TODO - implement SGContas.addConta
-		throw new UnsupportedOperationException();
+	//region Construtores
+	public SGContas(){
+		this.contas = new HashMap<>();
+		this.contaTemp = null;
+		this.isConvidado = true;
+		carregarContasSQL();
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean removeConta(String id) {
-		// TODO - implement SGContas.removeConta
-		throw new UnsupportedOperationException();
+	public SGContas(Map<String,Conta> contas){
+		this.contas = new HashMap<>(contas);
+		this.contaTemp = null;
+		this.isConvidado = true;
+		carregarContasSQL();
 	}
 
-	public Map<String, Conta> getContas() {
-		// TODO - implement SGContas.getContas
-		throw new UnsupportedOperationException();
+	public SGContas(List<Conta> contas){
+		this.contas = contas.stream().collect(Collectors.toMap(Conta::getUsername,c -> c));
+		this.contaTemp = null;
+		this.isConvidado = true;
+		carregarContasSQL();
 	}
-
-	/**
-	 * 
-	 * @param ind
-	 */
-	public Conta getConta(String ind) {
-		// TODO - implement SGContas.getConta
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param password
-	 * @param username
-	 */
-	public void changePassword(String password, String username) {
-		// TODO - implement SGContas.changePassword
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param email
-	 * @param username
-	 */
-	public boolean changeEmail(String email, String username) {
-		// TODO - implement SGContas.changeEmail
-		throw new UnsupportedOperationException();
-	}
-
-	public Conta getContaTemp() {
-		// TODO - implement SGContas.getContaTemp
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param ContaTemp
-	 */
-	public boolean setContaTemp(Conta ContaTemp) {
-		// TODO - implement SGContas.setContaTemp
-		throw new UnsupportedOperationException();
-	}
-
-	public String getUsernameTemp() {
-		// TODO - implement SGContas.getUsernameTemp
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param username
-	 */
-	public boolean verificaUsername(String username) {
-		// TODO - implement SGContas.verificaUsername
-		throw new UnsupportedOperationException();
-	}
+	//endregion
 
 	public boolean getIsConvidado() {
 		return this.isConvidado;
 	}
 
+	//region Getters e Setters
 	/**
-	 * 
-	 * @param isConvidado
+	 *
+	 * @param isConvidado utilizador é convidado?
 	 */
 	public void setIsConvidado(boolean isConvidado) {
 		this.isConvidado = isConvidado;
 	}
 
-	public boolean logoutContaTemp() {
-		// TODO - implement SGContas.logoutContaTemp
-		throw new UnsupportedOperationException();
+	public List<Integer> getColecoesUser() throws InvalidUsernameException{
+		if(contaTemp!=null && !usernameExiste(contaTemp.getUsername())) return contaTemp.getColecoes();
+		else throw new InvalidUsernameException("Erro: Nome de Utilizador não existe ou utilizador não tem coleções.");
+	}
+
+	public Map<String, Conta> getContas() {
+		return new HashMap<>(contas);
+	}
+
+	/**
+	 *
+	 * @param username username
+	 */
+	public Conta getConta(String username) throws InvalidUsernameException {
+		if(usernameExiste(username)) return contas.get(username);
+		else throw new InvalidUsernameException("Erro: Nome de Utilizador não existe.");
+	}
+
+	//endregion
+
+	/**
+	 *
+	 * @param email email
+	 * @param password pass
+	 * @param username user
+	 * @param isAdmin is admin
+	 */
+	public void addConta(String email, String password, String username, boolean isAdmin) throws InvalidUsernameException {
+		Conta c;
+		if(!usernameExiste(username)){
+			if(!isAdmin) c = new Conta(email,password,username);
+			else c = new Conta_Admin(email,password,username);
+			updateSQL(c);
+			contas.put(username,c);
+		} else throw new InvalidUsernameException("Erro: Username não é unico.");
+	}
+
+	/**
+	 * 
+	 * @param username
+	 */
+	public void removeConta(String username) throws InvalidUsernameException{
+		if(usernameExiste(username)) contas.remove(username);
+		else throw new InvalidUsernameException("Erro: Nome de Utilizador não existe.");
+	}
+
+	/**
+	 * 
+	 * @param password
+	 * @param username
+	 */
+	public void changePassword(String password, String username) throws InvalidUsernameException{
+		if(usernameExiste(username)) contas.get(username).setPassword(password);
+		else throw new InvalidUsernameException("Erro: Nome de utilizador não existe.");
+
+	}
+
+	/**
+	 * 
+	 * @param email
+	 * @param username
+	 */
+	public void changeEmail(String email, String username) throws InvalidUsernameException{
+		if(usernameExiste(username)) contas.get(username).setEmail(email);
+		else throw new InvalidUsernameException("Erro: Nome de utilizador não existe.");
+	}
+
+	public void logoutContaTemp() {
+		this.contaTemp = null;
 	}
 
 	public boolean removeContaLoggedIn() {
@@ -114,18 +123,20 @@ public class SGContas {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param username
-	 */
-	public boolean verificaUsernameExistente(String username) {
-		// TODO - implement SGContas.verificaUsernameExistente
-		throw new UnsupportedOperationException();
+	public Boolean usernameExiste(String username){
+		return contas.containsKey(username);
 	}
 
-	public List<Integer> getColecoesUser() {
-		// TODO - implement SGContas.getColecoesUser
-		throw new UnsupportedOperationException();
+	//region SQL Magic
+	public void carregarContasSQL(){
+		// TODO - António Santos Banderas
 	}
+
+	//adiciona a conta a base de dados
+	public void updateSQL(Conta c){
+
+	}
+
+	//endregion
 
 }
