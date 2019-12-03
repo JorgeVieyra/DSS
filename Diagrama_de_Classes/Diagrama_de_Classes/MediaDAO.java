@@ -1,6 +1,9 @@
 package Diagrama_de_Classes;
 
-public class SGMedia {
+import java.util.List;
+import java.util.Map;
+
+public class MediaDAO {
 
 	private Map<String, Musica> Musicas;
 	private Map<String, Video> Videos;
@@ -10,7 +13,7 @@ public class SGMedia {
 	 * 
 	 * @param id
 	 */
-	public boolean removeMedia(string id) {
+	public boolean removeMedia(String id) {
 		// TODO - implement SGMedia.removeMedia
 		throw new UnsupportedOperationException();
 	}
@@ -29,7 +32,7 @@ public class SGMedia {
 	 * @param tipo
 	 * @param uploader
 	 */
-	public List<Media> getMediaUser(string tipo, string uploader) {
+	public List<Media> getMediaUser(String tipo, String uploader) {
 		// TODO - implement SGMedia.getMediaUser
 		throw new UnsupportedOperationException();
 	}
@@ -66,7 +69,7 @@ public class SGMedia {
 	 * @param isPublic
 	 * @param uploader
 	 */
-	public boolean addNewMedia(string titulo, int tempo, string genero, string diretorio, boolean isPublic, string uploader) {
+	public boolean addNewMedia(String titulo, int tempo, String genero, String diretorio, boolean isPublic, String uploader) {
 		// TODO - implement SGMedia.addNewMedia
 		throw new UnsupportedOperationException();
 	}
@@ -75,7 +78,7 @@ public class SGMedia {
 	 * 
 	 * @param uploader
 	 */
-	public boolean removePrivateMedia(string uploader) {
+	public boolean removePrivateMedia(String uploader) {
 		// TODO - implement SGMedia.removePrivateMedia
 		throw new UnsupportedOperationException();
 	}
