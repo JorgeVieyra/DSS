@@ -25,11 +25,10 @@ INSERT INTO MediaCenter.Musica (idMusica, titulo, artista, dataInclusao, colecao
 INSERT INTO MediaCenter.Musica (idMusica, titulo, artista, dataInclusao, colecao, uploader, isPublic,caminho) VALUES(5, 'Lyra SoundTrack', 'IDK', '2019-12-01', 1,'PedroMyGod', 1, 'mediaCenter/music/Lyra.mp3');
 INSERT INTO MediaCenter.Musica (idMusica, titulo, artista, dataInclusao, colecao, uploader, isPublic,caminho) VALUES(6, 'Moans', 'AlexisTexas', '2019-12-01', null,'AlexisTexas', 0, 'mediaCenter/music/moans.mp3');
 
-INSERT INTO MediaCenter.Video (idVideo, titulo, dataInclusao, colecao, uploader, isPublic,caminho) VALUES(1, 'Slash City Parte 2', '2019-12-01', 2,'BigBoyTintz2', 0, 'mediaCenter\video\SlashCity.mp3');
+INSERT INTO MediaCenter.Video (idVideo, titulo, dataInclusao, colecao, uploader, isPublic,caminho) VALUES(1, 'Slash City Parte 2', '2019-12-01', 2,'BigBoyTintz2', 0, 'mediaCenter/video/SlashCity.mp3');
 
 INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(1, 'Tonecas', 'BigBoyTintz2');
 INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(2, 'Tonecas', 'PedroMyGod');
-INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(3, 'Tonecas', 'BigBoyTintz2');
-INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(4, 'Tonecas', 'AlexisTexas');
-INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(5, 'BigBoyTintz2', 'PedroMyGod');
+INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(3, 'Tonecas', 'AlexisTexas');
+INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(4, 'BigBoyTintz2', 'PedroMyGod');
 
