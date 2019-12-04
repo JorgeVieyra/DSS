@@ -22,13 +22,14 @@ import java.util.*;
 import java.sql.*;
 import java.sql.DriverManager;
 
+
 public class ContaDAO implements Map<String,Conta> {
     
     private static ContaDAO inst = null;
     
     private ContaDAO () {
         try {
-            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         }
         catch (ClassNotFoundException e) {throw new NullPointerException(e.getMessage());}
     }
@@ -70,14 +71,14 @@ public class ContaDAO implements Map<String,Conta> {
         throw new NullPointerException("public boolean equals(Object o) not implemented!");
     }
 
-    public Conta get(Object key) {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+    public Conta get(Object username) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM TAlunos WHERE numero='"+(String)key+"'";
+            String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next())
-                al = new Conta(rs.getString(2),rs.getString(1),rs.getInt(3),rs.getInt(4));
+                al = new Conta(rs.getString(4),rs.getString(2),rs.getString(1));
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -99,8 +100,8 @@ public class ContaDAO implements Map<String,Conta> {
     public Set<String> keySet() {
         throw new NullPointerException("Not implemented!");
     }
-
-    /* ExercÃ­cio: Alterar para utilizar transacÃ§Ãµes! */
+/*
+     ExercÃ­cio: Alterar para utilizar transacÃ§Ãµes!
     public Conta put(String key, Conta value) {
         try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
             Conta al = null;
@@ -112,7 +113,8 @@ public class ContaDAO implements Map<String,Conta> {
             return new Conta(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
+    } */
+
 
     public void putAll(Map<? extends String,? extends Conta> t) {
         throw new NullPointerException("Not implemented!");
@@ -139,7 +141,7 @@ public class ContaDAO implements Map<String,Conta> {
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
-
+/*
     public Collection<Conta> values() {
         try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
             Collection<Conta> col = new HashSet<Conta>();
@@ -151,6 +153,17 @@ public class ContaDAO implements Map<String,Conta> {
             return col;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+ */
+
+    @Override
+    public Conta put(String key, Conta value) {
+        return null;
+    }
+
+    @Override
+    public Collection<Conta> values() {
+        return null;
     }
 }
 

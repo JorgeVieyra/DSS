@@ -10,6 +10,8 @@ public class MediaCenterFacade {
 
 	public static void main(String[] arg){
 		System.out.println("I'm Alive.");
+		ContaDAO teste = ContaDAO.getInstance();
+		System.out.println(teste.get("Tonecas").toString());
 		/* Swing
 		Menu m = new Menu(new String[]{"a","b","c"},1280,720);
 		m.startMenu();

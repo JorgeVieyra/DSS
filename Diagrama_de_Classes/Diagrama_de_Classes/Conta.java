@@ -115,4 +115,15 @@ public class Conta {
 		this.loggedIn = loggedIn;
 	}
 
+	@Override
+	public String toString() {
+		return "Conta{" +
+				"username='" + username + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", colecoes=" + colecoes +
+				", listaAmigos=" + listaAmigos +
+				", loggedIn=" + loggedIn +
+				'}';
+	}
 }
