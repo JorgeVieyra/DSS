@@ -26,7 +26,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-8.0.18.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -104,7 +104,7 @@
       <updated>1575287703368</updated>
       <workItem from="1575287704760" duration="8734000" />
       <workItem from="1575365090811" duration="3224000" />
-      <workItem from="1575475170110" duration="2129000" />
+      <workItem from="1575475170110" duration="6349000" />
     </task>
     <servers />
   </component>

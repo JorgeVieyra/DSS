@@ -42,7 +42,7 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public void clear () {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
             stm.executeUpdate("DELETE FROM Conta");
         }
@@ -50,9 +50,9 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public boolean containsKey(Object key) throws NullPointerException {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
-            String sql = "SELECT nome FROM TAlunos WHERE numero='"+(String)key+"'";
+            String sql = "SELECT username FROM conta WHERE username='"+(String)key+"'";
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
         }
@@ -89,31 +89,33 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public boolean isEmpty() {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT nome FROM TAlunos");
+            ResultSet rs = stm.executeQuery("SELECT username FROM conta");
             return !rs.next();
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public Set<String> keySet() {
-        throw new NullPointerException("Not implemented!");
+        throw new NullPointerException("Not defined.");
     }
-/*
-     ExercÃ­cio: Alterar para utilizar transacÃ§Ãµes!
+
     public Conta put(String key, Conta value) {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
-            stm.executeUpdate("DELETE FROM TAlunos WHERE numero='"+key+"'");
-            String sql = "INSERT INTO TAlunos VALUES ('"+value.getNome()+"','"+key+"',";
-            sql += value.getNotaT()+","+value.getNotaP()+")";
+            stm.executeUpdate("DELETE FROM conta WHERE username='"+key+"'");
+            String sql = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),(value instanceof Conta_Admin)?1:0,value.getEmail());
             int i  = stm.executeUpdate(sql);
-            return new Conta(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
+            if(value instanceof Conta_Admin){
+                return new Conta_Admin(value.getUsername(),value.getPassword(),value.getEmail());
+            }else {
+                return new Conta(value.getUsername(),value.getPassword(),value.getEmail());
+            }
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    } */
+    }
 
 
     public void putAll(Map<? extends String,? extends Conta> t) {
@@ -121,7 +123,7 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public Conta remove(Object key) {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = this.get(key);
             Statement stm = conn.createStatement();
             String sql = "DELETE '"+key+"' FROM TAlunos";
@@ -132,7 +134,7 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public int size() {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             int i = 0;
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT nome FROM TAlunos");
@@ -141,29 +143,23 @@ public class ContaDAO implements Map<String,Conta> {
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
-/*
+
     public Collection<Conta> values() {
-        try (Connection conn = DriverManager.getConnection("jdbc:odbc:alunos")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Collection<Conta> col = new HashSet<Conta>();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM TAlunos");
+            ResultSet rs = stm.executeQuery("SELECT * FROM conta");
             for (;rs.next();) {
-                col.add(new Conta(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4)));
+                if(rs.getBoolean(3)){
+                    col.add(new Conta_Admin(rs.getString(1),rs.getString(2),rs.getString(4)));
+                }else{
+                    col.add(new Conta(rs.getString(1),rs.getString(2),rs.getString(4)));
+                }
             }
             return col;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
- */
 
-    @Override
-    public Conta put(String key, Conta value) {
-        return null;
-    }
-
-    @Override
-    public Collection<Conta> values() {
-        return null;
-    }
 }
 
