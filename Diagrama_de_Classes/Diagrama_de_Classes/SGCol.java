@@ -15,19 +15,17 @@ public class SGCol {
 	 * @param isPublic
 	 * @param isMusic
 	 */
-	public void addColecao(String titulo, String criador, String isPublic, boolean isMusic) {
-		// TODO - implement SGCol.addColeção
-		throw new UnsupportedOperationException();
+	public void addColecao(String titulo, String criador, boolean isPublic, boolean isMusic) {
+		Colecoes.put(Colecoes.size(),new Colecao(Colecoes.size(),titulo,criador,isPublic,isMusic));
 	}
 
 	/**
 	 * 
-	 * @param col
+	 * @param idColection
 	 * @param user
 	 */
-	public boolean removeColecao(int col, String user) {
-		// TODO - implement SGCol.removeColeção
-		throw new UnsupportedOperationException();
+	public void removeColecao(int idColection, String user) {
+		this.Colecoes.remove(idColection);
 	}
 
 	public List<Media> getColecaoTemp() {

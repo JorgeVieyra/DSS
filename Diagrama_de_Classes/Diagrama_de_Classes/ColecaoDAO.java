@@ -4,12 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class ColecaoDAO implements Map<Integer,Colecao>{
+public class ColecaoDAO implements Map<String, List<Colecao>>{
 
     private static ColecaoDAO inst = null;
 
@@ -52,7 +49,7 @@ public class ColecaoDAO implements Map<Integer,Colecao>{
         throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
     }
 
-    public Set<Map.Entry<Integer,Colecao>> entrySet() {
+    public Set<Map.Entry<String,List<Colecao>>> entrySet() {
         //TODO ANTONIO
         throw new NullPointerException("public Set<Map.Entry<String,Aluno>> entrySet() not implemented!");
     }
@@ -62,15 +59,15 @@ public class ColecaoDAO implements Map<Integer,Colecao>{
         throw new NullPointerException("public boolean equals(Object o) not implemented!");
     }
 
-    public Colecao get(Object username) {
+    public List<Colecao> get(Object username) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Colecao al = null;
+            List<Colecao> al = null;
             Statement stm = conn.createStatement();
             String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next())
-                al = new Colecao(1,"","",true,true/*rs.getString(4),rs.getString(2),rs.getString(1)*/);
+                al = new ArrayList<Colecao>();
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -90,11 +87,11 @@ public class ColecaoDAO implements Map<Integer,Colecao>{
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Set<Integer> keySet() {
+    public Set<String> keySet() {
         throw new NullPointerException("Not defined.");
     }
 
-    public Colecao put(Integer key, Colecao value) {
+    public List<Colecao> put(String key, List<Colecao> value) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
@@ -102,21 +99,21 @@ public class ColecaoDAO implements Map<Integer,Colecao>{
             stm.executeUpdate("DELETE FROM conta WHERE username='"+key+"'");
             String sql;// = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),?1:0,value.getEmail());
             //int i  = stm.executeUpdate(sql);
-            return new Colecao(1,"","",true,true/*value.getUsername(),value.getPassword(),value.getEmail()*/);
+            return new ArrayList<Colecao>();
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
 
-    public void putAll(Map<? extends Integer,? extends Colecao> t) {
+    public void putAll(Map<? extends String,? extends List<Colecao>> t) {
         //TODO ANTONIO
         throw new NullPointerException("Not implemented!");
     }
 
-    public Colecao remove(Object key) {
+    public List<Colecao> remove(Object key) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Colecao al = this.get(key);
+            List<Colecao> al = this.get(key);
             Statement stm = conn.createStatement();
             String sql = "DELETE '"+key+"' FROM TAlunos";
             int i  = stm.executeUpdate(sql);
@@ -137,10 +134,10 @@ public class ColecaoDAO implements Map<Integer,Colecao>{
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Collection<Colecao> values() {
+    public Collection<List<Colecao>> values() {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Collection<Colecao> col = new HashSet<Colecao>();
+            Collection<List<Colecao>> col = new HashSet<List<Colecao>>();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM conta");
             for (;rs.next();) {
