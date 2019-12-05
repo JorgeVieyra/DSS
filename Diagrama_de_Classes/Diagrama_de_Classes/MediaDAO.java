@@ -1,104 +1,152 @@
 package Diagrama_de_Classes;
 
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.*;
 
-public class MediaDAO {
+public class MediaDAO implements Map<Integer,Media>{
 
-	private Map<String, Musica> Musicas;
-	private Map<String, Video> Videos;
-	private List<Media> MediaTemp;
+	private static MediaDAO inst = null;
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean removeMedia(String id) {
-		// TODO - implement SGMedia.removeMedia
-		throw new UnsupportedOperationException();
+	private MediaDAO () {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		}
+		catch (ClassNotFoundException e) {throw new NullPointerException(e.getMessage());}
 	}
 
-	/**
-	 * 
-	 * @param m
-	 */
-	public void addMedia(Media m) {
-		// TODO - implement SGMedia.addMedia
-		throw new UnsupportedOperationException();
+	public static MediaDAO getInstance() {
+		if (inst == null) {
+			inst = new MediaDAO();
+		}
+		return inst;
 	}
 
-	/**
-	 * 
-	 * @param tipo
-	 * @param uploader
-	 */
-	public List<Media> getMediaUser(String tipo, String uploader) {
-		// TODO - implement SGMedia.getMediaUser
-		throw new UnsupportedOperationException();
+	public void clear () {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Statement stm = conn.createStatement();
+			stm.executeUpdate("DELETE FROM Conta");
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
-	public List<Media> getMediaTemp() {
-		// TODO - implement SGMedia.getMediaTemp
-		throw new UnsupportedOperationException();
+	public boolean containsKey(Object key) throws NullPointerException {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Statement stm = conn.createStatement();
+			String sql = "SELECT username FROM conta WHERE username='"+(String)key+"'";
+			ResultSet rs = stm.executeQuery(sql);
+			return rs.next();
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
-	/**
-	 * 
-	 * @param MediaTemp
-	 */
-	public void setMediaTemp(List<Media> MediaTemp) {
-		// TODO - implement SGMedia.setMediaTemp
-		throw new UnsupportedOperationException();
+	public boolean containsValue(Object value) {
+		//TODO ANTONIO
+		throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
 	}
 
-	/**
-	 * 
-	 * @param listaMedia
-	 */
-	public List<List<String>> getInfoMediaUser(List<Media> listaMedia) {
-		// TODO - implement SGMedia.getInfoMediaUser
-		throw new UnsupportedOperationException();
+	public Set<Map.Entry<Integer,Media>> entrySet() {
+		//TODO ANTONIO
+		throw new NullPointerException("public Set<Map.Entry<String,Aluno>> entrySet() not implemented!");
 	}
 
-	/**
-	 * 
-	 * @param titulo
-	 * @param tempo
-	 * @param genero
-	 * @param diretorio
-	 * @param isPublic
-	 * @param uploader
-	 */
-	public boolean addNewMedia(String titulo, int tempo, String genero, String diretorio, boolean isPublic, String uploader) {
-		// TODO - implement SGMedia.addNewMedia
-		throw new UnsupportedOperationException();
+	public boolean equals(Object o) {
+		//TODO ANTONIO
+		throw new NullPointerException("public boolean equals(Object o) not implemented!");
 	}
 
-	/**
-	 * 
-	 * @param uploader
-	 */
-	public boolean removePrivateMedia(String uploader) {
-		// TODO - implement SGMedia.removePrivateMedia
-		throw new UnsupportedOperationException();
+	public Media get(Object username) {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Media al = null;
+			Statement stm = conn.createStatement();
+			String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
+			ResultSet rs = stm.executeQuery(sql);
+			if (rs.next())
+				//al = new Media(1,"","",true,true/*rs.getString(4),rs.getString(2),rs.getString(1)*/);
+			return null;
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+		return null;
 	}
 
-	/**
-	 * 
-	 * @param ids
-	 */
-	public List<Musica> getMusicas(List<String> ids) {
-		// TODO - implement SGMedia.getMusicas
-		throw new UnsupportedOperationException();
+	public int hashCode() {
+		return inst.hashCode();
 	}
 
-	/**
-	 * 
-	 * @param ids
-	 */
-	public List<Video> getVideos(List<String> ids) {
-		// TODO - implement SGMedia.getVideos
-		throw new UnsupportedOperationException();
+	public boolean isEmpty() {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT username FROM conta");
+			return !rs.next();
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+	}
+
+	public Set<Integer> keySet() {
+		throw new NullPointerException("Not defined.");
+	}
+
+	public Media put(Integer key, Media value) {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Conta al = null;
+			Statement stm = conn.createStatement();
+			stm.executeUpdate("DELETE FROM conta WHERE username='"+key+"'");
+			String sql;// = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),?1:0,value.getEmail());
+			//int i  = stm.executeUpdate(sql);
+			return null;//new Colecao(1,"","",true,true/*value.getUsername(),value.getPassword(),value.getEmail()*/);
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+	}
+
+
+	public void putAll(Map<? extends Integer,? extends Media> t) {
+		//TODO ANTONIO
+		throw new NullPointerException("Not implemented!");
+	}
+
+	public Media remove(Object key) {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Media al = this.get(key);
+			Statement stm = conn.createStatement();
+			String sql = "DELETE '"+key+"' FROM TAlunos";
+			int i  = stm.executeUpdate(sql);
+			return al;
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+	}
+
+	public int size() {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			int i = 0;
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT nome FROM TAlunos");
+			for (;rs.next();i++);
+			return i;
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+	}
+
+	public Collection<Media> values() {
+		//TODO ANTONIO
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Collection<Media> col = new HashSet<Media>();
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT * FROM conta");
+			for (;rs.next();) {
+				//col.add(new Colecao(rs.getString(1),rs.getString(2),rs.getString(4)));
+			}
+			return col;
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 }
