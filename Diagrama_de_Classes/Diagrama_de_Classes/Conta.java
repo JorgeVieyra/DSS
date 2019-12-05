@@ -11,6 +11,19 @@ public class Conta {
 	private List<String> listaAmigos;
 	private boolean loggedIn;
 
+    /**
+     *
+     * @param email
+     * @param password
+     * @param username
+     */
+    public Conta(String username, String password, String email) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
+
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -91,17 +104,6 @@ public class Conta {
 		this.listaAmigos = listaAmigos;
 	}
 
-	/**
-	 * 
-	 * @param email
-	 * @param password
-	 * @param username
-	 */
-	public Conta(String email, String password, String username) {
-		this.email = email;
-		this.password = password;
-		this.username = username;
-	}
 
 	public boolean getLoggedIn() {
 		return this.loggedIn;

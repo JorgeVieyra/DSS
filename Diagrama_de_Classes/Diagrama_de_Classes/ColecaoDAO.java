@@ -1,42 +1,28 @@
 package Diagrama_de_Classes;
 
-
-/**
- * Exemplo de um DAO (para o acesso aos dados de Aluno).
- * Como forma de minimizar o impacto de alteração dos Diag de Sequência, o DAO assume
- * a API da estrutura de dados que substitui - neste caso vai substituir um Map de Aluno.
- * O DAO utiliza o padrão Singleton.
- *
- * DISCLAIMER: Este código foi criado para discussão e edição durante as aulas práticas 
- * de DSS, representando uma solução em construção. Como tal, não deverá ser visto como 
- * uma solução canónica, ou mesmo acabada. É disponibilizado para auxiliar o processo de 
- * estudo. Os alunos são encorajados a testar adequadamente o código fornecido e a procurar 
- * soluções alternativas, à medida que forem adquirindo mais conhecimentos. Por exemplo,
- * protegendo o DAO de ataques por SQL injection.
- * 
- * @author jfc
- * @version 20191125
- */
-
-import java.util.*;
-import java.sql.*;
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
+public class ColecaoDAO implements Map<Integer,Colecao>{
 
-public class ContaDAO implements Map<String,Conta> {
-    
-    private static ContaDAO inst = null;
-    
-    private ContaDAO () {
+    private static ColecaoDAO inst = null;
+
+    private ColecaoDAO () {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         }
         catch (ClassNotFoundException e) {throw new NullPointerException(e.getMessage());}
     }
-    
-    public static ContaDAO getInstance() {
+
+    public static ColecaoDAO getInstance() {
         if (inst == null) {
-            inst = new ContaDAO();
+            inst = new ColecaoDAO();
         }
         return inst;
     }
@@ -66,7 +52,7 @@ public class ContaDAO implements Map<String,Conta> {
         throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
     }
 
-    public Set<Map.Entry<String,Conta>> entrySet() {
+    public Set<Map.Entry<Integer,Colecao>> entrySet() {
         //TODO ANTONIO
         throw new NullPointerException("public Set<Map.Entry<String,Aluno>> entrySet() not implemented!");
     }
@@ -76,21 +62,22 @@ public class ContaDAO implements Map<String,Conta> {
         throw new NullPointerException("public boolean equals(Object o) not implemented!");
     }
 
-    public Conta get(Object username) {
+    public Colecao get(Object username) {
+        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Conta al = null;
+            Colecao al = null;
             Statement stm = conn.createStatement();
             String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next())
-                al = new Conta(rs.getString(4),rs.getString(2),rs.getString(1));
+                al = new Colecao(1,"","",true,true/*rs.getString(4),rs.getString(2),rs.getString(1)*/);
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public int hashCode() {
-        return this.inst.hashCode();
+        return inst.hashCode();
     }
 
     public boolean isEmpty() {
@@ -103,37 +90,33 @@ public class ContaDAO implements Map<String,Conta> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Set<String> keySet() {
+    public Set<Integer> keySet() {
         throw new NullPointerException("Not defined.");
     }
 
-    public Conta put(String key, Conta value) {
+    public Colecao put(Integer key, Colecao value) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
             stm.executeUpdate("DELETE FROM conta WHERE username='"+key+"'");
-            String sql = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),(value instanceof Conta_Admin)?1:0,value.getEmail());
-            int i  = stm.executeUpdate(sql);
-            if(value instanceof Conta_Admin){
-                return new Conta_Admin(value.getUsername(),value.getPassword(),value.getEmail());
-            }else {
-                return new Conta(value.getUsername(),value.getPassword(),value.getEmail());
-            }
+            String sql;// = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),?1:0,value.getEmail());
+            //int i  = stm.executeUpdate(sql);
+            return new Colecao(1,"","",true,true/*value.getUsername(),value.getPassword(),value.getEmail()*/);
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
 
-    public void putAll(Map<? extends String,? extends Conta> t) {
+    public void putAll(Map<? extends Integer,? extends Colecao> t) {
         //TODO ANTONIO
         throw new NullPointerException("Not implemented!");
     }
 
-    public Conta remove(Object key) {
+    public Colecao remove(Object key) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Conta al = this.get(key);
+            Colecao al = this.get(key);
             Statement stm = conn.createStatement();
             String sql = "DELETE '"+key+"' FROM TAlunos";
             int i  = stm.executeUpdate(sql);
@@ -154,18 +137,14 @@ public class ContaDAO implements Map<String,Conta> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Collection<Conta> values() {
+    public Collection<Colecao> values() {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Collection<Conta> col = new HashSet<Conta>();
+            Collection<Colecao> col = new HashSet<Colecao>();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM conta");
             for (;rs.next();) {
-                if(rs.getBoolean(3)){
-                    col.add(new Conta_Admin(rs.getString(1),rs.getString(2),rs.getString(4)));
-                }else{
-                    col.add(new Conta(rs.getString(1),rs.getString(2),rs.getString(4)));
-                }
+                //col.add(new Colecao(rs.getString(1),rs.getString(2),rs.getString(4)));
             }
             return col;
         }
@@ -173,4 +152,3 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
 }
-

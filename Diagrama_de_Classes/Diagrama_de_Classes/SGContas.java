@@ -7,31 +7,18 @@ import java.util.stream.Collectors;
 
 public class SGContas {
 
-	private Map<String, Conta> contas;
+	private ContaDAO contas;
 	private Conta contaTemp;
 	private boolean isConvidado = false;
 
 	//region Construtores
 	public SGContas(){
-		this.contas = new HashMap<>();
+		this.contas = ContaDAO.getInstance();
 		this.contaTemp = null;
 		this.isConvidado = true;
 		carregarContasSQL();
 	}
 
-	public SGContas(Map<String,Conta> contas){
-		this.contas = new HashMap<>(contas);
-		this.contaTemp = null;
-		this.isConvidado = true;
-		carregarContasSQL();
-	}
-
-	public SGContas(List<Conta> contas){
-		this.contas = contas.stream().collect(Collectors.toMap(Conta::getUsername,c -> c));
-		this.contaTemp = null;
-		this.isConvidado = true;
-		carregarContasSQL();
-	}
 	//endregion
 
 	public boolean getIsConvidado() {
