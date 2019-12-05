@@ -80,10 +80,18 @@ public class ContaDAO implements Map<String,Conta> {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
+            //Criar lista de amigos
+            ArrayList friendList = new ArrayList<String>();
+            String friends = String.format("SELECT user2 FROM Amizade where user1 = '%s' Union ALL SELECT user1 FROM Amizade where user2 = '%s'", username,username);
+            ResultSet friendrs = stm.executeQuery(friends);
+            System.out.println(friendrs);
+            while (friendrs.next())
+                friendList.add(friendrs.getString(1));
+
             String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next())
-                al = new Conta(rs.getString(4),rs.getString(2),rs.getString(1));
+                al = new Conta(rs.getString(4),rs.getString(2),rs.getString(1),null,friendList);
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -112,8 +120,8 @@ public class ContaDAO implements Map<String,Conta> {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
-            stm.executeUpdate("DELETE FROM conta WHERE username='"+key+"'");
-            String sql = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),(value instanceof Conta_Admin)?1:0,value.getEmail());
+            stm.executeUpdate("DELETE FROM Conta WHERE username='"+key+"'");
+            String sql = String.format("INSERT INTO Conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),(value instanceof Conta_Admin)?1:0,value.getEmail());
             int i  = stm.executeUpdate(sql);
             if(value instanceof Conta_Admin){
                 return new Conta_Admin(value.getUsername(),value.getPassword(),value.getEmail());

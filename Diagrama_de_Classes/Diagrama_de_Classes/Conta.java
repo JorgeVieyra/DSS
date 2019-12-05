@@ -11,12 +11,23 @@ public class Conta {
 	private List<String> listaAmigos;
 	private boolean loggedIn;
 
-    /**
+	public Conta(String username, String email, String password, List<Integer> colecoes, List<String> listaAmigos) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.colecoes = colecoes;
+		this.listaAmigos = listaAmigos;
+	}
+
+	/**
      *
      * @param email
      * @param password
      * @param username
      */
+
+
+
     public Conta(String username, String password, String email) {
         this.email = email;
         this.password = password;
@@ -91,7 +102,7 @@ public class Conta {
 	public void setColecoes(List<Colecao> colecoes){
 		List<Integer> list = new ArrayList<>();
 		for (Colecao c : colecoes) {
-			c.getID();
+			//c.getID();
 		}
 		this.colecoes = list;
 	}

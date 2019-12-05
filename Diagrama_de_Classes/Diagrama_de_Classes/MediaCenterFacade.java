@@ -10,11 +10,10 @@ public class MediaCenterFacade {
 
 	public static void main(String[] arg){
 		System.out.println("I'm Alive.");
-		ContaDAO teste = ContaDAO.getInstance();
-		System.out.println(teste.get("Tonecas").toString());
-		Conta pedro = new Conta("pedro","frango123","pedrosapato@gmail.com");
-		teste.put(pedro.getUsername(),pedro);
-		System.out.println(teste.get("Pedro").toString());
+		ContaDAO contas = ContaDAO.getInstance();
+		MediaDAO media = MediaDAO.getInstance();
+		System.out.println(contas.get("Tonecas").toString());
+
 		/* Swing
 		Menu m = new Menu(new String[]{"a","b","c"},1280,720);
 		m.startMenu();
