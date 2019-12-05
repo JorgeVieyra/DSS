@@ -12,14 +12,6 @@ public class Colecao {
 	private boolean isPublic;
 	private boolean isMusic;
 
-	public int getID() {
-		return id;
-	}
-
-	public void setID(int ID) {
-		this.id = ID;
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
@@ -64,11 +56,11 @@ public class Colecao {
 		isMusic = music;
 	}
 
-	public Colecao(int id, String t, String c, boolean ispub, boolean ismus) {
+	public Colecao(int id, String criador, String titulo, boolean ispub, boolean ismus) {
 		this.id = id;
-		this.titulo = t;
+		this.titulo = titulo;
 		this.medias = MediaDAO.getInstance();
-		this.criador = c;
+		this.criador = criador;
 		this.categoria = "N/A";
 		this.isPublic = ispub;
 		this.isMusic = ismus;
@@ -82,13 +74,19 @@ public class Colecao {
 		this.isMusic = isMusic;
 	}
 
+	public MediaDAO getMedias(){
+		return this.medias;
+	}
+	public void setMedias(MediaDAO medias){
+		this.medias = medias;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Colecao colecao = (Colecao) o;
-		return id == colecao.id &&
-				isPublic == colecao.isPublic &&
+		return isPublic == colecao.isPublic &&
 				isMusic == colecao.isMusic &&
 				Objects.equals(titulo, colecao.titulo) &&
 				Objects.equals(medias, colecao.medias) &&
@@ -98,6 +96,7 @@ public class Colecao {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, titulo, medias, criador, categoria, isPublic, isMusic);
+		return Objects.hash(titulo, medias, criador, categoria, isPublic, isMusic);
 	}
+
 }

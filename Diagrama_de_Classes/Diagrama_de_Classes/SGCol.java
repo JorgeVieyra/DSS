@@ -1,12 +1,15 @@
 package Diagrama_de_Classes;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class SGCol {
 
-	private ColecaoDAO Colecoes;
-	private List<Media> ColecaoTemp;
+	//TODO verificar quando a colecaoTemp é null
+	private ColecaoDAO colecoes;
+	private Colecao colecaoTemp;
 
 	/**
 	 * 
@@ -15,58 +18,67 @@ public class SGCol {
 	 * @param isPublic
 	 * @param isMusic
 	 */
-	public void addColecao(String titulo, String criador, boolean isPublic, boolean isMusic) {
-		Colecoes.put(Colecoes.size(),new Colecao(Colecoes.size(),titulo,criador,isPublic,isMusic));
+	public void addColecao(int id, String username, String titulo, String criador, boolean isPublic, boolean isMusic) {
+		if(colecoes.containsKey(username)){
+			List<Colecao> novaColecao = new ArrayList<Colecao>();
+			novaColecao.add(new Colecao(colecoes.get(username).size(),username,titulo,isPublic,isMusic));
+			colecoes.put(username,novaColecao);
+
+		}else{
+			List<Colecao> novaColecao = new ArrayList<Colecao>();
+			novaColecao.add(new Colecao(1,username,titulo,isPublic,isMusic));
+			colecoes.put(username,novaColecao);
+		}
 	}
 
 	/**
 	 * 
 	 * @param idColection
-	 * @param user
+	 * @param username
 	 */
-	public void removeColecao(int idColection, String user) {
-		this.Colecoes.remove(idColection);
+	public void removeColecao(int idColection, String username) {
+		List<Colecao> newList = new ArrayList<Colecao>();
+		newList = this.colecoes.get(username);
+		newList.remove(idColection);
+		this.colecoes.put(username,newList);
 	}
 
-	public List<Media> getColecaoTemp() {
-		// TODO - implement SGCol.getColeçãoTemp
-		throw new UnsupportedOperationException();
+	public Colecao getColecaoTemp() {
+		return this.colecaoTemp;
 	}
 
 	/**
 	 * 
-	 * @param ColeçãoTemp
+	 * @param colecaoTemp
 	 */
-	public void setColecaoTemp(List<Media> ColeçãoTemp) {
-		// TODO - implement SGCol.setColeçãoTemp
-		throw new UnsupportedOperationException();
+	public void setColecaoTemp(Colecao colecaoTemp) {
+		this.colecaoTemp = colecaoTemp;
+	}
+
+	/**
+	 *
+	 * @param username
+	 */
+	public List<Media> getMediaColecao(int id, String username) {
+		return new ArrayList<>(colecoes.get(username).get(id).getMedias().values());
+		// SE FOR A DA TEMPORARIA // return new ArrayList<>(this.colecaoTemp.getMedias().values());
 	}
 
 	/**
 	 * 
 	 * @param id
+	 * @param novaMedia
 	 */
-	public List<Media> getMediaColecao(int id) {
-		// TODO - implement SGCol.getMediaColeção
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean addMediaColTemp(String id) {
-		// TODO - implement SGCol.addMediaColTemp
-		throw new UnsupportedOperationException();
+	public void addMediaColTemp(int id, Media novaMedia) {
+		this.colecaoTemp.getMedias().put(id,novaMedia);
 	}
 
 	/**
 	 * 
 	 * @param idMedia
 	 */
-	public boolean removeMediaFromCol(int idMedia) {
-		// TODO - implement SGCol.removeMediaFromCol
-		throw new UnsupportedOperationException();
+	public void removeMediaFromCol(int idMedia) {
+		this.colecaoTemp.getMedias().remove(idMedia);
 	}
 
 	/**
