@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class SGCol {
 
-	private Map<Integer, Colecao> Colecoes;
+	private ColecaoDAO Colecoes;
 	private List<Media> ColecaoTemp;
 
 	/**

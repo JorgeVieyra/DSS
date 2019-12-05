@@ -17,6 +17,25 @@ public class Media {
 	private boolean isPublic;
 	private String uploader;
 
+	/**
+	 * @param titulo Titulo da media
+	 * @param tempo Tempo da media
+	 * @param genero Generos
+	 * @param diretorio localizacao do ficheiro
+	 * @param isPublic partilhado entre utilizadores ou privado
+	 * @param uploader utilizador que deu upload do ficheiro
+	 */
+	public Media(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
+		this.id = id;
+		try{ this.tamanhoBytes = this.getFile(diretorio).length();} catch (FileNotFoundException e) {this.tamanhoBytes = -1;}
+		this.addDate = LocalDate.now();
+		this.titulo = titulo;
+		this.genero = genero;
+		this.diretorio = diretorio;
+		this.isPublic = isPublic;
+		this.uploader = uploader;
+	}
+
 	public String getTitulo() {
 		return this.titulo;
 	}
@@ -125,26 +144,6 @@ public class Media {
 	 * @param uploader utiilizador que due upload do ficheiro
 	 */
 	public void setUploader(String uploader) {
-		this.uploader = uploader;
-	}
-
-	/**
-	 * 
-	 * @param titulo Titulo da media
-	 * @param tempo Tempo da media
-	 * @param genero Generos
-	 * @param diretorio localizacao do ficheiro
-	 * @param isPublic partilhado entre utilizadores ou privado
-	 * @param uploader utilizador que deu upload do ficheiro
-	 */
-	public Media(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
-		this.id = id;
-		try{ this.tamanhoBytes = this.getFile(diretorio).length();} catch (FileNotFoundException e) {this.tamanhoBytes = -1;}
-		this.addDate = LocalDate.now();
-		this.titulo = titulo;
-		this.genero = genero;
-		this.diretorio = diretorio;
-		this.isPublic = isPublic;
 		this.uploader = uploader;
 	}
 

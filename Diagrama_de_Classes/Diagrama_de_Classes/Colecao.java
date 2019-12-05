@@ -6,7 +6,7 @@ public class Colecao {
 
 	private int id;
 	private String titulo;
-	private List<String> collectionIDs;
+	private MediaDAO medias;
 	private String criador;
 	private String categoria;
 	private boolean isPublic;
@@ -28,12 +28,8 @@ public class Colecao {
 		titulo = title;
 	}
 
-	public List<String> getCollectionIDs() {
-		List res = new ArrayList<String>();
-		for (String s : this.collectionIDs) {
-			res.add(s);
-		}
-		return res;
+	public Set<Integer> getIds() {
+		return medias.keySet();
 	}
 
 	public String getCriador() {
@@ -71,7 +67,7 @@ public class Colecao {
 	public Colecao(int id, String t, String c, boolean ispub, boolean ismus) {
 		this.id = id;
 		this.titulo = t;
-		this.collectionIDs = new ArrayList<String>();
+		this.medias = MediaDAO.getInstance();
 		this.criador = c;
 		this.categoria = "N/A";
 		this.isPublic = ispub;
@@ -95,13 +91,13 @@ public class Colecao {
 				isPublic == colecao.isPublic &&
 				isMusic == colecao.isMusic &&
 				Objects.equals(titulo, colecao.titulo) &&
-				Objects.equals(collectionIDs, colecao.collectionIDs) &&
+				Objects.equals(medias, colecao.medias) &&
 				Objects.equals(criador, colecao.criador) &&
 				Objects.equals(categoria, colecao.categoria);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, titulo, collectionIDs, criador, categoria, isPublic, isMusic);
+		return Objects.hash(id, titulo, medias, criador, categoria, isPublic, isMusic);
 	}
 }
