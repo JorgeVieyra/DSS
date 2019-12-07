@@ -7,13 +7,13 @@ package Diagrama_de_Classes;
  * a API da estrutura de dados que substitui - neste caso vai substituir um Map de Aluno.
  * O DAO utiliza o padrão Singleton.
  *
- * DISCLAIMER: Este código foi criado para discussão e edição durante as aulas práticas 
- * de DSS, representando uma solução em construção. Como tal, não deverá ser visto como 
- * uma solução canónica, ou mesmo acabada. É disponibilizado para auxiliar o processo de 
- * estudo. Os alunos são encorajados a testar adequadamente o código fornecido e a procurar 
+ * DISCLAIMER: Este código foi criado para discussão e edição durante as aulas práticas
+ * de DSS, representando uma solução em construção. Como tal, não deverá ser visto como
+ * uma solução canónica, ou mesmo acabada. É disponibilizado para auxiliar o processo de
+ * estudo. Os alunos são encorajados a testar adequadamente o código fornecido e a procurar
  * soluções alternativas, à medida que forem adquirindo mais conhecimentos. Por exemplo,
  * protegendo o DAO de ataques por SQL injection.
- * 
+ *
  * @author jfc
  * @version 20191125
  */
@@ -77,21 +77,27 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public Conta get(Object username) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Conta al = null;
             Statement stm = conn.createStatement();
+            //Criar lista de colecoes
+            ArrayList colList = new ArrayList<String>();
+            String colecoes = String.format("select c.idColecao from colecao c where c.criador = '%s'", username);
+            ResultSet colecoesrs = stm.executeQuery(colecoes);
+            while (colecoesrs.next())
+                colList.add(colecoesrs.getString(1));
+
             //Criar lista de amigos
             ArrayList friendList = new ArrayList<String>();
             String friends = String.format("SELECT user2 FROM Amizade where user1 = '%s' Union ALL SELECT user1 FROM Amizade where user2 = '%s'", username,username);
             ResultSet friendrs = stm.executeQuery(friends);
-            System.out.println(friendrs);
             while (friendrs.next())
                 friendList.add(friendrs.getString(1));
 
             String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next())
-                al = new Conta(rs.getString(4),rs.getString(2),rs.getString(1),null,friendList);
+                al = new Conta(rs.getString(1),rs.getString(4),rs.getString(2),colList,friendList);
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -103,7 +109,7 @@ public class ContaDAO implements Map<String,Conta> {
 
     public boolean isEmpty() {
         //TODO ANTONIO
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT username FROM conta");
             return !rs.next();
@@ -140,10 +146,10 @@ public class ContaDAO implements Map<String,Conta> {
 
     public Conta remove(Object key) {
         //TODO ANTONIO
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Conta al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = "DELETE '"+key+"' FROM TAlunos";
+            String sql = String.format("DELETE FROM conta where username ='%s'",key);
             int i  = stm.executeUpdate(sql);
             return al;
         }
@@ -151,11 +157,10 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public int size() {
-        //TODO ANTONIO
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             int i = 0;
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT nome FROM TAlunos");
+            ResultSet rs = stm.executeQuery("SELECT username FROM Conta");
             for (;rs.next();i++);
             return i;
         }
