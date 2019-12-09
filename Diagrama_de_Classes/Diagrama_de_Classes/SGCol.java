@@ -1,14 +1,10 @@
 package Diagrama_de_Classes;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SGCol {
 
-	//TODO verificar quando a colecaoTemp é null
 	private ColecaoDAO colecoes;
 	private Colecao colecaoTemp;
 
@@ -85,27 +81,20 @@ public class SGCol {
 		this.colecaoTemp.getMedias().remove(idMedia);
 	}
 
-	/**
-	 * 
-	 * @param criador
-	 */
-	public boolean removePrivateCol(String criador) {
-		// TODO - implement SGCol.removePrivateCol
-		throw new UnsupportedOperationException();
-	}
-
-	public List<Colecao> getColecoes() {
-		// TODO - implement SGCol.getColecoes
-		throw new UnsupportedOperationException();
+	public List<Colecao> getColecoes(String username) {
+		return this.colecoes.get(username);
 	}
 
 	/**
 	 * 
 	 * @param cols
 	 */
-	public Map<String, Integer> getTitulosCategorias(List<Integer> cols) {
-		// TODO - implement SGCol.getTitulosCategorias
-		throw new UnsupportedOperationException();
+	public List<String> getTitulosCategorias(String username, List<Integer> cols) {
+		List<String> m = new ArrayList<>();
+		for(int i = 0; i < cols.size(); i++){
+			m.add(colecoes.get(username).get(cols.get(0)).getTitulo());
+		}
+		return m;
 	}
 
 	/**
@@ -113,23 +102,17 @@ public class SGCol {
 	 * @param idCol
 	 * @param categoria
 	 */
-	public boolean alterarCategoria(int idCol, String categoria) {
-		// TODO - implement SGCol.alterarCategoria
-		throw new UnsupportedOperationException();
+	public boolean alterarCategoria(String username, int idCol, String categoria) {
+		colecoes.get(username).get(idCol).setCategoria(categoria);
+		return true;
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public Colecao getColecao(int id) {
-		// TODO - implement SGCol.getColecao
-		throw new UnsupportedOperationException();
-	}
-
-	public void getCategorias() {
-		// TODO - implement SGCol.getCategorias
-		throw new UnsupportedOperationException();
+	public Colecao getColecao(String username, int id) {
+		return colecoes.get(username).get(id);
 	}
 
 }

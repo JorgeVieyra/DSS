@@ -17,7 +17,7 @@ public class MediaCenterFacade {
 		contas = new SGContas();
 		sgcol = new SGCol();
 		Media media = new Media(1,"Ricardo",10,new HashSet<>(),"C:\\Users\\pedro\\Desktop\\Ricardo Milos Party.mp4",true,"pedro");
-		m.reproduzir(media);
+		m.download(media,"C:\\Users\\pedro\\Desktop\\Frango.mp4");
 		System.out.println(m.checkTempoMedia("C:\\Users\\pedro\\Desktop\\Ricardo Milos Party.mp4"));
 	}
 

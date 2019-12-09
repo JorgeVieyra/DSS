@@ -12,6 +12,10 @@ public class Colecao {
 	private boolean isPublic;
 	private boolean isMusic;
 
+	public int getID(){
+		return this.id;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
