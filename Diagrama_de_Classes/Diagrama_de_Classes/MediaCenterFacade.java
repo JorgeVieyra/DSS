@@ -2,7 +2,18 @@ package Diagrama_de_Classes;
 
 import com.sun.media.sound.SF2GlobalRegion;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class MediaCenterFacade {
 
@@ -10,18 +21,25 @@ public class MediaCenterFacade {
 	private static SGCol sgcol;
 
 	public static void main(String[] arg){
+		MediaCenterFacade m = new MediaCenterFacade();
 		contas = new SGContas();
 		sgcol = new SGCol();
+		System.out.println(m.checkTempoMedia("C:\\Users\\pedro\\Videos\\2019-10-05 00-15-45.mkv"));
 	}
-	
+
+
 	/**
 	 * 
 	 * @param username
 	 * @param password
 	 */
 	public boolean login(String username, String password) {
-		// TODO - implement Media_Center_Facade.login
-		throw new UnsupportedOperationException();
+		try{
+			contas.login(username,password);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	/**
@@ -29,8 +47,12 @@ public class MediaCenterFacade {
 	 * @param username
 	 */
 	public boolean logout(String username) {
-		// TODO - implement Media_Center_Facade.logout
-		throw new UnsupportedOperationException();
+		try{
+			contas.logout();
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	/**
@@ -60,15 +82,19 @@ public class MediaCenterFacade {
 	 * @param username
 	 */
 	public boolean eliminarConta(String username) {
-		// TODO - implement Media_Center_Facade.eliminarConta
-		throw new UnsupportedOperationException();
+		try{
+			contas.apagarConta(username);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	/**
 	 * 
-	 * @param id
+	 * @param username
 	 */
-	public boolean adicionarAmigo(int id) {
+	public boolean adicionarAmigo(String username) {
 		// TODO - implement Media_Center_Facade.adicionarAmigo
 		throw new UnsupportedOperationException();
 	}
@@ -215,18 +241,32 @@ public class MediaCenterFacade {
 	 * 
 	 * @param diretorio
 	 */
-	public int checkTempoMedia(String diretorio) {
-		// TODO - implement Media_Center_Facade.checkTempoMedia
-		throw new UnsupportedOperationException();
+	public double checkTempoMedia(String diretorio) {
+		try {
+			File file = new File(diretorio);
+			return file.length();/*
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+			AudioFormat format = audioInputStream.getFormat();
+			long frames = audioInputStream.getFrameLength();
+			return (frames+0.0) / format.getFrameRate();*/
+		}catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
+
 	}
 
 	/**
 	 * 
-	 * @param diretorio
+	 * @param location
 	 */
-	public String checkTituloMedia(String diretorio) {
-		// TODO - implement Media_Center_Facade.checkTituloMedia
-		throw new UnsupportedOperationException();
+	public String checkTituloMedia(String location) {
+		File f = new File(location);
+		if(f.exists()){
+			return f.getName();
+		}else{
+			return "Invalid File Path";
+		}
 	}
 
 	/**
@@ -234,8 +274,7 @@ public class MediaCenterFacade {
 	 * @param username
 	 */
 	public boolean verificaUsername(String username) {
-		// TODO - implement Media_Center_Facade.verificaUsername
-		throw new UnsupportedOperationException();
+		return contas.usernameExiste(username);
 	}
 
 	/**
