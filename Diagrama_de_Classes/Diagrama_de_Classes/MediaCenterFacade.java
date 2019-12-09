@@ -208,8 +208,8 @@ public class MediaCenterFacade {
 	 * @param classificacao
 	 * @param col
 	 */
-	public boolean calssificarColecao(String classificacao, int col) {
-		sgcol.alterarCategoria(col,classificacao);
+	public boolean calssificarColecao(String username, String classificacao, int col) {
+		sgcol.alterarCategoria(username, col, classificacao);
 		return true;
 
 	}
@@ -231,8 +231,8 @@ public class MediaCenterFacade {
 	 * 
 	 * @param id
 	 */
-	public Colecao getColecao(int id) {
-		return sgcol.getColecao(id);
+	public Colecao getColecao(String username, int id) {
+		return sgcol.getColecao(username, id);
 	}
 
 	/**
