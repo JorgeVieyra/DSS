@@ -1,23 +1,17 @@
 package Diagrama_de_Classes;
 
+import com.sun.media.sound.SF2GlobalRegion;
+
 import java.util.List;
 
 public class MediaCenterFacade {
 
-	private SGContas SGContas;
-	private SGCol SGCol;
-	private MediaDAO SGMedia;
+	private static SGContas contas;
+	private static SGCol sgcol;
 
 	public static void main(String[] arg){
-		System.out.println("I'm Alive.");
-		ContaDAO contas = ContaDAO.getInstance();
-		MediaDAO media = MediaDAO.getInstance();
-		System.out.println(contas.get("Tonecas").toString());
-
-		/* Swing
-		Menu m = new Menu(new String[]{"a","b","c"},1280,720);
-		m.startMenu();
-		*/
+		contas = new SGContas();
+		sgcol = new SGCol();
 	}
 	
 	/**

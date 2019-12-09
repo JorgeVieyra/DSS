@@ -2,3 +2,5 @@
 *.bak_*
 *.bak~*
 *.xml
+/out/*
+.idea/workspace.xml

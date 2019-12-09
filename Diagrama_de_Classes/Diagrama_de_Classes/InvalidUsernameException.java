@@ -10,3 +10,8 @@ public class InvalidUsernameException extends Exception {
         super(error);
     }
 }
+
+class InvalidPasswordException extends Exception{
+    public InvalidPasswordException() {super();}
+    public InvalidPasswordException(String error){super(error);}
+}

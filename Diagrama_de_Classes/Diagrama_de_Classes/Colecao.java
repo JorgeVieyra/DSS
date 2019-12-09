@@ -94,9 +94,4 @@ public class Colecao {
 				Objects.equals(categoria, colecao.categoria);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(titulo, medias, criador, categoria, isPublic, isMusic);
-	}
-
 }

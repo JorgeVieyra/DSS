@@ -77,7 +77,7 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public Conta get(Object username) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
             //Criar lista de colecoes
