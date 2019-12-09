@@ -59,16 +59,17 @@ public class MediaDAO implements Map<Integer,Media>{
 		throw new NullPointerException("public boolean equals(Object o) not implemented!");
 	}
 
-	public Media get(Object username) {
+	public Media get(Object id) {
 		//TODO ANTONIO
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Media al = null;
 			Statement stm = conn.createStatement();
-			String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
+			String sql = String.format("SELECT * FROM Musica WHERE idMusica = %d",id);
 			ResultSet rs = stm.executeQuery(sql);
+			System.out.println(rs.toString());
 			if (rs.next())
-				//al = new Media(1,"","",true,true/*rs.getString(4),rs.getString(2),rs.getString(1)*/);
-			return null;
+				//al = new Media(id,rs.getString(),"",true,true/*rs.getString(4),rs.getString(2),rs.getString(1)*/);
+			return al;
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 		return null;

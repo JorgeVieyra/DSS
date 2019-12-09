@@ -59,7 +59,7 @@ public class Colecao {
 	public Colecao(int id, String criador, String titulo, boolean ispub, boolean ismus) {
 		this.id = id;
 		this.titulo = titulo;
-		this.medias = MediaDAO.getInstance();
+		this.medias = null;
 		this.criador = criador;
 		this.categoria = "N/A";
 		this.isPublic = ispub;
@@ -94,4 +94,16 @@ public class Colecao {
 				Objects.equals(categoria, colecao.categoria);
 	}
 
+	@Override
+	public String toString() {
+		return "Colecao{" +
+				"id=" + id +
+				", titulo='" + titulo + '\'' +
+				", medias=" + medias +
+				", criador='" + criador + '\'' +
+				", categoria='" + categoria + '\'' +
+				", isPublic=" + isPublic +
+				", isMusic=" + isMusic +
+				'}';
+	}
 }

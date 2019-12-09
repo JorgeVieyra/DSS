@@ -1,23 +1,5 @@
 package Diagrama_de_Classes;
 
-
-/**
- * Exemplo de um DAO (para o acesso aos dados de Aluno).
- * Como forma de minimizar o impacto de alteração dos Diag de Sequência, o DAO assume
- * a API da estrutura de dados que substitui - neste caso vai substituir um Map de Aluno.
- * O DAO utiliza o padrão Singleton.
- *
- * DISCLAIMER: Este código foi criado para discussão e edição durante as aulas práticas
- * de DSS, representando uma solução em construção. Como tal, não deverá ser visto como
- * uma solução canónica, ou mesmo acabada. É disponibilizado para auxiliar o processo de
- * estudo. Os alunos são encorajados a testar adequadamente o código fornecido e a procurar
- * soluções alternativas, à medida que forem adquirindo mais conhecimentos. Por exemplo,
- * protegendo o DAO de ataques por SQL injection.
- *
- * @author jfc
- * @version 20191125
- */
-
 import java.util.*;
 import java.sql.*;
 import java.sql.DriverManager;
@@ -42,16 +24,17 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public void clear () {
-        //TODO ANTONIO
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Statement stm = conn.createStatement();
+            stm.executeUpdate("UPDATE Musica SET uploader = null WHERE isPublic = 1");
+            stm.executeUpdate("UPDATE Video SET uploader = null WHERE isPublic = 1");
+            stm.executeUpdate("UPDATE Colecao SET criador = null WHERE isPublic = 1");
             stm.executeUpdate("DELETE FROM Conta");
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public boolean containsKey(Object key) throws NullPointerException {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
             String sql = "SELECT username FROM conta WHERE username='"+(String)key+"'";
@@ -62,8 +45,15 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public boolean containsValue(Object value) {
-        //TODO ANTONIO
-        throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * from Conta");
+            while(rs.next())
+                for(int i = 1;i<=rs.getMetaData().getColumnCount();i++)
+                    if(Objects.equals(value,rs.getString(i))) return true;
+            return false;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public Set<Map.Entry<String,Conta>> entrySet() {
@@ -82,7 +72,7 @@ public class ContaDAO implements Map<String,Conta> {
             Statement stm = conn.createStatement();
             //Criar lista de colecoes
             ArrayList colList = new ArrayList<String>();
-            String colecoes = String.format("select c.idColecao from colecao c where c.criador = '%s'", username);
+            String colecoes = String.format("select c.idColecao from Colecao c where c.criador = '%s'", username);
             ResultSet colecoesrs = stm.executeQuery(colecoes);
             while (colecoesrs.next())
                 colList.add(colecoesrs.getString(1));
@@ -108,21 +98,26 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public boolean isEmpty() {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT username FROM conta");
+            ResultSet rs = stm.executeQuery("SELECT username FROM Conta");
             return !rs.next();
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public Set<String> keySet() {
-        throw new NullPointerException("Not defined.");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Set<String> setKeys = new HashSet<>();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT username FROM Conta");
+            while (rs.next()) setKeys.add(rs.getString(1));
+            return setKeys;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public Conta put(String key, Conta value) {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Conta al = null;
             Statement stm = conn.createStatement();
@@ -145,12 +140,13 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public Conta remove(Object key) {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Conta al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = String.format("DELETE FROM conta where username ='%s'",key);
-            int i  = stm.executeUpdate(sql);
+            stm.executeUpdate(String.format("UPDATE Musica SET uploader = null WHERE uploader = '%s' and isPublic = 1",key));
+            stm.executeUpdate(String.format("UPDATE Video SET uploader = null WHERE uploader = '%s' and isPublic = 1",key));
+            stm.executeUpdate(String.format("UPDATE Colecao SET criador = null WHERE criador = '%s' and isPublic = 1",key));
+            stm.executeUpdate(String.format("DELETE FROM Conta where username ='%s'",key));
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -168,11 +164,10 @@ public class ContaDAO implements Map<String,Conta> {
     }
 
     public Collection<Conta> values() {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Collection<Conta> col = new HashSet<Conta>();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM conta");
+            ResultSet rs = stm.executeQuery("SELECT * FROM Conta");
             for (;rs.next();) {
                 if(rs.getBoolean(3)){
                     col.add(new Conta_Admin(rs.getString(1),rs.getString(2),rs.getString(4)));

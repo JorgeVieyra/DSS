@@ -1,6 +1,10 @@
 package Diagrama_de_Classes;
 
+import com.sun.jndi.toolkit.url.Uri;
 import com.sun.media.sound.SF2GlobalRegion;
+import com.xuggle.xuggler.IContainer;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -12,8 +16,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MediaCenterFacade {
 
@@ -24,7 +31,12 @@ public class MediaCenterFacade {
 		MediaCenterFacade m = new MediaCenterFacade();
 		contas = new SGContas();
 		sgcol = new SGCol();
-		System.out.println(m.checkTempoMedia("C:\\Users\\pedro\\Videos\\2019-10-05 00-15-45.mkv"));
+		ContaDAO teste = ContaDAO.getInstance();
+		ColecaoDAO testeCol = ColecaoDAO.getInstance();
+
+		System.out.println(testeCol.get("Tonecas").get(0).toString());
+
+
 	}
 
 
@@ -241,17 +253,25 @@ public class MediaCenterFacade {
 	 * 
 	 * @param diretorio
 	 */
-	public double checkTempoMedia(String diretorio) {
+
+	public javafx.util.Duration checkTempoMedia(String diretorio) {
 		try {
-			File file = new File(diretorio);
-			return file.length();/*
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-			AudioFormat format = audioInputStream.getFormat();
-			long frames = audioInputStream.getFrameLength();
-			return (frames+0.0) / format.getFrameRate();*/
+			File filestring = new File(diretorio);
+			javafx.scene.media.Media file = new javafx.scene.media.Media (filestring.toURI().toString());
+			com.sun.javafx.application.PlatformImpl.startup(()->{});
+			MediaPlayer mediaPlayer = new MediaPlayer(file);
+
+			while (file.getDuration().toString().equalsIgnoreCase("UNKNOWN")) {
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException ex) {
+				}
+			}
+
+			return file.getDuration();
+
 		}catch(Exception e){
-			e.printStackTrace();
-			return -1;
+			return Duration.UNKNOWN;
 		}
 
 	}

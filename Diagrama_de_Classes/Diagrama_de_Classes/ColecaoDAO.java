@@ -25,19 +25,19 @@ public class ColecaoDAO implements Map<String, List<Colecao>>{
     }
 
     public void clear () {
-        //TODO ANTONIO
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Statement stm = conn.createStatement();
-            stm.executeUpdate("DELETE FROM Conta");
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+                Statement stm = conn.createStatement();
+                stm.executeUpdate("UPDATE Musica SET colecao = null");
+                stm.executeUpdate("UPDATE Video SET colecao = null");
+                stm.executeUpdate("DELETE FROM Colecao");
+            }
+            catch (Exception e) {throw new NullPointerException(e.getMessage());}
         }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
 
     public boolean containsKey(Object key) throws NullPointerException {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
-            String sql = "SELECT username FROM conta WHERE username='"+(String)key+"'";
+            String sql = String.format("SELECT idColecao FROM Colecao WHERE idColecao='%s'", key);
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
         }
@@ -45,9 +45,17 @@ public class ColecaoDAO implements Map<String, List<Colecao>>{
     }
 
     public boolean containsValue(Object value) {
-        //TODO ANTONIO
-        throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * from Colecao");
+            while(rs.next())
+                for(int i = 1;i<=rs.getMetaData().getColumnCount();i++)
+                    if(Objects.equals(value,rs.getString(i))) return true;
+            return false;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
+
 
     public Set<Map.Entry<String,List<Colecao>>> entrySet() {
         //TODO ANTONIO
@@ -62,12 +70,12 @@ public class ColecaoDAO implements Map<String, List<Colecao>>{
     public List<Colecao> get(Object username) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            List<Colecao> al = null;
+            List<Colecao> al = new ArrayList<Colecao>();
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
+            String sql = String.format("SELECT * FROM Colecao WHERE criador='%s'", username);
             ResultSet rs = stm.executeQuery(sql);
-            if (rs.next())
-                al = new ArrayList<Colecao>();
+            while(rs.next())
+                al.add(new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),true,false));
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -78,10 +86,9 @@ public class ColecaoDAO implements Map<String, List<Colecao>>{
     }
 
     public boolean isEmpty() {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT username FROM conta");
+            ResultSet rs = stm.executeQuery("SELECT idColecao FROM Colecao");
             return !rs.next();
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -111,23 +118,20 @@ public class ColecaoDAO implements Map<String, List<Colecao>>{
     }
 
     public List<Colecao> remove(Object key) {
-        //TODO ANTONIO
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            List<Colecao> al = this.get(key);
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Statement stm = conn.createStatement();
-            String sql = "DELETE '"+key+"' FROM TAlunos";
-            int i  = stm.executeUpdate(sql);
-            return al;
+            stm.executeUpdate(String.format("UPDATE Musica SET colecao = null WHERE colecao = '%s'",key));
+            stm.executeUpdate(String.format("UPDATE Video SET colecao = null WHERE colecao = '%s'",key));
+            stm.executeUpdate(String.format("DELETE FROM Colecao where idColecao = '%s",key));
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public int size() {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             int i = 0;
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT nome FROM TAlunos");
+            ResultSet rs = stm.executeQuery("SELECT idColecao FROM Colecao");
             for (;rs.next();i++);
             return i;
         }
