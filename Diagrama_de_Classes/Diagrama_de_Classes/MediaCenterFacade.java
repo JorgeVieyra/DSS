@@ -1,5 +1,8 @@
 package Diagrama_de_Classes;
 
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.nio.file.*;
 import java.util.*;
