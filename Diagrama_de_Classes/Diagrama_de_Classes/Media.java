@@ -35,7 +35,6 @@ public class Media {
 		this.isPublic = isPublic;
 		this.uploader = uploader;
 	}
-
 	public String getTitulo() {
 		return this.titulo;
 	}

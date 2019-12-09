@@ -1,28 +1,13 @@
 package Diagrama_de_Classes;
 
-import com.sun.jndi.toolkit.url.Uri;
-import com.sun.media.sound.SF2GlobalRegion;
-import com.xuggle.xuggler.IContainer;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.List;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.nio.file.*;
+import java.util.*;
 
 public class MediaCenterFacade {
+
+	public static final String uploadsPath = "C:\\Users\\pedro\\Documents\\MediaCenterUNI";
+	public static final String vlcPath = "D:\\VLC\\vlc.exe";
 
 	private static SGContas contas;
 	private static SGCol sgcol;
@@ -74,8 +59,12 @@ public class MediaCenterFacade {
 	 * @param email
 	 */
 	public boolean registarConta(String username, String password, String email) {
-		// TODO - implement Media_Center_Facade.registarConta
-		throw new UnsupportedOperationException();
+		try{
+			contas.registarConta(username,password,email,false);
+			return true;
+		}catch (Exception e){
+			return false;
+		}
 	}
 
 	/**
@@ -85,7 +74,7 @@ public class MediaCenterFacade {
 	 * @param isPassword
 	 */
 	public boolean editarConta(String username, String atributo, boolean isPassword) {
-		// TODO - implement Media_Center_Facade.editarConta
+		// TODO Jorge jaz que eu não faço a minima do que tu pretendes fazer aqui...
 		throw new UnsupportedOperationException();
 	}
 
@@ -107,46 +96,68 @@ public class MediaCenterFacade {
 	 * @param username
 	 */
 	public boolean adicionarAmigo(String username) {
-		// TODO - implement Media_Center_Facade.adicionarAmigo
-		throw new UnsupportedOperationException();
+		try {
+			contas.adicionarAmigo(username);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	/**
 	 * 
 	 * @param diretorio
-	 * @param privacy
-	 * @param genero
 	 */
-	public boolean upload(String diretorio, boolean privacy, String genero) {
-		// TODO - implement Media_Center_Facade.upload
-		throw new UnsupportedOperationException();
+	public boolean upload(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
+		try{
+			Media m = new Media(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+			sgcol.addMediaColTemp(id,m);
+			byte[] bytes = Files.readAllBytes(Paths.get(m.getDiretorio()));
+			Path newPath = Paths.get(uploadsPath+id+titulo);
+			Files.write(newPath,bytes);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	/**
 	 * 
 	 * @param media
 	 */
-	public Media download(Media media) {
-		// TODO - implement Media_Center_Facade.download
-		throw new UnsupportedOperationException();
+	public boolean download(Media media, String localGuardar) {
+		try{
+			byte[] bytes = Files.readAllBytes(Paths.get(media.getDiretorio()));
+			Path newPath = Paths.get(localGuardar);
+			Files.write(newPath,bytes);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public boolean apagarMedia(String id) {
-		// TODO - implement Media_Center_Facade.apagarMedia
-		throw new UnsupportedOperationException();
+	public boolean apagarMedia(int id) {
+		sgcol.removeMediaFromCol(id);
+		return true;
 	}
 
 	/**
 	 * 
-	 * @param c
+	 * @param media
 	 */
-	public List<String> reproduzir(List<Media> c) {
-		// TODO - implement Media_Center_Facade.reproduzir
-		throw new UnsupportedOperationException();
+	public void reproduzir(Media media) {
+		try{
+
+			ProcessBuilder pb = new ProcessBuilder(vlcPath, media.getDiretorio());
+
+			Process start = pb.start();
+		}catch(Exception e){
+			return;
+		}
 	}
 
 	/**
@@ -154,57 +165,56 @@ public class MediaCenterFacade {
 	 * @param id
 	 * @param colecao
 	 */
-	public List<String> reproduzirFrom(int id, List<Media> colecao) {
-		// TODO - implement Media_Center_Facade.reproduzirFrom
-		throw new UnsupportedOperationException();
+	public void reproduzirFrom(int id, List<Media> colecao) {
+		reproduzir(colecao.get(id));
 	}
 
 	/**
 	 * 
 	 * @param c
 	 */
-	public List<String> reproduzirRandom(List<Media> c) {
-		// TODO - implement Media_Center_Facade.reproduzirRandom
-		throw new UnsupportedOperationException();
+	public void reproduzirRandom(List<Media> c) {
+		Random r = new Random();
+		reproduzir(c.get(r.nextInt(c.size())));
 	}
 
 	/**
 	 * 
-	 * @param nome
-	 * @param creator
-	 * @param tipo
+	 * @param id
+	 * @param titulo
+	 * @param ismus
 	 */
-	public boolean criarColecao(String nome, String creator, String tipo) {
-		// TODO - implement Media_Center_Facade.criarColecao
-		throw new UnsupportedOperationException();
+	public boolean criarColecao(int id, String criador, String titulo, boolean ispub, boolean ismus) {
+		sgcol.addColecao(id,criador,titulo,ispub,ismus);
+		return true;
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public boolean adicionarMediaColecao(String id) {
-		// TODO - implement Media_Center_Facade.adicionarMediaColecao
-		throw new UnsupportedOperationException();
+	public boolean adicionarMediaColecao(int id,Media m) {
+		sgcol.addMediaColTemp(id,m);
+		return true;
 	}
 
 	/**
 	 * 
 	 * @param tipo
 	 */
-	public List<String> getMedia(String tipo) {
-		// TODO - implement Media_Center_Facade.getMedia
-		throw new UnsupportedOperationException();
+	public List<Media> getMedia(String tipo) {
+		return sgcol.getMediaByType(tipo);
 	}
 
 	/**
 	 * 
-	 * @param calssificacao
+	 * @param classificacao
 	 * @param col
 	 */
-	public boolean calssificarColecao(String calssificacao, int col) {
-		// TODO - implement Media_Center_Facade.calssificarCole�ao
-		throw new UnsupportedOperationException();
+	public boolean calssificarColecao(String username, String classificacao, int col) {
+		sgcol.alterarCategoria(username, col, classificacao);
+		return true;
+
 	}
 
 	/**
@@ -212,41 +222,41 @@ public class MediaCenterFacade {
 	 * @param id
 	 */
 	public boolean apagarColecao(int id) {
-		// TODO - implement Media_Center_Facade.apagarCole��o
-		throw new UnsupportedOperationException();
+		sgcol.removeColecao(id,contas.getContaTemp().getUsername());
+		return true;
 	}
 
 	public List<Integer> getCollectionsUser() {
-		// TODO - implement Media_Center_Facade.getCollectionsUser
-		throw new UnsupportedOperationException();
+		return contas.getContaTemp().getColecoes();
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public List<String> getColecao(int id) {
-		// TODO - implement Media_Center_Facade.getCole��o
-		throw new UnsupportedOperationException();
+	public Colecao getColecao(String username, int id) {
+		return sgcol.getColecao(username, id);
 	}
 
 	/**
-	 * 
+	 *
+	 * @param username
 	 * @param pass
 	 */
-	public boolean verificaPassword(String pass) {
-		// TODO - implement Media_Center_Facade.verificaPassword
-		throw new UnsupportedOperationException();
+	public boolean verificaPassword(String username, String pass) {
+		try{
+			return contas.getConta(username).getPassword().equals(pass);
+		}catch (Exception e){
+			return false;
+		}
 	}
 
 	public boolean loginConvidado() {
-		// TODO - implement Media_Center_Facade.loginConvidado
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 	public boolean logoutConvidado() {
-		// TODO - implement Media_Center_Facade.logoutConvidado
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 	/**
@@ -295,15 +305,6 @@ public class MediaCenterFacade {
 	 */
 	public boolean verificaUsername(String username) {
 		return contas.usernameExiste(username);
-	}
-
-	/**
-	 * 
-	 * @param media
-	 */
-	public List<String> Play(Media media) {
-		// TODO - implement Media_Center_Facade.Play
-		throw new UnsupportedOperationException();
 	}
 
 }
