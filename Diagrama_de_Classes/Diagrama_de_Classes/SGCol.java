@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SGCol {
 
@@ -14,11 +15,10 @@ public class SGCol {
 	/**
 	 * 
 	 * @param titulo
-	 * @param criador
 	 * @param isPublic
 	 * @param isMusic
 	 */
-	public void addColecao(int id, String username, String titulo, String criador, boolean isPublic, boolean isMusic) {
+	public void addColecao(int id, String username, String titulo, boolean isPublic, boolean isMusic) {
 		if(colecoes.containsKey(username)){
 			List<Colecao> novaColecao = new ArrayList<Colecao>();
 			novaColecao.add(new Colecao(colecoes.get(username).size(),username,titulo,isPublic,isMusic));
@@ -41,6 +41,10 @@ public class SGCol {
 		newList = this.colecoes.get(username);
 		newList.remove(idColection);
 		this.colecoes.put(username,newList);
+	}
+
+	public List<Media> getMediaByType(String type){
+		return colecaoTemp.getMedias().values().stream().filter(m -> m.getGenero().equals(type)).collect(Collectors.toList());
 	}
 
 	public Colecao getColecaoTemp() {

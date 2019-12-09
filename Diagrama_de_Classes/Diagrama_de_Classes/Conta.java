@@ -34,7 +34,6 @@ public class Conta {
         this.username = username;
     }
 
-
 	public String getEmail() {
 		return this.email;
 	}

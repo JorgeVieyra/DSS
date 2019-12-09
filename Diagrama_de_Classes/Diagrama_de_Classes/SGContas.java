@@ -20,6 +20,10 @@ public class SGContas {
 
 	//endregion
 
+	public Conta getContaTemp(){
+		return this.contaTemp;
+	}
+
 	//region Getters e Setters
 	public boolean getIsConvidado() {
 		return this.isConvidado;
@@ -77,6 +81,15 @@ public class SGContas {
 		if(usernameExiste(username)) contas.remove(username);
 		else throw new InvalidUsernameException("Erro: Nome de Utilizador não existe.");
 	}
+
+	public void adicionarAmigo(String nomeAmigo) throws InvalidUsernameException{
+		if(usernameExiste(nomeAmigo)) {
+			contaTemp.addAmigo(nomeAmigo);
+			contas.put(contaTemp.getUsername(),contaTemp);
+		}
+		else throw new InvalidUsernameException();
+	}
+
 
 	/**
 	 * 
