@@ -64,19 +64,24 @@ public class MediaDAO implements Map<Integer,Media>{
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Media al = null;
 			Statement stm = conn.createStatement();
-			String sql = String.format("SELECT * FROM Musica WHERE idMusica = %d",id);
-			ResultSet rs = stm.executeQuery(sql);
-			System.out.println(rs.toString());
-			if (rs.next())
-				//al = new Media(id,rs.getString(),"",true,true/*rs.getString(4),rs.getString(2),rs.getString(1)*/);
-			return al;
-		}
-		catch (Exception e) {throw new NullPointerException(e.getMessage());}
-		return null;
+				String sql = String.format("SELECT * FROM Musica WHERE idMusica = %d", id);
+				ResultSet rs = stm.executeQuery(sql);
+				if(rs.next()){
+					al = new Musica(rs.getInt(1), rs.getString(2), Arrays.asList(rs.getString(3).split("&")), 0, null, rs.getString(8), rs.getBoolean(7), rs.getString(6));
+					return al;}
+				else{
+					String sql1 = String.format("SELECT * FROM Video WHERE idVideo = %d", id);
+					ResultSet rs1 = stm.executeQuery(sql1);
+					rs1.next();
+					al = new Video(rs1.getInt(1),rs1.getString(2),0,null,rs1.getString(7),rs1.getBoolean(6),rs1.getString(5),null,30);
+					return al;}
+			}
+		catch (Exception e) {return null;}
+
 	}
 
 	public int hashCode() {
-		return inst.hashCode();
+		return 1;
 	}
 
 	public boolean isEmpty() {
@@ -149,5 +154,6 @@ public class MediaDAO implements Map<Integer,Media>{
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
+
 
 }

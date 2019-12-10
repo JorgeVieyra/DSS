@@ -21,10 +21,9 @@ public class MediaCenterFacade {
 		sgcol = new SGCol();
 		ContaDAO teste = ContaDAO.getInstance();
 		ColecaoDAO testeCol = ColecaoDAO.getInstance();
+		MediaDAO testeMedia = MediaDAO.getInstance();
 
-		System.out.println(testeCol.get("Tonecas").get(0).toString());
-
-
+		System.out.println(testeCol.put(5,new Colecao(50,"Tonecas","Peidotes","Porno",true)));
 	}
 
 
@@ -114,7 +113,7 @@ public class MediaCenterFacade {
 	public boolean upload(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
 		try{
 			Media m = new Media(id,titulo,tempo,genero,diretorio,isPublic,uploader);
-			sgcol.addMediaColTemp(id,m);
+			sgcol.addMediaColTemp(m);
 			byte[] bytes = Files.readAllBytes(Paths.get(m.getDiretorio()));
 			Path newPath = Paths.get(uploadsPath+id+titulo);
 			Files.write(newPath,bytes);
@@ -185,19 +184,19 @@ public class MediaCenterFacade {
 	 * 
 	 * @param id
 	 * @param titulo
-	 * @param ismus
 	 */
-	public boolean criarColecao(int id, String criador, String titulo, boolean ispub, boolean ismus) {
-		sgcol.addColecao(id,criador,titulo,ispub,ismus);
+	public boolean criarColecao(int id, String criador, String titulo, String categoria, boolean ispub) {
+		sgcol.addColecao(id,new Colecao(id,criador,titulo,categoria,ispub));
 		return true;
 	}
 
 	/**
-	 * 
-	 * @param id
+	 *
+	 * @param m
+	 * @return
 	 */
-	public boolean adicionarMediaColecao(int id,Media m) {
-		sgcol.addMediaColTemp(id,m);
+	public boolean adicionarMediaColecao(Media m) {
+		sgcol.addMediaColTemp(m);
 		return true;
 	}
 
@@ -214,8 +213,8 @@ public class MediaCenterFacade {
 	 * @param classificacao
 	 * @param col
 	 */
-	public boolean calssificarColecao(String username, String classificacao, int col) {
-		sgcol.alterarCategoria(username, col, classificacao);
+	public boolean calssificarColecao(String classificacao, int col) {
+		sgcol.alterarCategoria(col, classificacao);
 		return true;
 
 	}
@@ -225,7 +224,7 @@ public class MediaCenterFacade {
 	 * @param id
 	 */
 	public boolean apagarColecao(int id) {
-		sgcol.removeColecao(id,contas.getContaTemp().getUsername());
+		sgcol.removeColecao(id);
 		return true;
 	}
 
@@ -237,8 +236,8 @@ public class MediaCenterFacade {
 	 * 
 	 * @param id
 	 */
-	public Colecao getColecao(String username, int id) {
-		return sgcol.getColecao(username, id);
+	public Colecao getColecao(int id) {
+		return sgcol.getColecao(id);
 	}
 
 	/**
