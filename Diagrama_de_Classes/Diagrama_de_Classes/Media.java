@@ -146,4 +146,18 @@ public class Media {
 		this.uploader = uploader;
 	}
 
+	@Override
+	public String toString() {
+		return "Media{" +
+				"id=" + id +
+				", titulo='" + titulo + '\'' +
+				", tempo=" + tempo +
+				", genero=" + genero +
+				", addDate=" + addDate +
+				", tamanhoBytes=" + tamanhoBytes +
+				", diretorio='" + diretorio + '\'' +
+				", isPublic=" + isPublic +
+				", uploader='" + uploader + '\'' +
+				'}';
+	}
 }

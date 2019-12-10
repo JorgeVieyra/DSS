@@ -21,8 +21,9 @@ public class MediaCenterFacade {
 		sgcol = new SGCol();
 		ContaDAO teste = ContaDAO.getInstance();
 		ColecaoDAO testeCol = ColecaoDAO.getInstance();
+		MediaDAO testeMedia = MediaDAO.getInstance();
 
-		System.out.println(testeCol.get("Tonecas").get(0).toString());
+		System.out.println(testeMedia.get(7).toString());
 
 
 	}

@@ -12,6 +12,8 @@ public class Colecao {
 	private boolean isPublic;
 	private boolean isMusic;
 
+
+
 	public int getID(){
 		return this.id;
 	}
@@ -63,9 +65,21 @@ public class Colecao {
 	public Colecao(int id, String criador, String titulo, boolean ispub, boolean ismus) {
 		this.id = id;
 		this.titulo = titulo;
-		this.medias = null;
+		this.medias = MediaDAO.getInstance();
 		this.criador = criador;
 		this.categoria = "N/A";
+		this.isPublic = ispub;
+		this.isMusic = ismus;
+	}
+
+
+
+	public Colecao(int id, String criador, String titulo, String categoria, boolean ispub, boolean ismus) {
+		this.id = id;
+		this.titulo = titulo;
+		this.medias = MediaDAO.getInstance();
+		this.criador = criador;
+		this.categoria = categoria;
 		this.isPublic = ispub;
 		this.isMusic = ismus;
 	}
