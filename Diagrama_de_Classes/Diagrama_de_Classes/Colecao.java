@@ -1,18 +1,19 @@
 package Diagrama_de_Classes;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Colecao {
 
 	private int id;
 	private String titulo;
+	private List<Integer> mediasIDs;
 	private MediaDAO medias;
 	private String criador;
 	private String categoria;
 	private boolean isPublic;
-	private boolean isMusic;
 
-
+//region getters e setter
 
 	public int getID(){
 		return this.id;
@@ -42,6 +43,8 @@ public class Colecao {
 		return categoria;
 	}
 
+	public Boolean getisPublic() { return isPublic;}
+
 	public void setCategoria(String category) {
 		categoria = category;
 	}
@@ -54,49 +57,38 @@ public class Colecao {
 		isPublic = aPublic;
 	}
 
-	public boolean isMusic() {
-		return isMusic;
-	}
+	//endregion
 
-	public void setMusic(boolean music) {
-		isMusic = music;
-	}
 
-	public Colecao(int id, String criador, String titulo, boolean ispub, boolean ismus) {
+	public Colecao(int id, String criador, String titulo, String categoria, boolean ispub) {
 		this.id = id;
 		this.titulo = titulo;
-		this.medias = MediaDAO.getInstance();
-		this.criador = criador;
-		this.categoria = "N/A";
-		this.isPublic = ispub;
-		this.isMusic = ismus;
-	}
-
-
-
-	public Colecao(int id, String criador, String titulo, String categoria, boolean ispub, boolean ismus) {
-		this.id = id;
-		this.titulo = titulo;
+		this.mediasIDs = new ArrayList<>();
 		this.medias = MediaDAO.getInstance();
 		this.criador = criador;
 		this.categoria = categoria;
 		this.isPublic = ispub;
-		this.isMusic = ismus;
 	}
 
-	public boolean getIsMusic() {
-		return this.isMusic;
+	public Colecao(int id, String criador, String titulo, String categoria, boolean ispub, List<Integer> mediasNovas) {
+		this.id = id;
+		this.titulo = titulo;
+		this.mediasIDs = mediasNovas;
+		this.medias = MediaDAO.getInstance();
+		this.criador = criador;
+		this.categoria = categoria;
+		this.isPublic = ispub;
 	}
 
-	public void setIsMusic(boolean isMusic) {
-		this.isMusic = isMusic;
+	public List<Media> getMedias(){
+		List<Media> m = new ArrayList<Media>();
+		for (Integer id : mediasIDs) {
+			m.add(medias.get(id));
+		}
+		return m;
 	}
-
-	public MediaDAO getMedias(){
-		return this.medias;
-	}
-	public void setMedias(MediaDAO medias){
-		this.medias = medias;
+	public void setMedias(List<Media> medias){
+		this.mediasIDs = medias.stream().map(Media::getID).collect(Collectors.toList());
 	}
 
 	@Override
@@ -105,7 +97,6 @@ public class Colecao {
 		if (o == null || getClass() != o.getClass()) return false;
 		Colecao colecao = (Colecao) o;
 		return isPublic == colecao.isPublic &&
-				isMusic == colecao.isMusic &&
 				Objects.equals(titulo, colecao.titulo) &&
 				Objects.equals(medias, colecao.medias) &&
 				Objects.equals(criador, colecao.criador) &&
@@ -121,7 +112,6 @@ public class Colecao {
 				", criador='" + criador + '\'' +
 				", categoria='" + categoria + '\'' +
 				", isPublic=" + isPublic +
-				", isMusic=" + isMusic +
 				'}';
 	}
 }

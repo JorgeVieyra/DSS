@@ -7,40 +7,42 @@ public class SGCol {
 
 	private ColecaoDAO colecoes;
 	private Colecao colecaoTemp;
+	private MediaDAO medias;
+
+	public SGCol(){
+		colecoes = ColecaoDAO.getInstance();
+		medias = MediaDAO.getInstance();
+	}
 
 	/**
-	 * 
-	 * @param titulo
-	 * @param isPublic
-	 * @param isMusic
+	 *
+	 * @param id
+	 * @param colecao
 	 */
-	public void addColecao(int id, String username, String titulo, boolean isPublic, boolean isMusic) {
-		if(colecoes.containsKey(username)){
-			List<Colecao> novaColecao = new ArrayList<Colecao>();
-			novaColecao.add(new Colecao(colecoes.get(username).size(),username,titulo,isPublic,isMusic));
-			colecoes.put(username,novaColecao);
-
-		}else{
-			List<Colecao> novaColecao = new ArrayList<Colecao>();
-			novaColecao.add(new Colecao(1,username,titulo,isPublic,isMusic));
-			colecoes.put(username,novaColecao);
-		}
+	public void addColecao(int id, Colecao colecao) {
+		colecoes.put(id,colecao);
 	}
 
 	/**
 	 * 
 	 * @param idColection
-	 * @param username
 	 */
-	public void removeColecao(int idColection, String username) {
-		List<Colecao> newList = new ArrayList<Colecao>();
-		newList = this.colecoes.get(username);
-		newList.remove(idColection);
-		this.colecoes.put(username,newList);
+	public void removeColecao(int idColection) {
+		colecoes.remove(idColection);
+	}
+
+	//empty
+	public Colecao criarColecao(int id, String titulo, String criador, String categoria, boolean isPublic){
+		return new Colecao(id,titulo,criador,categoria,isPublic);
+	}
+	//recebe medias
+	public Colecao criarColecao(int id, String titulo, String criador, String categoria, boolean isPublic, List<Integer> novasMedias){
+		return new Colecao(id,titulo,criador,categoria,isPublic,novasMedias);
 	}
 
 	public List<Media> getMediaByType(String type){
-		return colecaoTemp.getMedias().values().stream().filter(m -> m.getGenero().equals(type)).collect(Collectors.toList());
+		if(type.toLowerCase().equals("video")) return medias.values().stream().filter(m -> m instanceof Video).collect(Collectors.toList());
+		else return medias.values().stream().filter(m -> m instanceof Musica).collect(Collectors.toList());
 	}
 
 	public Colecao getColecaoTemp() {
@@ -55,22 +57,17 @@ public class SGCol {
 		this.colecaoTemp = colecaoTemp;
 	}
 
-	/**
-	 *
-	 * @param username
-	 */
-	public List<Media> getMediaColecao(int id, String username) {
-		return new ArrayList<>(colecoes.get(username).get(id).getMedias().values());
+
+	public List<Media> getMediaColecao(int id) {
+		return new ArrayList<Media>(colecoes.get(id).getMedias());
 		// SE FOR A DA TEMPORARIA // return new ArrayList<>(this.colecaoTemp.getMedias().values());
 	}
 
 	/**
-	 * 
-	 * @param id
 	 * @param novaMedia
 	 */
-	public void addMediaColTemp(int id, Media novaMedia) {
-		this.colecaoTemp.getMedias().put(id,novaMedia);
+	public void addMediaColTemp(Media novaMedia) {
+		this.colecaoTemp.getMedias().add(novaMedia);
 	}
 
 	/**
@@ -81,29 +78,14 @@ public class SGCol {
 		this.colecaoTemp.getMedias().remove(idMedia);
 	}
 
-	public List<Colecao> getColecoes(String username) {
-		return this.colecoes.get(username);
-	}
-
-	/**
-	 * 
-	 * @param cols
-	 */
-	public List<String> getTitulosCategorias(String username, List<Integer> cols) {
-		List<String> m = new ArrayList<>();
-		for(int i = 0; i < cols.size(); i++){
-			m.add(colecoes.get(username).get(cols.get(0)).getTitulo());
-		}
-		return m;
-	}
 
 	/**
 	 * 
 	 * @param idCol
 	 * @param categoria
 	 */
-	public boolean alterarCategoria(String username, int idCol, String categoria) {
-		colecoes.get(username).get(idCol).setCategoria(categoria);
+	public boolean alterarCategoria(int idCol, String categoria) {
+		colecoes.get(idCol).setCategoria(categoria);
 		return true;
 	}
 
@@ -111,8 +93,8 @@ public class SGCol {
 	 * 
 	 * @param id
 	 */
-	public Colecao getColecao(String username, int id) {
-		return colecoes.get(username).get(id);
+	public Colecao getColecao(int id) {
+		return colecoes.get(id);
 	}
 
 }

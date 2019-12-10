@@ -4,8 +4,10 @@
     <list default="true" id="4adee2f3-603f-4508-9cf9-06f7efe6c1f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Colecao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Colecao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/ColecaoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/ColecaoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/MediaCenterFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/MediaCenterFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/SGCol.java" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/SGCol.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +42,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-8.0.18.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -50,18 +52,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\pedro\Desktop\Uni\Github\DSS\Diagrama_de_Classes\Diagrama_de_Classes" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.MediaCenterFacade">
     <configuration name="MediaCenterFacade" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -98,13 +88,15 @@
     </recent_temporary>
   </component>
   <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand />
-          <select />
-        </treeState>
-      </serviceView>
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
     </option>
   </component>
   <component name="SvnConfiguration">
@@ -126,5 +118,11 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1575997821420">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575997821420" />
   </component>
 </project>

@@ -72,7 +72,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
             Statement stm = conn.createStatement();
             String sql = String.format("SELECT * FROM Colecao WHERE idColecao='%s'", id);
             ResultSet rs = stm.executeQuery(sql);
-            return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true,false);
+            return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true);
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
@@ -99,12 +99,13 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Colecao al = null;
             Statement stm = conn.createStatement();
-            stm.executeUpdate("DELETE FROM Colecao WHERE idColecao='"+key+"'");
-            String sql = String.format(String.format("INSERT INTO MediaCenter.Colecao (idColecao, criador, titulo, categoria, isPublic) VALUES('%i','%s','%s','%s','%i')", value.getID(),value.getCriador(),value.getTitulo(),value.getCategoria(),value.get);
-
+            //stm.executeUpdate("DELETE FROM Colecao WHERE idColecao='"+key+"'");
+            String sql = String.format(String.format("INSERT INTO MediaCenter.Colecao (idColecao, criador, titulo, categoria, isPublic) VALUES('%s','%s','%s','%s','%s')", value.getID(),value.getCriador(),value.getTitulo(),value.getCategoria(),value.getisPublic()?1:0));
+            int i  = stm.executeUpdate(sql);
                     //int i  = stm.executeUpdate(sql);
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        return null;
     }
 
 
@@ -123,6 +124,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
+
     }
 
     public int size() {
@@ -142,7 +144,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Colecao");
             for (;rs.next();) {
-                col.add(new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true,false));
+                col.add(new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true));
             }
             return col;
         }
