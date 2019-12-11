@@ -82,7 +82,8 @@ public class SGContas {
 		else throw new InvalidUsernameException("Erro: Nome de Utilizador não existe.");
 	}
 
-	public void adicionarAmigo(String nomeAmigo) throws InvalidUsernameException{
+	public void adicionarAmigo(String nomeAmigo) throws InvalidUsernameException, UserNotLoggedInException{
+		if (contaTemp==null) throw new UserNotLoggedInException("Erro: Nenhuma sessão iniciada.");
 		if(usernameExiste(nomeAmigo)) {
 			contaTemp.addAmigo(nomeAmigo);
 			contas.put(contaTemp.getUsername(),contaTemp);
@@ -119,6 +120,9 @@ public class SGContas {
 	}
 
 	public void logout() {
+		if(contaTemp!=null){ /* Dá save das mudanças feitas na conta metendo na DAO (DAO apaga a anterior e troca pela nova)*/
+			contas.put(contaTemp.getUsername(),contaTemp);
+		}
 		this.contaTemp = null;
 	}
 

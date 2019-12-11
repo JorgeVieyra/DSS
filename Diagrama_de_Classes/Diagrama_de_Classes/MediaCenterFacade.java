@@ -17,15 +17,23 @@ public class MediaCenterFacade {
 
 	public static void main(String[] arg){
 		MediaCenterFacade m = new MediaCenterFacade();
-		contas = new SGContas();
-		sgcol = new SGCol();
+		/* TEST */
 		ContaDAO teste = ContaDAO.getInstance();
 		ColecaoDAO testeCol = ColecaoDAO.getInstance();
 		MediaDAO testeMedia = MediaDAO.getInstance();
 
-		System.out.println(testeCol.put(5,new Colecao(50,"Tonecas","Peidotes","Porno",true)));
+		System.out.println(testeMedia.isMusic(5));
+		System.out.println(testeMedia.isVideo(5));
+		System.out.println(testeMedia.isMusic(7));
+		System.out.println(testeMedia.isVideo(7));
+
+
 	}
 
+	public MediaCenterFacade(){
+		contas = new SGContas();
+		sgcol = new SGCol();
+	}
 
 	/**
 	 * 
@@ -107,8 +115,15 @@ public class MediaCenterFacade {
 	}
 
 	/**
-	 * 
-	 * @param diretorio
+	 *  Upload de uma media atravez de uma media ainda não criada
+	 * @param id ...
+	 * @param titulo ...
+	 * @param tempo ...
+	 * @param genero ...
+	 * @param diretorio ...
+	 * @param isPublic ...
+	 * @param uploader ...
+	 * @return ...
 	 */
 	public boolean upload(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
 		try{
@@ -119,6 +134,22 @@ public class MediaCenterFacade {
 			Files.write(newPath,bytes);
 			return true;
 		}catch(Exception e){
+			return false;
+		}
+	}
+
+	/**
+	 * Upload de media atravez de uma media já existente
+	 * @param m ...
+	 * @return ...
+	 */
+	public boolean upload(Media m){
+		try{
+			byte[] bytes = Files.readAllBytes(Paths.get(m.getDiretorio()));
+			Path newPath = Paths.get(uploadsPath+m.getID()+m.getTitulo());
+			Files.write(newPath,bytes);
+			return true;
+		}catch (Exception e){
 			return false;
 		}
 	}
@@ -143,6 +174,7 @@ public class MediaCenterFacade {
 	 * @param id
 	 */
 	public boolean apagarMedia(int id) {
+		//TODO FIX
 		sgcol.removeMediaFromCol(id);
 		return true;
 	}
@@ -152,6 +184,7 @@ public class MediaCenterFacade {
 	 * @param media
 	 */
 	public void reproduzir(Media media) {
+		//TODO FIX
 		try{
 
 			ProcessBuilder pb = new ProcessBuilder(vlcPath, media.getDiretorio());
@@ -168,6 +201,7 @@ public class MediaCenterFacade {
 	 * @param colecao
 	 */
 	public void reproduzirFrom(int id, List<Media> colecao) {
+		//TODO FIX
 		reproduzir(colecao.get(id));
 	}
 
@@ -176,6 +210,7 @@ public class MediaCenterFacade {
 	 * @param c
 	 */
 	public void reproduzirRandom(List<Media> c) {
+		//TODO FIX
 		Random r = new Random();
 		reproduzir(c.get(r.nextInt(c.size())));
 	}
@@ -267,6 +302,7 @@ public class MediaCenterFacade {
 	 */
 
 	public javafx.util.Duration checkTempoMedia(String diretorio) {
+		//TODO FIX
 		try {
 			File filestring = new File(diretorio);
 			javafx.scene.media.Media file = new javafx.scene.media.Media (filestring.toURI().toString());
@@ -285,7 +321,6 @@ public class MediaCenterFacade {
 		}catch(Exception e){
 			return Duration.UNKNOWN;
 		}
-
 	}
 
 	/**

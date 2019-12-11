@@ -155,5 +155,28 @@ public class MediaDAO implements Map<Integer,Media>{
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
+	/**
+	 *  Verifica se um determinado ID corresponde a uma musica 
+	 * @param id o id da potencial musica
+	 * @return se for musica True, se não for musica False
+	 */
+	protected Boolean isMusic(Integer id){
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Collection<Media> col = new HashSet<Media>();
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery(String.format("SELECT idMusica FROM Musica WHERE idMusica = '%s'",id));
+			return rs.next();
+	}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+	}
 
+	protected Boolean isVideo(Integer id){
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			Collection<Media> col = new HashSet<Media>();
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery(String.format("SELECT idVideo FROM Video WHERE idVideo = '%s'",id));
+			return rs.next();
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+	}
 }
