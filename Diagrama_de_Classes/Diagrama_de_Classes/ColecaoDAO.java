@@ -72,7 +72,9 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
             Statement stm = conn.createStatement();
             String sql = String.format("SELECT * FROM Colecao WHERE idColecao='%s'", id);
             ResultSet rs = stm.executeQuery(sql);
-            return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true);
+            if(rs.next()){
+                return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true);
+            } else return null;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
@@ -91,21 +93,26 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
     }
 
     public Set<Integer> keySet() {
-        throw new NullPointerException("Not defined.");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Set<Integer> setKeys = new HashSet<>();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT idColecao FROM Colecao");
+            while (rs.next()) setKeys.add(rs.getInt(1));
+            return setKeys;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public Colecao put(Integer key, Colecao value) {
         //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Colecao al = null;
             Statement stm = conn.createStatement();
-            //stm.executeUpdate("DELETE FROM Colecao WHERE idColecao='"+key+"'");
-            String sql = String.format(String.format("INSERT INTO MediaCenter.Colecao (idColecao, criador, titulo, categoria, isPublic) VALUES('%s','%s','%s','%s','%s')", value.getID(),value.getCriador(),value.getTitulo(),value.getCategoria(),value.getisPublic()?1:0));
-            int i  = stm.executeUpdate(sql);
-                    //int i  = stm.executeUpdate(sql);
+            this.remove(key);
+            String sql = String.format(String.format("INSERT INTO MediaCenter.Colecao (idColecao, criador, titulo, categoria, isPublic) VALUES('%s','%s','%s','%s','%s')", key,value.getCriador(),value.getTitulo(),value.getCategoria(),value.getisPublic()?1:0));
+            stm.executeUpdate(sql);
+            return value;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
-        return null;
     }
 
 
@@ -115,15 +122,15 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
     }
 
     public Colecao remove(Object key) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Colecao al = this.get(key);
             Statement stm = conn.createStatement();
             stm.executeUpdate(String.format("UPDATE Musica SET colecao = null WHERE colecao = '%s'",key));
             stm.executeUpdate(String.format("UPDATE Video SET colecao = null WHERE colecao = '%s'",key));
-            stm.executeUpdate(String.format("DELETE FROM Colecao where idColecao = '%s",key));
+            stm.executeUpdate(String.format("DELETE FROM Colecao where idColecao = '%s'",key));
             return al;
         }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        catch (Exception e) {e.printStackTrace();throw new NullPointerException(e.getMessage());}
 
     }
 
