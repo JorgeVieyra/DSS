@@ -17,6 +17,7 @@ public class Conta {
 		this.password = password;
 		this.colecoes = colecoes;
 		this.listaAmigos = listaAmigos;
+		this.loggedIn = false;
 	}
 
 	/**
@@ -26,12 +27,13 @@ public class Conta {
      * @param username
      */
 
-
-
     public Conta(String username, String password, String email) {
         this.email = email;
         this.password = password;
         this.username = username;
+        this.colecoes = new ArrayList<>();
+        this.listaAmigos = new ArrayList<>();
+        this.loggedIn = false;
     }
 
 	public String getEmail() {

@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  */
 public class MenuInicial extends javax.swing.JFrame {
 
-    private MediaCenterFacade mcF = null;
+    private MediaCenterFacade mcF;
     /**
      * Creates new form MenuInicial
      */

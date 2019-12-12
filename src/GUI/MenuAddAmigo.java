@@ -1,12 +1,20 @@
 package GUI;
 
+import Diagrama_de_Classes.MediaCenterFacade;
+
 public class MenuAddAmigo extends javax.swing.JFrame {
 
+    private MediaCenterFacade mcF;
     /**
      * Creates new form MenuAddAmigo
      */
     public MenuAddAmigo() {
-        initComponents();
+        try{
+            initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**

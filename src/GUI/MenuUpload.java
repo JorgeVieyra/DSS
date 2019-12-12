@@ -16,13 +16,17 @@ import javax.swing.JFileChooser;
  */
 public class MenuUpload extends javax.swing.JFrame {
 
-    private static MediaCenterFacade mcF = null;
+    private MediaCenterFacade mcF;
     /**
      * Creates new form MenuUpload
      */
     public MenuUpload() {
-        initComponents();
-      //  mcF = mcF.getInstance();
+        try{
+            initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**

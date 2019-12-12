@@ -13,13 +13,17 @@ import Diagrama_de_Classes.MediaCenterFacade;
  */
 public class MenuGerirContas extends javax.swing.JFrame {
 
-    private static MediaCenterFacade mcF = null;
+    private MediaCenterFacade mcF;
     /**
      * Creates new form MenuGerirContas
      */
     public MenuGerirContas() {
-        initComponents();
-    //    mcF = mcF.getInstance();
+        try{
+            initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**

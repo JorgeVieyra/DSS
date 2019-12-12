@@ -79,6 +79,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
+
     public int hashCode() {
         return inst.hashCode();
     }

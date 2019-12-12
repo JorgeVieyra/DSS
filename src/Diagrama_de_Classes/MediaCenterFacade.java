@@ -29,6 +29,10 @@ public class MediaCenterFacade {
 		return inst;
 	}
 
+	public static void main(String[] args) {
+		ContaDAO contas = ContaDAO.getInstance();
+		System.out.println(contas.values());
+	}
 	/**
 	 *
 	 * @param username
@@ -67,9 +71,9 @@ public class MediaCenterFacade {
 	 * @param password
 	 * @param email
 	 */
-	public boolean registarConta(String username, String password, String email) {
+	public boolean registarConta(String username, String password, String email, boolean isAdmin) {
 		try{
-			contas.registarConta(username,password,email,false);
+			contas.registarConta(username,password,email,isAdmin);
 			return true;
 		}catch (Exception e){
 			return false;

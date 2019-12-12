@@ -37,7 +37,7 @@ public class ContaDAO implements Map<String,Conta> {
     public boolean containsKey(Object key) throws NullPointerException {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
-            String sql = "SELECT username FROM conta WHERE username='"+(String)key+"'";
+            String sql = "SELECT username FROM Conta WHERE username='"+(String)key+"'";
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
         }
@@ -68,17 +68,17 @@ public class ContaDAO implements Map<String,Conta> {
 
     public Conta get(Object username) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Conta al = null;
+
             Statement stm = conn.createStatement();
             //Criar lista de colecoes
-            ArrayList colList = new ArrayList<String>();
+            List<Integer> colList = new ArrayList<Integer>();
             String colecoes = String.format("select c.idColecao from Colecao c where c.criador = '%s'", username);
             ResultSet colecoesrs = stm.executeQuery(colecoes);
             while (colecoesrs.next())
-                colList.add(colecoesrs.getString(1));
+                colList.add(colecoesrs.getInt(1));
 
             //Criar lista de amigos
-            ArrayList friendList = new ArrayList<String>();
+            List<String> friendList = new ArrayList<String>();
             String friends = String.format("SELECT user2 FROM Amizade where user1 = '%s' Union ALL SELECT user1 FROM Amizade where user2 = '%s'", username,username);
             ResultSet friendrs = stm.executeQuery(friends);
             while (friendrs.next())
@@ -86,9 +86,13 @@ public class ContaDAO implements Map<String,Conta> {
 
             String sql = "SELECT * FROM Conta WHERE username='"+(String)username+"'";
             ResultSet rs = stm.executeQuery(sql);
-            if (rs.next())
-                al = new Conta(rs.getString(1),rs.getString(4),rs.getString(2),colList,friendList);
-            return al;
+            if (rs.next()){
+                if(rs.getInt(3) == 1)
+                    return new Conta_Admin(rs.getString(1),rs.getString(4),rs.getString(2),colList,friendList);
+                else
+                    return new Conta(rs.getString(1),rs.getString(4),rs.getString(2),colList,friendList);
+            }
+            return null;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
@@ -119,15 +123,15 @@ public class ContaDAO implements Map<String,Conta> {
 
     public Conta put(String key, Conta value) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-            Conta al = null;
+            //TODO ANTONIO colocar colecao e colocar lista amigos
             Statement stm = conn.createStatement();
             stm.executeUpdate("DELETE FROM Conta WHERE username='"+key+"'");
             String sql = String.format("INSERT INTO Conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),(value instanceof Conta_Admin)?1:0,value.getEmail());
-            int i  = stm.executeUpdate(sql);
+            stm.executeUpdate(sql);
             if(value instanceof Conta_Admin){
-                return new Conta_Admin(value.getUsername(),value.getPassword(),value.getEmail());
+                return new Conta_Admin(value.getUsername(),value.getPassword(),value.getEmail(),value.getColecoes(),value.getListaAmigos());
             }else {
-                return new Conta(value.getUsername(),value.getPassword(),value.getEmail());
+                return new Conta(value.getUsername(),value.getPassword(),value.getEmail(),value.getColecoes(),value.getListaAmigos());
             }
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -168,17 +172,10 @@ public class ContaDAO implements Map<String,Conta> {
             Collection<Conta> col = new HashSet<Conta>();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Conta");
-            for (;rs.next();) {
-                if(rs.getBoolean(3)){
-                    col.add(new Conta_Admin(rs.getString(1),rs.getString(2),rs.getString(4)));
-                }else{
-                    col.add(new Conta(rs.getString(1),rs.getString(2),rs.getString(4)));
-                }
-            }
+            for (;rs.next();)  col.add(this.get(rs.getString(1)));
             return col;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
-
 }
 

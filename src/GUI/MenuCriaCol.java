@@ -13,13 +13,17 @@ import Diagrama_de_Classes.MediaCenterFacade;
  */
 public class MenuCriaCol extends javax.swing.JFrame {
 
-    private static MediaCenterFacade mcF = null;
+    private MediaCenterFacade mcF;
     /**
      * Creates new form MenuCriaCol
      */
     public MenuCriaCol() {
-        initComponents();
-      //  mcF = mcF.getInstance();
+        try{
+            initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**

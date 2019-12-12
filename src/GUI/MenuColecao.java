@@ -14,13 +14,17 @@ import Diagrama_de_Classes.MediaCenterFacade;
 public class MenuColecao extends javax.swing.JFrame {
 
 
-    private static MediaCenterFacade mcF = null;
+    private MediaCenterFacade mcF;
     /**
      * Creates new form MenuColecao
      */
     public MenuColecao() {
-        initComponents();
-        //mcF = mcF.getInstance();
+        try{
+            initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
