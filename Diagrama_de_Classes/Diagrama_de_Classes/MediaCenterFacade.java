@@ -22,10 +22,14 @@ public class MediaCenterFacade {
 		ColecaoDAO testeCol = ColecaoDAO.getInstance();
 		MediaDAO testeMedia = MediaDAO.getInstance();
 
-		System.out.println(testeMedia.isMusic(5));
-		System.out.println(testeMedia.isVideo(5));
-		System.out.println(testeMedia.isMusic(7));
-		System.out.println(testeMedia.isVideo(7));
+		//TODO PEDRO Mete este a funcionar sff
+		//System.out.println(testeMedia.put(new Video(20,"Sou Lindo",10,null,"teste",true,"Tonecas",null,30));
+		testeMedia.clear();
+		System.out.println(testeMedia.values());
+
+
+
+
 
 
 	}

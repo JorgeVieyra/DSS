@@ -25,19 +25,19 @@ public class MediaDAO implements Map<Integer,Media>{
 	}
 
 	public void clear () {
-		//TODO ANTONIO
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Statement stm = conn.createStatement();
-			stm.executeUpdate("DELETE FROM Conta");
+			stm.executeUpdate("DELETE FROM Video");
+			stm.executeUpdate("DELETE FROM Musica");
+			stm.executeUpdate("DELETE FROM MediaID");
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 	public boolean containsKey(Object key) throws NullPointerException {
-		//TODO ANTONIO
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Statement stm = conn.createStatement();
-			String sql = "SELECT username FROM conta WHERE username='"+(String)key+"'";
+			String sql = String.format("SELECT idMedia FROM MediaID WHERE idMedia='%s'", key);
 			ResultSet rs = stm.executeQuery(sql);
 			return rs.next();
 		}
@@ -50,7 +50,7 @@ public class MediaDAO implements Map<Integer,Media>{
 	}
 
 	public Set<Map.Entry<Integer,Media>> entrySet() {
-		//TODO ANTONIO
+
 		throw new NullPointerException("public Set<Map.Entry<String,Aluno>> entrySet() not implemented!");
 	}
 
@@ -60,7 +60,7 @@ public class MediaDAO implements Map<Integer,Media>{
 	}
 
 	public Media get(Object id) {
-		//TODO ANTONIO
+
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Media al = null;
 			Statement stm = conn.createStatement();
@@ -85,17 +85,25 @@ public class MediaDAO implements Map<Integer,Media>{
 	}
 
 	public boolean isEmpty() {
-		//TODO ANTONIO
+
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Statement stm = conn.createStatement();
-			ResultSet rs = stm.executeQuery("SELECT username FROM conta");
-			return !rs.next();
+			ResultSet rs = stm.executeQuery("SELECT titulo FROM Musica");
+			ResultSet rs1 = stm.executeQuery("SELECT titulo FROM Video");
+			return !rs.next() && !rs1.next();
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 	public Set<Integer> keySet() {
-		throw new NullPointerException("Not defined.");
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+			Set<Integer> setKeys = new HashSet<>();
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT idMedia FROM MediaID");
+			while (rs.next()) setKeys.add(rs.getInt(1));
+			return setKeys;
+		}
+		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 	public Media put(Integer key, Media value) {
@@ -103,10 +111,16 @@ public class MediaDAO implements Map<Integer,Media>{
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Conta al = null;
 			Statement stm = conn.createStatement();
-			stm.executeUpdate("DELETE FROM conta WHERE username='"+key+"'");
-			String sql;// = String.format("INSERT INTO conta VALUES ('%s','%s','%d','%s')",value.getUsername(),value.getPassword(),?1:0,value.getEmail());
+			this.remove(key);
+			if (value instanceof Musica)
+				stm.executeUpdate(String.format("INSERT INTO Musica VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),((Musica) value).getArtista(),new Date(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
+			else
+				stm.executeUpdate(String.format("INSERT INTO Video VALUES ('%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),new Date(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
+
+				stm.executeUpdate(String.format("INSERT INTO MediaID VALUES ('%s')",key));
+
 			//int i  = stm.executeUpdate(sql);
-			return null;//new Colecao(1,"","",true,true/*value.getUsername(),value.getPassword(),value.getEmail()*/);
+			return value;
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
@@ -118,38 +132,44 @@ public class MediaDAO implements Map<Integer,Media>{
 	}
 
 	public Media remove(Object key) {
-		//TODO ANTONIO
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Media al = this.get(key);
-			Statement stm = conn.createStatement();
-			String sql = "DELETE '"+key+"' FROM TAlunos";
-			int i  = stm.executeUpdate(sql);
+			if(al != null) {
+				Statement stm = conn.createStatement();
+				if (al instanceof Video)
+					stm.executeUpdate(String.format("DELETE From Video WHERE idVideo = '%s'",key));
+				else
+					stm.executeUpdate(String.format("DELETE From Musica WHERE idMusica = '%s'",key));
+
+				stm.executeUpdate(String.format("DELETE From MediaID WHERE idMedia = '%s'",key));
+			}
+
 			return al;
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 	public int size() {
-		//TODO ANTONIO
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
-			int i = 0;
+			int i = 0,j=0;
 			Statement stm = conn.createStatement();
-			ResultSet rs = stm.executeQuery("SELECT nome FROM TAlunos");
+			ResultSet rs = stm.executeQuery("SELECT titulo FROM Musica");
 			for (;rs.next();i++);
-			return i;
+			ResultSet rs1 = stm.executeQuery("SELECT titulo FROM Video");
+			for (;rs1.next();j++);
+			return i+j;
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 	public Collection<Media> values() {
-		//TODO ANTONIO
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
 			Collection<Media> col = new HashSet<Media>();
 			Statement stm = conn.createStatement();
-			ResultSet rs = stm.executeQuery("SELECT * FROM conta");
-			for (;rs.next();) {
-				//col.add(new Colecao(rs.getString(1),rs.getString(2),rs.getString(4)));
-			}
+			ResultSet rs = stm.executeQuery("SELECT * FROM Musica");
+			for (;rs.next();)  col.add(new Musica(rs.getInt(1), rs.getString(2), Arrays.asList(rs.getString(3).split("&")), 0, null, rs.getString(8), rs.getBoolean(7), rs.getString(6)));
+			ResultSet rs1 = stm.executeQuery("SELECT * FROM Video");
+			for (;rs1.next();)  col.add(new Video(rs1.getInt(1),rs1.getString(2),0,null,rs1.getString(7),rs1.getBoolean(6),rs1.getString(5),null,30));
 			return col;
 		}
 		catch (Exception e) {throw new NullPointerException(e.getMessage());}
