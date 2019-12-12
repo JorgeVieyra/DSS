@@ -2,10 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4adee2f3-603f-4508-9cf9-06f7efe6c1f1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuAdd.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuAddAmigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuAmigos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuApagarMedia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuColecao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuCols.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuCriaCol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuCriarConta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuDownload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuEditarConta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuGerirContas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuInicial.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuInicialAdmin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuInicialConv.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuInicialUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuNovaCategoria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuUpload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DSS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DSS.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Colecao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Colecao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Colecao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/ColecaoDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/Conta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/ContaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/ContaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Conta_Admin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/InvalidUsernameException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/MediaCenterFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/MediaDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/Musica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/SGCol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/SGCol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/SGContas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama_de_Classes/Diagrama_de_Classes/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Diagrama_de_Classes/Video.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.18.38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.19.02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.20.22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.20.51.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.21.37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.22.28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.22.53.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.23.20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.32.10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sequence Diagrams NoWM/Captura de ecrã 2019-11-24, às 18.36.01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/Colecao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/Colecao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/ColecaoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/ColecaoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/Conta.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/Conta.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/ContaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/ContaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/Media.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/Media.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/MediaCenterFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/MediaCenterFacade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/MediaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/MediaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/SGCol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/SGCol.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/SGContas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DSS/Diagrama_de_Classes/SGContas.class" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +89,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-8.0.18.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -51,19 +100,7 @@
       <recent name="C:\Users\pedro\Desktop\Uni\Github\DSS\Diagrama_de_Classes\Diagrama_de_Classes" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.MediaCenterFacade">
+  <component name="RunManager" selected="Application.MenuInicial (1)">
     <configuration name="MediaCenterFacade" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Diagrama_de_Classes.MediaCenterFacade" />
       <module name="DSS" />
@@ -90,21 +127,65 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MenuColConv" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.MenuColConv" />
+      <module name="DSS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MenuInicial (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.MenuInicial" />
+      <module name="DSS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MenuInicial" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mediacenter.MenuInicial" />
+      <module name="DSS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mediacenter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MenuInicial (1)" />
+        <item itemvalue="Application.MenuColConv" />
+        <item itemvalue="Application.MenuInicial" />
         <item itemvalue="Application.MediaCenterFacade" />
         <item itemvalue="Application.Media_Center_Facade" />
       </list>
     </recent_temporary>
   </component>
   <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand />
-          <select />
-        </treeState>
-      </serviceView>
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
     </option>
   </component>
   <component name="SvnConfiguration">
@@ -126,5 +207,39 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1877" height="170" key="GridCell.Tab.0.bottom" timestamp="1576158446449">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="170" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1576158446449" />
+    <state width="1877" height="170" key="GridCell.Tab.0.center" timestamp="1576158446449">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="170" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1576158446449" />
+    <state width="1877" height="170" key="GridCell.Tab.0.left" timestamp="1576158446449">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="170" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1576158446449" />
+    <state width="1877" height="170" key="GridCell.Tab.0.right" timestamp="1576158446449">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="170" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1576158446449" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1576158127434">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1576158127434" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1576158127433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1576158127433" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1576158127433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1576158127433" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1576158127433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1576158127433" />
   </component>
 </project>
