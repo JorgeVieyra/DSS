@@ -22,10 +22,9 @@ public class MediaCenterFacade {
 		ColecaoDAO testeCol = ColecaoDAO.getInstance();
 		MediaDAO testeMedia = MediaDAO.getInstance();
 
-		//TODO PEDRO Mete este a funcionar sff
-		//System.out.println(testeMedia.put(new Video(20,"Sou Lindo",10,null,"teste",true,"Tonecas",null,30));
-		testeMedia.clear();
-		System.out.println(testeMedia.values());
+//TODO Tenta dar fix a isto sff
+		System.out.println(testeMedia.put(20,new Video(20,"Sou Lindo",10,null,"teste",true,"Tonecas",null,30)));
+
 
 
 

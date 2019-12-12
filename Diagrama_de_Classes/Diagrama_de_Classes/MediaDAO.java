@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
+import java.time.LocalDate;
+
 
 public class MediaDAO implements Map<Integer,Media>{
 
@@ -113,16 +115,16 @@ public class MediaDAO implements Map<Integer,Media>{
 			Statement stm = conn.createStatement();
 			this.remove(key);
 			if (value instanceof Musica)
-				stm.executeUpdate(String.format("INSERT INTO Musica VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),((Musica) value).getArtista(),new Date(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
+				stm.executeUpdate(String.format("INSERT INTO Musica (idMusica, titulo, artista, dataInclusao, colecao, uploader, isPublic,caminho) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),((Musica) value).getArtista(),LocalDate.now(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
 			else
-				stm.executeUpdate(String.format("INSERT INTO Video VALUES ('%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),new Date(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
+				stm.executeUpdate(String.format("INSERT INTO Video (idVideo, titulo, dataInclusao, colecao, uploader, isPublic,caminho) VALUES ('%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),LocalDate.now(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
 
 				stm.executeUpdate(String.format("INSERT INTO MediaID VALUES ('%s')",key));
 
 			//int i  = stm.executeUpdate(sql);
 			return value;
 		}
-		catch (Exception e) {throw new NullPointerException(e.getMessage());}
+		catch (Exception e) {e.printStackTrace();;throw new NullPointerException(e.getMessage());}
 	}
 
 
