@@ -357,4 +357,5 @@ public class MediaCenterFacade {
 		return contas.usernameExiste(username);
 	}
 
+	public int findColFreeID() {return sgcol.getFirstAvailiableID();}
 }
