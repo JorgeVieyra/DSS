@@ -19,8 +19,8 @@ public class MenuCriaCol extends javax.swing.JFrame {
      */
     public MenuCriaCol() {
         try{
-            this.mcF = MediaCenterFacade.getInstance();
             initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class MenuCriaCol extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nome da Coleção:");
+        jLabel1.setText("Nome da ColeÃ§Ã£o:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
