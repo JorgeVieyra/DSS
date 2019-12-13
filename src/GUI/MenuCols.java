@@ -7,13 +7,15 @@ package GUI;
 
 import Diagrama_de_Classes.MediaCenterFacade;
 
+import javax.swing.*;
+
 /**
  *
  * @author jorgevieira
  */
 public class MenuCols extends javax.swing.JFrame {
 
-
+    DefaultListModel dm = new DefaultListModel();
     private MediaCenterFacade mcF;
     /**
      * Creates new form MenuCols
@@ -21,7 +23,7 @@ public class MenuCols extends javax.swing.JFrame {
     public MenuCols() {
         try{
             this.mcF = MediaCenterFacade.getInstance();
-            System.out.println(mcF.getCollectionUser());
+            mcF.updateTemp();
             initComponents();
         }catch(Exception e){
             e.printStackTrace();
@@ -54,12 +56,9 @@ public class MenuCols extends javax.swing.JFrame {
         });
 
         jLabel2.setText("As suas Coleções:");
-
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = mcF.getCollectionUser().stream().map(e -> e.getTitulo()).toArray(String[]::new);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        String[] strings = mcF.getCollectionUser().stream().map(e -> e.getTitulo()).toArray(String[]::new);
+        for(String teste : strings) dm.addElement(teste);
+        jList2.setModel(dm);
         jScrollPane2.setViewportView(jList2);
 
         jButton1.setText("Criar Coleção");
@@ -70,6 +69,11 @@ public class MenuCols extends javax.swing.JFrame {
         });
 
         jButton5.setText("Apagar Coleção");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,6 +127,16 @@ public class MenuCols extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new MenuCriaCol().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println("Apaguei a playlist: " + mcF.getColecao(mcF.getCollectionIDsUser().get(jList2.getSelectedIndex())));
+        mcF.apagarColecao(mcF.getCollectionIDsUser().get(jList2.getSelectedIndex()));
+        dm.remove(jList2.getSelectedIndex());
+        jList2.setModel(dm);
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -168,4 +182,6 @@ public class MenuCols extends javax.swing.JFrame {
     private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
+
+
 }

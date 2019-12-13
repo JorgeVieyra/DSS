@@ -10,8 +10,8 @@ public class SGCol {
 	private MediaDAO medias;
 
 	public SGCol(){
-		colecoes = ColecaoDAO.getInstance();
-		medias = MediaDAO.getInstance();
+		this.colecoes = ColecaoDAO.getInstance();
+		this.medias = MediaDAO.getInstance();
 	}
 
 	/**
@@ -58,6 +58,7 @@ public class SGCol {
 	}
 
 
+
 	public List<Media> getMediaColecao(int id) {
 		return new ArrayList<Media>(colecoes.get(id).getMedias());
 		// SE FOR A DA TEMPORARIA // return new ArrayList<>(this.colecaoTemp.getMedias().values());
@@ -87,6 +88,13 @@ public class SGCol {
 	public boolean alterarCategoria(int idCol, String categoria) {
 		colecoes.get(idCol).setCategoria(categoria);
 		return true;
+	}
+
+	public Integer getFirstAvailiableID(){
+		Set<Integer> ids = colecoes.keySet();
+		Integer i = 1;
+		for(;ids.contains(i);i++);
+		return i;
 	}
 
 	/**

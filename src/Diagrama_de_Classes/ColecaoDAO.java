@@ -105,7 +105,6 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
     }
 
     public Colecao put(Integer key, Colecao value) {
-        //TODO ANTONIO
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
             this.remove(key);

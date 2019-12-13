@@ -130,6 +130,10 @@ public class SGContas {
 		return contas.containsKey(username);
 	}
 
+	public void updateContaTemp(){
+		contaTemp = contas.get(contaTemp.getUsername());
+	}
+
 	//endregion
 
 }

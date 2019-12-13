@@ -198,6 +198,9 @@ public class MediaCenterFacade {
 		}
 	}
 
+	public Conta getTemp() { return contas.getContaTemp();}
+
+
 	/**
 	 *
 	 * @param id
@@ -266,8 +269,15 @@ public class MediaCenterFacade {
 		return true;
 	}
 
-	public List<Integer> getCollectionsUser() {
+	public List<Integer> getCollectionIDsUser() {
 		return contas.getContaTemp().getColecoes();
+	}
+
+	public List<Colecao> getCollectionUser(){
+		List userCols = new ArrayList<Colecao>();
+		for(Integer id : this.getCollectionIDsUser())
+			userCols.add(sgcol.getColecao(id));
+		return userCols;
 	}
 
 	/**

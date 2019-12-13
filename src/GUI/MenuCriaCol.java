@@ -16,9 +16,20 @@ public class MenuCriaCol extends javax.swing.JFrame {
     /**
      * Creates new form MenuCriaCol
      */
+
+    private MediaCenterFacade mcF;
+    /**
+     * Creates new form MenuCols
+     */
     public MenuCriaCol() {
-        initComponents();
+        try{
+            this.mcF = MediaCenterFacade.getInstance();
+            initComponents();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +51,7 @@ public class MenuCriaCol extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nome da Coleção:");
+        jLabel1.setText("Titulo:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,6 +60,7 @@ public class MenuCriaCol extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Categoria:");
+
 
         jLabel3.setText("Visibilidade:");
 
@@ -67,6 +79,12 @@ public class MenuCriaCol extends javax.swing.JFrame {
         });
 
         jButton2.setText("Criar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,6 +149,12 @@ public class MenuCriaCol extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mcF.criarColecao(mcF.findColFreeID(),mcF.getTemp().getUsername(),jTextField1.getText(),jTextField2.getText(),!jCheckBox1.isSelected());
+        this.dispose();
+        new MenuCols().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     /**
      * @param args the command line arguments
