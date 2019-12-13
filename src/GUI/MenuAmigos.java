@@ -20,8 +20,8 @@ public class MenuAmigos extends javax.swing.JFrame {
      */
     public MenuAmigos() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class MenuAmigos extends javax.swing.JFrame {
         jLabel1.setText("Lista de Amigos:");
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = mcF.getTemp().getListaAmigos().toArray(new String[0]);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

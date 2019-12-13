@@ -20,8 +20,9 @@ public class MenuCols extends javax.swing.JFrame {
      */
     public MenuCols() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            System.out.println(mcF.getCollectionUser());
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -55,7 +56,7 @@ public class MenuCols extends javax.swing.JFrame {
         jLabel2.setText("As suas Coleções:");
 
         jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = mcF.getCollectionUser().stream().map(e -> e.getTitulo()).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

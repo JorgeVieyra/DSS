@@ -19,8 +19,8 @@ public class MenuCriaCol extends javax.swing.JFrame {
      */
     public MenuCriaCol() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
