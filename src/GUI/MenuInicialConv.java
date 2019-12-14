@@ -44,7 +44,7 @@ public class MenuInicialConv extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = mcF.getCollectionUser().stream().map(e -> e.getTitulo()).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

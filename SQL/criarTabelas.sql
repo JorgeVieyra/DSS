@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`MediaID` (
   PRIMARY KEY (`idMedia`))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `MediaCenter`.`Musica`
 -- -----------------------------------------------------
@@ -60,18 +59,11 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`Musica` (
   `titulo` VARCHAR(100) NOT NULL,
   `artista` VARCHAR(64) NOT NULL,
   `dataInclusao` DATE NOT NULL,
-  `colecao` INT NULL,
   `uploader` VARCHAR(16) NULL,
   `isPublic` TINYINT NOT NULL,
   `caminho` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idMusica`),
-  INDEX `fk_Colecao_idx` (`colecao` ASC) VISIBLE,
   INDEX `fk_UploaderM_idx` (`uploader` ASC) VISIBLE,
-  CONSTRAINT `fk_ColecaoM`
-    FOREIGN KEY (`colecao`)
-    REFERENCES `MediaCenter`.`Colecao` (`idColecao`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_UploaderM`
     FOREIGN KEY (`uploader`)
     REFERENCES `MediaCenter`.`Conta` (`username`)
@@ -92,18 +84,11 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`Video` (
   `idVideo` INT NOT NULL,
   `titulo` VARCHAR(100) NOT NULL,
   `dataInclusao` DATE NOT NULL,
-  `colecao` INT NULL,
   `uploader` VARCHAR(16) NULL,
   `isPublic` TINYINT NOT NULL,
   `caminho` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idVideo`),
-  INDEX `fk_Colecao_idx` (`colecao` ASC) VISIBLE,
   INDEX `fk_Uploader_idx` (`uploader` ASC) VISIBLE,
-  CONSTRAINT `fk_ColecaoV`
-    FOREIGN KEY (`colecao`)
-    REFERENCES `MediaCenter`.`Colecao` (`idColecao`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_UploaderV`
     FOREIGN KEY (`uploader`)
     REFERENCES `MediaCenter`.`Conta` (`username`)
@@ -115,6 +100,8 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`Video` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
 
 
 -- -----------------------------------------------------
@@ -135,6 +122,29 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`Amizade` (
   CONSTRAINT `fk_Amizade_2`
     FOREIGN KEY (`user2`)
     REFERENCES `MediaCenter`.`Conta` (`username`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `MediaCenter`.`ColMed`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `MediaCenter`.`ColMed` (
+  `idColMed` INT NOT NULL,
+  `idMedia` INT NOT NULL,
+  `idColecao` INT NOT NULL,
+  PRIMARY KEY (`idColMed`),
+  INDEX `fk_Media_idx` (`idMedia` ASC) VISIBLE,
+  INDEX `fk_Colecao_idx` (`idColecao` ASC) VISIBLE,
+  CONSTRAINT `fk_Media`
+    FOREIGN KEY (`idMedia`)
+    REFERENCES `MediaCenter`.`MediaID` (`idMedia`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Colecao`
+    FOREIGN KEY (`idColecao`)
+    REFERENCES `MediaCenter`.`Colecao` (`idColecao`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

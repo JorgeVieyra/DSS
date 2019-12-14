@@ -5,7 +5,11 @@
  */
 package GUI;
 
+import Diagrama_de_Classes.Colecao;
 import Diagrama_de_Classes.MediaCenterFacade;
+
+import javax.swing.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -13,8 +17,9 @@ import Diagrama_de_Classes.MediaCenterFacade;
  */
 public class MenuColecao extends javax.swing.JFrame {
 
-
+    private Colecao col;
     private MediaCenterFacade mcF;
+    DefaultListModel dmCol = new DefaultListModel();
     /**
      * Creates new form MenuColecao
      */
@@ -22,6 +27,18 @@ public class MenuColecao extends javax.swing.JFrame {
         try{
             initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public MenuColecao(Integer id) {
+        try{
+            this.mcF = MediaCenterFacade.getInstance();
+            col = mcF.getColecao(id);
+            setModel();
+            initComponents();
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -53,7 +70,7 @@ public class MenuColecao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nome da Coleção");
+        jLabel1.setText(String.format("Nome da Coleção: %s", col.getTitulo()));
 
         jButton1.setText("Adicionar Media");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,11 +83,14 @@ public class MenuColecao extends javax.swing.JFrame {
 
         jButton3.setText("Alterar");
 
-        jLabel2.setText("Categoria:");
-
-        jLabel3.setText("Jazz");
+        jLabel2.setText(String.format("Categoria: %s", col.getCategoria()));
 
         jButton4.setText("Reproduzir do inicio");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Modo Aleatório");
 
@@ -81,16 +101,13 @@ public class MenuColecao extends javax.swing.JFrame {
             }
         });
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+
+        jList2.setModel(dmCol);
         jScrollPane2.setViewportView(jList2);
 
         jLabel4.setText("Visibilidade:");
 
-        jLabel5.setText("Publico");
+        jLabel5.setText(col.getisPublic()?"Public":"Private");
 
         jButton7.setText("Alterar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +193,10 @@ public class MenuColecao extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       mcF.reproduzir(col.getMedias().get(jList2.getSelectedIndex()));
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -213,6 +234,11 @@ public class MenuColecao extends javax.swing.JFrame {
                 new MenuColecao().setVisible(true);
             }
         });
+    }
+
+    private void setModel(){
+        for(String s: col.getMedias().stream().map(e -> e.getTitulo()).collect(Collectors.toList()))
+            dmCol.addElement(s);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

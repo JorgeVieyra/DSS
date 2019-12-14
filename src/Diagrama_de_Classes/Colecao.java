@@ -91,6 +91,10 @@ public class Colecao {
 		this.mediasIDs = medias.stream().map(Media::getID).collect(Collectors.toList());
 	}
 
+	public List<Integer> getMediasIDs() {
+		return mediasIDs;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -108,6 +112,7 @@ public class Colecao {
 		return "Colecao{" +
 				"id=" + id +
 				", titulo='" + titulo + '\'' +
+				", mediasIDs=" + mediasIDs +
 				", medias=" + medias +
 				", criador='" + criador + '\'' +
 				", categoria='" + categoria + '\'' +

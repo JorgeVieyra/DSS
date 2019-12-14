@@ -35,6 +35,17 @@ public class Media {
 		this.isPublic = isPublic;
 		this.uploader = uploader;
 	}
+
+	public Media(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader,LocalDate date) {
+		this.id = id;
+		try{ this.tamanhoBytes = this.getFile(diretorio).length();} catch (FileNotFoundException e) {this.tamanhoBytes = -1;}
+		this.addDate = date;
+		this.titulo = titulo;
+		this.genero = genero;
+		this.diretorio = diretorio;
+		this.isPublic = isPublic;
+		this.uploader = uploader;
+	}
 	public String getTitulo() {
 		return this.titulo;
 	}

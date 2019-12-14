@@ -8,6 +8,13 @@ package GUI;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -15,17 +22,24 @@ import javax.swing.*;
  */
 public class MenuCols extends javax.swing.JFrame {
 
-    DefaultListModel dm = new DefaultListModel();
+    DefaultListModel dmPrivate = new DefaultListModel();
+    DefaultListModel dmPublic = new DefaultListModel();
+    Boolean isPrivate;
     private MediaCenterFacade mcF;
+    List<Integer> idsPub;
+    String[] stringsPub;
+    List<Integer> idsPriv;
+    String[] stringsPriv;
+
     /**
      * Creates new form MenuCols
      */
     public MenuCols() {
-        try{
+        try {
             this.mcF = MediaCenterFacade.getInstance();
             mcF.updateTemp();
             initComponents();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -45,6 +59,18 @@ public class MenuCols extends javax.swing.JFrame {
         jList2 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+
+        isPrivate = true;
+        //Popular listas
+        idsPub = mcF.getPublicCol().stream().map(e -> e.getID()).collect(Collectors.toList());
+        stringsPub = mcF.getPublicCol().stream().map(e -> e.getTitulo()).toArray(String[]::new);
+        for (String teste : stringsPub) dmPublic.addElement(teste);
+
+        idsPriv = mcF.getCollectionUser().stream().map(e -> e.getID()).collect(Collectors.toList());
+        stringsPriv = mcF.getCollectionUser().stream().map(e -> e.getTitulo()).toArray(String[]::new);
+        for (String teste : stringsPriv) dmPrivate.addElement(teste);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -56,9 +82,23 @@ public class MenuCols extends javax.swing.JFrame {
         });
 
         jLabel2.setText("As suas Coleções:");
-        String[] strings = mcF.getCollectionUser().stream().map(e -> e.getTitulo()).toArray(String[]::new);
-        for(String teste : strings) dm.addElement(teste);
-        jList2.setModel(dm);
+        jList2.setModel(dmPrivate);
+        jList2.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = list.locationToIndex(evt.getPoint());
+                    if(isPrivate) new MenuColecao(idsPriv.get(index)).setVisible(true);
+                    else new MenuColecao(idsPub.get(index)).setVisible(true);
+                } else if (evt.getClickCount() == 3) {
+
+                    // Triple-click detected
+                    int index = list.locationToIndex(evt.getPoint());
+                }
+            }
+        });
+
+
         jScrollPane2.setViewportView(jList2);
 
         jButton1.setText("Criar Coleção");
@@ -75,51 +115,84 @@ public class MenuCols extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Públicas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Privadas");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 275, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel2)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jButton5)
+                                                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addContainerGap(21, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jButton3)
+                                                .addGap(19, 19, 19)
+                                                .addComponent(jButton4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButton2)
+                                                .addGap(6, 6, 6))))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton5)
-                        .addGap(47, 47, 47)))
-                .addComponent(jButton2)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton3))
+                                .addGap(0, 12, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5)
+                                .addGap(61, 61, 61)
+                                .addComponent(jButton2)
+                                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        isPrivate = false;
+        jList2.setModel(dmPublic);
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        isPrivate = true;
+        jList2.setModel(dmPrivate);
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
@@ -131,13 +204,36 @@ public class MenuCols extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("Apaguei a playlist: " + mcF.getColecao(mcF.getCollectionIDsUser().get(jList2.getSelectedIndex())));
-        mcF.apagarColecao(mcF.getCollectionIDsUser().get(jList2.getSelectedIndex()));
-        dm.remove(jList2.getSelectedIndex());
-        jList2.setModel(dm);
+
+        System.out.println(jList2.getSelectedIndex());
+        //Yummi great spaguette
+        if(isPrivate){
+            System.out.println("True Apaguei a playlist: " + mcF.getColecao(mcF.getCollectionIDsUser().get(jList2.getSelectedIndex())));
+            if(idsPub.indexOf(idsPriv.get(jList2.getSelectedIndex())) != -1){
+                dmPublic.remove(idsPub.indexOf(idsPriv.get(jList2.getSelectedIndex())));
+                idsPub.remove(new Integer(idsPriv.get(jList2.getSelectedIndex())));}
+
+            mcF.apagarColecao(idsPriv.get(jList2.getSelectedIndex()));
+            idsPriv.remove(new Integer(idsPriv.get(jList2.getSelectedIndex())));
+            dmPrivate.remove(jList2.getSelectedIndex());
+            jList2.setModel(dmPrivate);
+        }
+        else{
+            System.out.println("False Apaguei a playlist: " + mcF.getPublicCol().get(jList2.getSelectedIndex()));
+            if(idsPriv.indexOf(idsPub.get(jList2.getSelectedIndex())) != -1){
+                dmPrivate.remove(idsPriv.indexOf(idsPub.get(jList2.getSelectedIndex())));
+                idsPriv.remove(new Integer(idsPub.get(jList2.getSelectedIndex())));}
+
+            mcF.apagarColecao(idsPub.get(jList2.getSelectedIndex()));
+            idsPub.remove(new Integer(idsPub.get(jList2.getSelectedIndex())));
+            dmPublic.remove(jList2.getSelectedIndex());
+            jList2.setModel(dmPublic);
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -174,14 +270,14 @@ public class MenuCols extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane2;
-    // End of variables declaration//GEN-END:variables
-
-
 }
+// End of variables declaration

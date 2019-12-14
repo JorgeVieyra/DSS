@@ -27,8 +27,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
     public void clear () {
             try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate("UPDATE Musica SET colecao = null");
-                stm.executeUpdate("UPDATE Video SET colecao = null");
+                stm.executeUpdate("DELETE from ColMed");
                 stm.executeUpdate("DELETE FROM Colecao");
             }
             catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -70,10 +69,16 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
     public Colecao get(Object id) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
+            //Criar lista de media
+            ResultSet rsMedia = stm.executeQuery(String.format("SELECT idMedia from ColMed WHERE idColecao = %s", id));
+            List<Integer> listaMedia = new ArrayList<>();
+            while(rsMedia.next()) listaMedia.add(rsMedia.getInt(1));
+
+
             String sql = String.format("SELECT * FROM Colecao WHERE idColecao='%s'", id);
             ResultSet rs = stm.executeQuery(sql);
             if(rs.next()){
-                return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true);
+                return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true,listaMedia);
             } else return null;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -104,6 +109,18 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
+    public Set<Integer> keySetRel() {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Set<Integer> setKeys = new HashSet<>();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT idColMed FROM ColMed");
+            while (rs.next()) setKeys.add(rs.getInt(1));
+            return setKeys;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+
     public Colecao put(Integer key, Colecao value) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
@@ -115,6 +132,15 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
+    public void addRelationship(Integer key, Integer mediaID, Integer colID){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+            Statement stm = conn.createStatement();
+            String sql = String.format(String.format("INSERT INTO MediaCenter.ColMed(idColMed,idMedia,idColecao) VALUES(%s,%s,%s)"),key,mediaID,colID);
+            stm.executeUpdate(sql);
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+
+    }
 
     public void putAll(Map<? extends Integer,? extends Colecao> t) {
         //TODO ANTONIO
@@ -125,8 +151,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Colecao al = this.get(key);
             Statement stm = conn.createStatement();
-            stm.executeUpdate(String.format("UPDATE Musica SET colecao = null WHERE colecao = '%s'",key));
-            stm.executeUpdate(String.format("UPDATE Video SET colecao = null WHERE colecao = '%s'",key));
+            stm.executeUpdate(String.format("DELETE FROM ColMed where idColecao = '%s'",key));
             stm.executeUpdate(String.format("DELETE FROM Colecao where idColecao = '%s'",key));
             return al;
         }
@@ -150,6 +175,19 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
             Collection<Colecao> col = new HashSet<Colecao>();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Colecao");
+            for (;rs.next();) {
+                col.add(new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true));
+            }
+            return col;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+    public List<Colecao> getPublicCols() {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+            List<Colecao> col = new ArrayList<Colecao>();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM Colecao WHERE isPublic = 1");
             for (;rs.next();) {
                 col.add(new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true));
             }

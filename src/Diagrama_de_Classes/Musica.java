@@ -1,5 +1,6 @@
 package Diagrama_de_Classes;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,8 +19,8 @@ public class Musica extends Media {
 	 * @param isPublic isPublic da super
 	 * @param uploader uploader da super
 	 */
-	public Musica(int id, String titulo,Collection<String> artistas, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
-		super(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+	public Musica(int id, String titulo, Collection<String> artistas, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader, LocalDate date) {
+		super(id,titulo,tempo,genero,diretorio,isPublic,uploader,date);
 		this.artistas = artistas;
 		this.bitRate = 128*1024; //Meio estranho ter a bitrate, mas por agora vamos deixar
 	}

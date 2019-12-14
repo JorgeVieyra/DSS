@@ -7,12 +7,16 @@ package GUI;
 
 import Diagrama_de_Classes.MediaCenterFacade;
 
+import javax.swing.*;
+import java.util.stream.Collectors;
+
 /**
  *
  * @author jorgevieira
  */
 public class MenuApagarMedia extends javax.swing.JFrame {
 
+    DefaultListModel dm = new DefaultListModel();
 
     private MediaCenterFacade mcF;
     /**
@@ -20,8 +24,9 @@ public class MenuApagarMedia extends javax.swing.JFrame {
      */
     public MenuApagarMedia() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            prepareModel();
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -45,15 +50,17 @@ public class MenuApagarMedia extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Escolha a Media que deseja apagar:");
+        jList1.setModel(dm);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Apagar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
 
         jButton2.setText("Fechar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +108,12 @@ public class MenuApagarMedia extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        mcF.apagarMedia(mcF.getMedia().get(jList1.getSelectedIndex()).getID());
+        dm.remove(jList1.getSelectedIndex());
+        jList1.setModel(dm);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -136,6 +149,14 @@ public class MenuApagarMedia extends javax.swing.JFrame {
         });
     }
 
+    public void prepareModel(){
+        if(mcF.contaIsAdmin())
+            for(String s : mcF.getMedia().stream().map(e -> e.getTitulo()).collect(Collectors.toList()))
+                dm.addElement(s);
+        else
+            for(String s : mcF.Availiablemedia().stream().map(e -> e.getTitulo()).collect(Collectors.toList()))
+                dm.addElement(s);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

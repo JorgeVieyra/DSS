@@ -57,7 +57,9 @@ public class SGCol {
 		this.colecaoTemp = colecaoTemp;
 	}
 
-
+	public List<Colecao> PublicCols(){
+		return colecoes.getPublicCols();
+	}
 
 	public List<Media> getMediaColecao(int id) {
 		return new ArrayList<Media>(colecoes.get(id).getMedias());
@@ -79,7 +81,11 @@ public class SGCol {
 		this.colecaoTemp.getMedias().remove(idMedia);
 	}
 
+	public void removeMedia(int idMedia){
+		this.medias.remove(idMedia);
+	}
 
+	public List<Media> getAllMedia(){return medias.valuesList();}
 	/**
 	 * 
 	 * @param idCol
@@ -97,6 +103,17 @@ public class SGCol {
 		return i;
 	}
 
+	public Integer getFirstAvailiableRelID(){
+		Set<Integer> ids = colecoes.keySetRel();
+		Integer i = 1;
+		for(;ids.contains(i);i++);
+		return i;
+	}
+
+	public void addToCol(Integer media,Integer col){
+		colecoes.addRelationship(getFirstAvailiableID(),media,col);
+	}
+
 	/**
 	 * 
 	 * @param id
@@ -105,4 +122,5 @@ public class SGCol {
 		return colecoes.get(id);
 	}
 
+	public List<Media> getAvailiableMedia(String username){return medias.Availiablevalues(username);}
 }

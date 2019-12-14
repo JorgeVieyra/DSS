@@ -2,6 +2,7 @@ package Diagrama_de_Classes;
 
 import javafx.util.Pair;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Video extends Media {
@@ -17,8 +18,8 @@ public class Video extends Media {
 	 * @param isPublic isPublic super
 	 * @param uploader uploader super
 	 */
-	public Video(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader, Pair<Integer, Integer> resolucao, int framerate) {
-        super(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+	public Video(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader, Pair<Integer, Integer> resolucao, int framerate, LocalDate date) {
+        super(id,titulo,tempo,genero,diretorio,isPublic,uploader,date);
         this.resolucao = resolucao;
         this.framerate = framerate;
 	}

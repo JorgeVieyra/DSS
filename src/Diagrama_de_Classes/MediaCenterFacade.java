@@ -10,7 +10,7 @@ import java.util.*;
 public class MediaCenterFacade {
 
 	public static final String uploadsPath = "C:\\Users\\pedro\\Documents\\MediaCenterUNI";
-	public static final String vlcPath = "D:\\VLC\\vlc.exe";
+	public static final String vlcPath = "/Applications/VLC.app/Contents/MacOS/VLC";
 
 	private static SGContas contas;
 	private static SGCol sgcol;
@@ -22,6 +22,7 @@ public class MediaCenterFacade {
 		sgcol = new SGCol();
 	}
 
+
 	public static MediaCenterFacade getInstance(){
 		if (inst == null) {
 			inst = new MediaCenterFacade();
@@ -30,8 +31,11 @@ public class MediaCenterFacade {
 	}
 
 	public static void main(String[] args) {
-		ContaDAO contas = ContaDAO.getInstance();
-		System.out.println(contas.values());
+
+	}
+
+	public void updateTemp(){
+		contas.updateContaTemp();
 	}
 	/**
 	 *
@@ -178,7 +182,7 @@ public class MediaCenterFacade {
 	 */
 	public boolean apagarMedia(int id) {
 		//TODO FIX
-		sgcol.removeMediaFromCol(id);
+		sgcol.removeMedia(id);
 		return true;
 	}
 
@@ -249,6 +253,10 @@ public class MediaCenterFacade {
 		return sgcol.getMediaByType(tipo);
 	}
 
+	public List<Media> getMedia() {
+		return sgcol.getAllMedia();
+	}
+
 	/**
 	 *
 	 * @param classificacao
@@ -287,6 +295,8 @@ public class MediaCenterFacade {
 	public Colecao getColecao(int id) {
 		return sgcol.getColecao(id);
 	}
+
+	public List<Media>Availiablemedia() {return sgcol.getAvailiableMedia(contas.getContaTemp().getUsername());}
 
 	/**
 	 *
@@ -358,4 +368,6 @@ public class MediaCenterFacade {
 	}
 
 	public int findColFreeID() {return sgcol.getFirstAvailiableID();}
+
+	public List<Colecao> getPublicCol(){return sgcol.PublicCols();}
 }
