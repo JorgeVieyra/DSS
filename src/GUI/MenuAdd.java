@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Diagrama_de_Classes.Colecao;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 /**
@@ -15,6 +16,7 @@ import Diagrama_de_Classes.MediaCenterFacade;
 public class MenuAdd extends javax.swing.JFrame {
 
     private MediaCenterFacade mcF;
+    private Colecao colecao;
     /**
      * Creates new form MenuAdd
      */
@@ -26,6 +28,18 @@ public class MenuAdd extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
+    public MenuAdd(Colecao col) {
+        try{
+            this.mcF = MediaCenterFacade.getInstance();
+            colecao = col;
+            initComponents();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +61,13 @@ public class MenuAdd extends javax.swing.JFrame {
         jLabel1.setText("Media disponivel:");
 
         jButton1.setText("Adicionar à Coleção");
+        jButton1.setText("Fechar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
 
         jButton2.setText("Fechar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -56,7 +77,7 @@ public class MenuAdd extends javax.swing.JFrame {
         });
 
         jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = mcF.Availiablemedia().stream().map(e->e.getTitulo()).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -94,6 +115,12 @@ public class MenuAdd extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        //TODO CONTINUAR
+        for(Integer i : jList2.getSelectedIndices());
+        this.dispose();
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
