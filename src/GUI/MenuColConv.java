@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Diagrama_de_Classes.Colecao;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 /**
@@ -12,11 +13,15 @@ import Diagrama_de_Classes.MediaCenterFacade;
  * @author jorgevieira
  */
 public class MenuColConv extends javax.swing.JFrame {
-
+    private MediaCenterFacade mcF;
+    private Colecao col;
     /**
      * Creates new form MenuColConv
      */
-    public MenuColConv() {
+    public MenuColConv(Integer id) {
+        this.mcF = MediaCenterFacade.getInstance();
+        this.col = mcF.getColecao(id);
+        System.out.println(col.toString());
         initComponents();
     }
 
@@ -41,13 +46,13 @@ public class MenuColConv extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = col.getMedias().stream().map(e-> e.getTitulo()).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
 
-        jLabel1.setText("Nome da Coleção");
+        jLabel1.setText(String.format("Nome da Coleção: %s", col.getTitulo()));
 
         jButton1.setText("Reproduzir do Inicio");
 
@@ -60,9 +65,8 @@ public class MenuColConv extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Categoria:");
+        jLabel2.setText(String.format("Categoria: %s", col.getCategoria()));
 
-        jLabel3.setText("KPop");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,12 +154,12 @@ public class MenuColConv extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuColConv().setVisible(true);
             }
-        });
+        }); */
     }
 
     // Variables declaration - do not modify
