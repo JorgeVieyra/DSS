@@ -137,11 +137,11 @@ public class MenuEditarConta extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        mcF.editarConta(username,jTextField1.getText(),true);
+        mcF.editarConta(username,jTextField2.getText(),true);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        mcF.editarConta(username,jTextField2.getText(),false);
+        mcF.editarConta(username,jTextField1.getText(),false);
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
