@@ -5,7 +5,12 @@
  */
 package GUI;
 
+import Diagrama_de_Classes.Conta;
 import Diagrama_de_Classes.MediaCenterFacade;
+
+import javax.swing.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -14,13 +19,15 @@ import Diagrama_de_Classes.MediaCenterFacade;
 public class MenuGerirContas extends javax.swing.JFrame {
 
     private MediaCenterFacade mcF;
+    private List<Conta> contas;
     /**
      * Creates new form MenuGerirContas
      */
     public MenuGerirContas() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            this.contas = mcF.getContas().stream().collect(Collectors.toList());
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -56,7 +63,7 @@ public class MenuGerirContas extends javax.swing.JFrame {
         });
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = contas.stream().map(e -> e.getUsername()).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -115,7 +122,8 @@ public class MenuGerirContas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new MenuEditarConta().setVisible(true);
+        System.out.println(contas.get(jList1.getSelectedIndex()).getUsername());
+        new MenuEditarConta(contas.get(jList1.getSelectedIndex()).getUsername()).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -165,4 +173,6 @@ public class MenuGerirContas extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+
 }

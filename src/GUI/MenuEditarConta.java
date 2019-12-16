@@ -10,6 +10,7 @@ import Diagrama_de_Classes.MediaCenterFacade;
 public class MenuEditarConta extends javax.swing.JFrame {
 
     private MediaCenterFacade mcF;
+    String username;
     /**
      * Creates new form MenuEditarConta
      */
@@ -17,6 +18,16 @@ public class MenuEditarConta extends javax.swing.JFrame {
         try{
             initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public MenuEditarConta(String username) {
+        try{
+            initComponents();
+            this.mcF = MediaCenterFacade.getInstance();
+            this.username = username;
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -43,8 +54,19 @@ public class MenuEditarConta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Alterar Password");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Alterar Email");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });;
+
 
         jLabel1.setText("Email:");
 
@@ -113,6 +135,14 @@ public class MenuEditarConta extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        mcF.editarConta(username,jTextField1.getText(),true);
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        mcF.editarConta(username,jTextField2.getText(),false);
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();

@@ -91,8 +91,13 @@ public class MediaCenterFacade {
 	 * @param isPassword
 	 */
 	public boolean editarConta(String username, String atributo, boolean isPassword) {
-		// TODO Jorge jaz que eu não faço a minima do que tu pretendes fazer aqui...
-		throw new UnsupportedOperationException();
+		try {
+			if (isPassword) contas.alterarPassword(atributo, username);
+			else contas.alterarEmail(atributo, username);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
@@ -375,4 +380,6 @@ public class MediaCenterFacade {
 	public List<Colecao> getPublicCol(){return sgcol.PublicCols();}
 
 	public List<Media> getMediaOfTemp(){return sgcol.getMediaOfUser(contas.getContaTemp().getUsername());}
+
+	public Collection<Conta> getContas(){return contas.getContas();}
 }

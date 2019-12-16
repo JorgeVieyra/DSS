@@ -177,5 +177,23 @@ public class ContaDAO implements Map<String,Conta> {
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
+
+    public void updatePassword(String username,String password){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Statement stm = conn.createStatement();
+            stm.executeUpdate(String.format("UPDATE Conta SET senha = '%s' WHERE username = '%s'",password,username));
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+    public void updateEmail(String username,String email){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Statement stm = conn.createStatement();
+            stm.executeUpdate(String.format("UPDATE Conta SET email = '%s' WHERE username = '%s'",email,username));
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
 }
+
 

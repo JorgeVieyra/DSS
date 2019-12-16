@@ -1,5 +1,7 @@
 package Diagrama_de_Classes;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,7 +42,7 @@ public class SGCol {
 		return new Colecao(id,titulo,criador,categoria,isPublic,novasMedias);
 	}
 
-	public List<Media> getMediaByType(String type){
+	public List<Media> getMediaByType(@NotNull String type){
 		if(type.toLowerCase().equals("video")) return medias.values().stream().filter(m -> m instanceof Video).collect(Collectors.toList());
 		else return medias.values().stream().filter(m -> m instanceof Musica).collect(Collectors.toList());
 	}

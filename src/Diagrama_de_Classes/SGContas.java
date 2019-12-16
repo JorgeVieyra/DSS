@@ -1,5 +1,6 @@
 package Diagrama_de_Classes;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,8 @@ public class SGContas {
 		else throw new InvalidUsernameException("Erro: Nome de Utilizador não existe ou utilizador não tem coleções.");
 	}
 
-	public Map<String, Conta> getContas() {
-		return new HashMap<>(contas);
+	public Collection<Conta> getContas() {
+		return contas.values();
 	}
 
 	/**
@@ -98,7 +99,8 @@ public class SGContas {
 	 * @param username
 	 */
 	public void alterarPassword(String password, String username) throws InvalidUsernameException{
-		if(usernameExiste(username)) contas.get(username).setPassword(password);
+		if(usernameExiste(username)) //contas.get(username).setPassword(password);
+			contas.updatePassword(username,password);
 		else throw new InvalidUsernameException("Erro: Nome de utilizador não existe.");
 
 	}
@@ -109,7 +111,8 @@ public class SGContas {
 	 * @param username
 	 */
 	public void alterarEmail(String email, String username) throws InvalidUsernameException{
-		if(usernameExiste(username)) contas.get(username).setEmail(email);
+		if(usernameExiste(username))// contas.get(username).setEmail(email);
+			contas.updatePassword(username,email);
 		else throw new InvalidUsernameException("Erro: Nome de utilizador não existe.");
 	}
 
