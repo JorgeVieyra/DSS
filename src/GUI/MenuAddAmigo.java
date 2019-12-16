@@ -10,8 +10,9 @@ public class MenuAddAmigo extends javax.swing.JFrame {
      */
     public MenuAddAmigo() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            System.out.println(mcF.getTemp().getUsername());
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -35,7 +36,7 @@ public class MenuAddAmigo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = mcF.getContas().stream().map(e-> e.getUsername()).filter(a->!a.equals(mcF.getTemp().getUsername())).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -44,6 +45,11 @@ public class MenuAddAmigo extends javax.swing.JFrame {
         jLabel1.setText("Contas:");
 
         jButton1.setText("Adicionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +95,11 @@ public class MenuAddAmigo extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        mcF.getTemp().addAmigo(jList1.getSelectedValue().toString());
         this.dispose();
     }
 
