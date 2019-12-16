@@ -8,7 +8,9 @@ package GUI;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import java.io.File;
-import javax.swing.JFileChooser;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.*;
 
 /**
  *
@@ -49,6 +51,11 @@ public class MenuUpload extends javax.swing.JFrame {
         jLabel1.setText("Escolha o ficheiro de Media que quer dar upload:");
 
         jButton1.setText("Upload");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +116,16 @@ public class MenuUpload extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public int verificaTipo(String s){
+
+        List<String> Vexts = Arrays.asList("3g2", "3gp", "3gp2", "3gpp", "amv", "asf", "avi", "bik", "divx", "drc", "dv", "dvr-ms", "evo", "f4v", "flv", "gvi", "gxf", "m1v", "m2t", "m2v", "m2ts", "m4v", "mkv", "mov", "mp2v", "mp4", "mp4v", "mpa", "mpe", "mpeg", "mpeg1", "mpeg2", "mpeg4", "mpg", "mpv2", "mts", "mtv", "mxf", "nsv", "nuv", "ogg", "ogm", "ogx", "ogv", "rec", "rm", "rmvb", "rpl", "thp", "tod", "tp", "ts", "tts", "vob", "vro", "webm", "wmv", "wtv", "xesc");
+        List<String> Mexts = Arrays.asList("3ga","669","a52","aac","ac3","adt","adts","aif","aifc","aiff","au","amr","aob","ape","caf","cda","dts","flac","it","m4a","m4p","mid","mka","mlp","mod","mp1","mp2","mp3","mpc","mpga","oga","oma","opus","qcp","ra","rmi","snd","s3m","spx","tta","voc","vqf","w64","wav","wma","wv","xa","xm");
+        String ext = s.substring(s.lastIndexOf('.')+1);
+        if(Vexts.contains(ext)){return 1;}
+        else if(Mexts.contains(ext)){return 0;}
+        else return -1;
+    }
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
@@ -120,6 +137,12 @@ public class MenuUpload extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(verificaTipo(jTextField2.getText()) != -1){new MenuUpload2(jTextField2.getText(),verificaTipo(jTextField2.getText())).setVisible(true);}
+        System.out.println(verificaTipo(jTextField2.getText()));
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
@@ -166,5 +189,6 @@ public class MenuUpload extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField2;
+
     // End of variables declaration//GEN-END:variables
 }

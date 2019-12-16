@@ -122,19 +122,17 @@ public class MediaCenterFacade {
 	}
 
 	/**
-	 *  Upload de uma media atravez de uma media ainda não criada
+	 *  Upload de uma media atraves de uma media ainda não criada
 	 * @param id ...
 	 * @param titulo ...
-	 * @param tempo ...
-	 * @param genero ...
 	 * @param diretorio ...
 	 * @param isPublic ...
 	 * @param uploader ...
 	 * @return ...
 	 */
-	public boolean upload(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader) {
+	public boolean upload(int id, String titulo, String diretorio, boolean isPublic, String uploader) {
 		try{
-			Media m = new Media(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+			Media m = new Media(id,titulo,-1,null,diretorio,isPublic,uploader);
 			sgcol.addMediaColTemp(m);
 			byte[] bytes = Files.readAllBytes(Paths.get(m.getDiretorio()));
 			Path newPath = Paths.get(uploadsPath+id+titulo);
@@ -146,7 +144,7 @@ public class MediaCenterFacade {
 	}
 
 	/**
-	 * Upload de media atravez de uma media já existente
+	 * Upload de media atraves de uma media já existente
 	 * @param m ...
 	 * @return ...
 	 */
@@ -361,6 +359,7 @@ public class MediaCenterFacade {
 
 	public String checkType(String location){
 		List<String> AudioExtensions = new ArrayList<>(Arrays.asList(".mp3"));
+		return "yes";
 	}
 
 	/**
