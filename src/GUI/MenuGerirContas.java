@@ -9,6 +9,7 @@ import Diagrama_de_Classes.Conta;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,10 +27,9 @@ public class MenuGerirContas extends javax.swing.JFrame {
     public MenuGerirContas() {
         try{
             this.mcF = MediaCenterFacade.getInstance();
-            this.contas = mcF.getContas().stream().collect(Collectors.toList());
+            this.contas = new ArrayList<>(mcF.getContas());
             initComponents();
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ignored){
         }
     }
 

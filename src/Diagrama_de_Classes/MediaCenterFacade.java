@@ -170,7 +170,8 @@ public class MediaCenterFacade {
 	 */
 	public boolean download(Media media, String localGuardar) {
 		try{
-			byte[] bytes = Files.readAllBytes(Paths.get(media.getDiretorio()));
+			//TODO WHY THIS NOT WORK?
+			byte[] bytes = Files.readAllBytes(Paths.get("C:/Users/pedro/Desktop/Ricardo Milos Party.mp4"));
 			Path newPath = Paths.get(localGuardar);
 			Files.write(newPath,bytes);
 			return true;
@@ -382,4 +383,8 @@ public class MediaCenterFacade {
 	public List<Media> getMediaOfTemp(){return sgcol.getMediaOfUser(contas.getContaTemp().getUsername());}
 
 	public Collection<Conta> getContas(){return contas.getContas();}
+
+	public List<String> getNonFriends(){return contas.getNonFriends();}
+
+	public void addAmizade(String username1,String username2){contas.addFriend(username1,username2);}
 }

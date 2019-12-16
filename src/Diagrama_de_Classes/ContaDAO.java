@@ -121,6 +121,18 @@ public class ContaDAO implements Map<String,Conta> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
+    public Set<Integer> AmizadekeySet() {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Set<Integer> setKeys = new HashSet<>();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT idAmizade FROM Amizade");
+            while (rs.next()) setKeys.add(rs.getInt(1));
+            return setKeys;
+        } catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }
+    }
+
     public Conta put(String key, Conta value) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             //TODO ANTONIO colocar colecao e colocar lista amigos
@@ -194,6 +206,30 @@ public class ContaDAO implements Map<String,Conta> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
+    public List<String> getNonFriends(String username){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Statement stm = conn.createStatement();
+           ResultSet rs = stm.executeQuery(String.format("Select username from Conta where username != '%s' and username not in(SELECT user2 FROM Amizade where user1 = '%s' Union ALL SELECT user1 FROM Amizade where user2 = '%s')",username,username,username));
+           List<String> nonFriends = new ArrayList<>();
+           while(rs.next()) nonFriends.add(rs.getString(1));
+           return nonFriends;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+    public void addAmizade(String username1,String username2){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            int id = 1;
+            for(;this.AmizadekeySet().contains(id);id++);
+            Statement stm = conn.createStatement();
+            stm.executeUpdate(String.format("INSERT INTO MediaCenter.Amizade (idAmizade, user1, user2) VALUES(%s, '%s', '%s');",id,username1,username2));
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+
 }
+
+
 
 

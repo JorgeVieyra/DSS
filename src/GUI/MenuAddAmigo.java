@@ -36,7 +36,7 @@ public class MenuAddAmigo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = mcF.getContas().stream().map(e-> e.getUsername()).filter(a->!a.equals(mcF.getTemp().getUsername())).toArray(String[]::new);
+            String[] strings = mcF.getNonFriends().toArray(new String[0]);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -100,6 +100,7 @@ public class MenuAddAmigo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         mcF.getTemp().addAmigo(jList1.getSelectedValue().toString());
+        mcF.addAmizade(mcF.getTemp().getUsername(),jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString());
         this.dispose();
     }
 

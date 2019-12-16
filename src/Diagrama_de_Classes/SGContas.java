@@ -137,6 +137,10 @@ public class SGContas {
 		contaTemp = contas.get(contaTemp.getUsername());
 	}
 
+	public List<String> getNonFriends(){return contas.getNonFriends(contaTemp.getUsername());}
+
+	public void addFriend(String username1,String username2){ contas.addAmizade(username1,username2);}
+
 	//endregion
 
 }
