@@ -26,6 +26,7 @@ public class MenuInicial extends javax.swing.JFrame {
     public MenuInicial() {
         try{
             this.mcF = MediaCenterFacade.getInstance();
+            System.out.println(mcF.getPublicCol().stream().map(e -> e.getTitulo()).toArray()[0]);
             initComponents();
         }catch(Exception e){
             e.printStackTrace();
