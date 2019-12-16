@@ -111,7 +111,7 @@ public class SGCol {
 	}
 
 	public void addToCol(Integer media,Integer col){
-		colecoes.addRelationship(getFirstAvailiableID(),media,col);
+		colecoes.addRelationship(getFirstAvailiableRelID(),media,col);
 	}
 
 	/**
@@ -123,4 +123,6 @@ public class SGCol {
 	}
 
 	public List<Media> getAvailiableMedia(String username){return medias.Availiablevalues(username);}
+
+	public List<Media> getMediaOfUser(String username){return medias.getMediaOfUtilizador(username);}
 }

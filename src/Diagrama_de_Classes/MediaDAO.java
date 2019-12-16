@@ -188,6 +188,20 @@ public class MediaDAO implements Map<Integer,Media>{
 		}
 	}
 
+	public List<Media> getMediaOfUtilizador(String username) {
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+			List<Media> col = new ArrayList<Media>();
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery(String.format("SELECT idMusica FROM Musica where uploader = '%s'", username));
+			for (; rs.next(); ) col.add(this.get(rs.getInt(1)));
+			ResultSet rs1 = stm.executeQuery(String.format("SELECT idVideo FROM Video where uploader = '%s'", username));
+			for (; rs1.next(); ) col.add(this.get(rs1.getInt(1)));
+			return col;
+		} catch (Exception e) {
+			throw new NullPointerException(e.getMessage());
+		}
+	}
+
 
 	public List<Media> valuesList() {
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {

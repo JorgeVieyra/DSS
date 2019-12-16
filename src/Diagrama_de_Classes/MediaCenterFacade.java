@@ -237,11 +237,11 @@ public class MediaCenterFacade {
 
 	/**
 	 *
-	 * @param m
+	 * @param mediaID, colID
 	 * @return
 	 */
-	public boolean adicionarMediaColecao(Media m) {
-		sgcol.addMediaColTemp(m);
+	public boolean adicionarMediaColecao(Integer mediaID, Integer colID) {
+		sgcol.addToCol(mediaID,colID);
 		return true;
 	}
 
@@ -359,6 +359,10 @@ public class MediaCenterFacade {
 		}
 	}
 
+	public String checkType(String location){
+		List<String> AudioExtensions = new ArrayList<>(Arrays.asList(".mp3"));
+	}
+
 	/**
 	 *
 	 * @param username
@@ -370,4 +374,6 @@ public class MediaCenterFacade {
 	public int findColFreeID() {return sgcol.getFirstAvailiableID();}
 
 	public List<Colecao> getPublicCol(){return sgcol.PublicCols();}
+
+	public List<Media> getMediaOfTemp(){return sgcol.getMediaOfUser(contas.getContaTemp().getUsername());}
 }

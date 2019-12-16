@@ -154,7 +154,7 @@ public class MenuApagarMedia extends javax.swing.JFrame {
             for(String s : mcF.getMedia().stream().map(e -> e.getTitulo()).collect(Collectors.toList()))
                 dm.addElement(s);
         else
-            for(String s : mcF.Availiablemedia().stream().map(e -> e.getTitulo()).collect(Collectors.toList()))
+            for(String s : mcF.getMediaOfTemp().stream().map(e -> e.getTitulo()).collect(Collectors.toList()))
                 dm.addElement(s);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

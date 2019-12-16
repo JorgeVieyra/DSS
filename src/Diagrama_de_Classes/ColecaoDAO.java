@@ -135,7 +135,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
     public void addRelationship(Integer key, Integer mediaID, Integer colID){
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
-            String sql = String.format(String.format("INSERT INTO MediaCenter.ColMed(idColMed,idMedia,idColecao) VALUES(%s,%s,%s)"),key,mediaID,colID);
+            String sql = String.format(String.format("INSERT INTO MediaCenter.ColMed(idColMed,idMedia,idColecao) VALUES('%s','%s','%s')",key,mediaID,colID));
             stm.executeUpdate(sql);
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
