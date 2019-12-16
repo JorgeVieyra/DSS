@@ -92,8 +92,8 @@ public class MediaCenterFacade {
 	 */
 	public boolean editarConta(String username, String atributo, boolean isPassword) {
 		try {
-			if (isPassword) contas.alterarEmail(atributo, username);
-			else contas.alterarPassword(atributo, username);
+			if (isPassword) contas.alterarPassword(atributo, username);
+			else contas.alterarEmail(atributo, username);
 			return true;
 		} catch (Exception e) {
 			return false;

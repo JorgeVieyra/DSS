@@ -112,7 +112,7 @@ public class SGContas {
 	 */
 	public void alterarEmail(String email, String username) throws InvalidUsernameException{
 		if(usernameExiste(username))// contas.get(username).setEmail(email);
-			contas.updatePassword(username,email);
+			contas.updateEmail(username,email);
 		else throw new InvalidUsernameException("Erro: Nome de utilizador não existe.");
 	}
 
