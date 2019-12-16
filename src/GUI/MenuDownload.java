@@ -22,8 +22,8 @@ public class MenuDownload extends javax.swing.JFrame {
      */
     public MenuDownload() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -61,6 +61,11 @@ public class MenuDownload extends javax.swing.JFrame {
         jLabel2.setText("Local para onde quer descarregar:");
 
         jButton2.setText("Download");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Fechar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +75,7 @@ public class MenuDownload extends javax.swing.JFrame {
         });
 
         jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = mcF.Availiablemedia().stream().map(e->e.getTitulo()).toArray(String[]::new);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -136,6 +141,12 @@ public class MenuDownload extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.out.println(mcF.Availiablemedia().get(jList2.getSelectedIndex()));
+        mcF.download(mcF.Availiablemedia().get(jList2.getSelectedIndex()),jTextField1.getText());
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     /**
      * @param args the command line arguments
