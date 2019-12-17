@@ -134,7 +134,6 @@ public class MenuGerirContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println(contas.get(jList1.getSelectedIndex()).getUsername());
         new MenuEditarConta(contas.get(jList1.getSelectedIndex()).getUsername()).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

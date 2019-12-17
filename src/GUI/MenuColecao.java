@@ -10,6 +10,9 @@ import Diagrama_de_Classes.Media;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,6 +109,11 @@ public class MenuColecao extends javax.swing.JFrame {
         });
 
         jButton5.setText("Modo Aleatório");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Fechar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -117,9 +125,18 @@ public class MenuColecao extends javax.swing.JFrame {
 
         jList2.setModel(dmCol);
         jScrollPane2.setViewportView(jList2);
+        jList2.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = list.locationToIndex(evt.getPoint());
+                    mcF.reproduzir(col.getMedias().get(index).getDiretorio());
+                }
+            }
+        });
 
-        jLabel4.setText("Visibilidade:");
-        System.out.println(col.getisPublic());
+
+                    jLabel4.setText("Visibilidade:");
         jLabel5.setText(col.getisPublic()?"Publico":"Privado");
 
         jButton7.setText("Alterar");
@@ -210,7 +227,6 @@ public class MenuColecao extends javax.swing.JFrame {
         media.remove(jList2.getSelectedIndex());
         col.setMedias(media);
         dmCol.remove(jList2.getSelectedIndex());
-        System.out.println(col.getMedias());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -225,9 +241,16 @@ public class MenuColecao extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       mcF.reproduzir(col.getMedias().get(jList2.getSelectedIndex()));
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       mcF.reproduzir(col.getMedias().stream().map(e->e.getDiretorio()).collect(Collectors.toList()));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        List<String> dirs = col.getMedias().stream().map(e->e.getDiretorio()).collect(Collectors.toList());
+        Collections.shuffle(dirs);
+        mcF.reproduzir(dirs);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if(col.getisPublic())col.setPublic(false);

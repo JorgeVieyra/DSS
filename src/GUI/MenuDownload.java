@@ -8,6 +8,7 @@ package GUI;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import java.io.File;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 
 /**
@@ -63,7 +64,11 @@ public class MenuDownload extends javax.swing.JFrame {
         jButton2.setText("Download");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                try {
+                    jButton2ActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -142,9 +147,9 @@ public class MenuDownload extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        System.out.println(mcF.Availiablemedia().get(jList2.getSelectedIndex()));
-        mcF.download(mcF.Availiablemedia().get(jList2.getSelectedIndex()),jTextField1.getText());
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton3ActionPerformed
+        String in = mcF.Availiablemedia().get(jList2.getSelectedIndex()).getDiretorio();
+        mcF.transferenciaMedia(in, String.format("%s/%s", jTextField1.getText(),in.substring(in.lastIndexOf('/'))));
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

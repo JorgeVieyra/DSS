@@ -8,6 +8,13 @@ package GUI;
 import Diagrama_de_Classes.Colecao;
 import Diagrama_de_Classes.MediaCenterFacade;
 
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  *
  * @author jorgevieira
@@ -21,7 +28,6 @@ public class MenuColConv extends javax.swing.JFrame {
     public MenuColConv(Integer id) {
         this.mcF = MediaCenterFacade.getInstance();
         this.col = mcF.getColecao(id);
-        System.out.println(col.toString());
         initComponents();
     }
 
@@ -50,13 +56,35 @@ public class MenuColConv extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jList1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = list.locationToIndex(evt.getPoint());
+                    mcF.reproduzir(col.getMedias().get(index).getDiretorio());
+                }
+            }
+        });
+
         jScrollPane1.setViewportView(jList1);
 
         jLabel1.setText(String.format("Nome da Coleção: %s", col.getTitulo()));
 
         jButton1.setText("Reproduzir do Inicio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
 
         jButton2.setText("Modo Aleatório");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
 
         jButton3.setText("Fechar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +150,16 @@ public class MenuColConv extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        mcF.reproduzir(col.getMedias().stream().map(e->e.getDiretorio()).collect(Collectors.toList()));
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        List<String> dirs = col.getMedias().stream().map(e->e.getDiretorio()).collect(Collectors.toList());
+        Collections.shuffle(dirs);
+        mcF.reproduzir(dirs);
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();

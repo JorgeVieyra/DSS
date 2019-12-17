@@ -24,6 +24,12 @@ public class Video extends Media {
         this.framerate = framerate;
 	}
 
+	public Video(int id, String titulo, int tempo, Set<String> genero, String diretorio, boolean isPublic, String uploader, Pair<Integer, Integer> resolucao, int framerate) {
+		super(id,titulo,tempo,genero,diretorio,isPublic,uploader);
+		this.resolucao = resolucao;
+		this.framerate = framerate;
+	}
+
 	public Pair<Integer,Integer> getResolucao() {
 	    return this.resolucao;
 	}

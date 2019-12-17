@@ -215,11 +215,8 @@ public class MenuCols extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        System.out.println(jList2.getSelectedIndex());
         //Yummi great spaguette
         if(isPrivate){
-            System.out.println("True Apaguei a playlist: " + mcF.getColecao(mcF.getCollectionIDsUser().get(jList2.getSelectedIndex())));
             if(idsPub.indexOf(idsPriv.get(jList2.getSelectedIndex())) != -1){
                 dmPublic.remove(idsPub.indexOf(idsPriv.get(jList2.getSelectedIndex())));
                 idsPub.remove(new Integer(idsPriv.get(jList2.getSelectedIndex())));}
@@ -230,7 +227,6 @@ public class MenuCols extends javax.swing.JFrame {
             jList2.setModel(dmPrivate);
         }
         else{
-            System.out.println("False Apaguei a playlist: " + mcF.getPublicCol().get(jList2.getSelectedIndex()));
             if(idsPriv.indexOf(idsPub.get(jList2.getSelectedIndex())) != -1){
                 dmPrivate.remove(idsPriv.indexOf(idsPub.get(jList2.getSelectedIndex())));
                 idsPriv.remove(new Integer(idsPub.get(jList2.getSelectedIndex())));}

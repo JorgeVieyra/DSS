@@ -11,7 +11,6 @@ public class MenuAddAmigo extends javax.swing.JFrame {
     public MenuAddAmigo() {
         try{
             this.mcF = MediaCenterFacade.getInstance();
-            System.out.println(mcF.getTemp().getUsername());
             initComponents();
         }catch(Exception e){
             e.printStackTrace();

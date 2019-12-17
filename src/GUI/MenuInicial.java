@@ -26,7 +26,6 @@ public class MenuInicial extends javax.swing.JFrame {
     public MenuInicial() {
         try{
             this.mcF = MediaCenterFacade.getInstance();
-            System.out.println(mcF.getPublicCol().stream().map(e -> e.getTitulo()).toArray()[0]);
             initComponents();
         }catch(Exception e){
             e.printStackTrace();
@@ -134,8 +133,7 @@ public class MenuInicial extends javax.swing.JFrame {
                 new MenuInicialUser().setVisible(true);
             }
             this.dispose();
-        }else System.out.println("Não foi possível dar login...");
-        System.out.println(String.format("--%s--%s--", jTextField1.getText(), Stream.<char[]>of(jPasswordField1.getPassword()).map(String::valueOf).collect(Collectors.joining())));
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

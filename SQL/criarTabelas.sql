@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`Musica` (
   `dataInclusao` DATE NOT NULL,
   `uploader` VARCHAR(16) NULL,
   `isPublic` TINYINT NOT NULL,
-  `caminho` VARCHAR(100) NOT NULL,
+  `caminho` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`idMusica`),
   INDEX `fk_UploaderM_idx` (`uploader` ASC) VISIBLE,
   CONSTRAINT `fk_UploaderM`
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `MediaCenter`.`Video` (
   `dataInclusao` DATE NOT NULL,
   `uploader` VARCHAR(16) NULL,
   `isPublic` TINYINT NOT NULL,
-  `caminho` VARCHAR(100) NOT NULL,
+  `caminho` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`idVideo`),
   INDEX `fk_Uploader_idx` (`uploader` ASC) VISIBLE,
   CONSTRAINT `fk_UploaderV`

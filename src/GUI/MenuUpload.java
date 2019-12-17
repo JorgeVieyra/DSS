@@ -140,7 +140,6 @@ public class MenuUpload extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(verificaTipo(jTextField2.getText()) != -1){new MenuUpload2(jTextField2.getText(),verificaTipo(jTextField2.getText())).setVisible(true);}
-        System.out.println(verificaTipo(jTextField2.getText()));
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

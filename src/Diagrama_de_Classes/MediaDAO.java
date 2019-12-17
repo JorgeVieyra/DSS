@@ -73,7 +73,7 @@ public class MediaDAO implements Map<Integer,Media>{
 			else{
 				String sql1 = String.format("SELECT * FROM Video WHERE idVideo = %d", id);
 				ResultSet rs1 = stm.executeQuery(sql1);
-				rs1.next();
+				if(rs1.next())
 				al = new Video(rs1.getInt(1),rs1.getString(2),0,null,rs1.getString(6),rs1.getBoolean(5),rs1.getString(4),null,30,rs1.getDate(3).toLocalDate());
 				return al;}
 		}
@@ -113,12 +113,12 @@ public class MediaDAO implements Map<Integer,Media>{
 			Conta al = null;
 			Statement stm = conn.createStatement();
 			this.remove(key);
-			if (value instanceof Musica)
-				stm.executeUpdate(String.format("INSERT INTO Musica (idMusica, titulo, artista, dataInclusao, uploader, isPublic,caminho) VALUES ('%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),((Musica) value).getArtista(),LocalDate.now(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
-			else
-				stm.executeUpdate(String.format("INSERT INTO Video (idVideo, titulo, dataInclusao, uploader, isPublic,caminho) VALUES ('%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),LocalDate.now(),null,value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
-
 			stm.executeUpdate(String.format("INSERT INTO MediaID VALUES ('%s')",key));
+			if (value instanceof Musica)
+				stm.executeUpdate(String.format("INSERT INTO Musica (idMusica, titulo, artista, dataInclusao, uploader, isPublic,caminho) VALUES ('%s','%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),((Musica) value).getArtista(),LocalDate.now(),value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
+			else
+				stm.executeUpdate(String.format("INSERT INTO Video (idVideo, titulo, dataInclusao, uploader, isPublic,caminho) VALUES ('%s','%s','%s','%s','%s','%s')",key,value.getTitulo(),LocalDate.now(),value.getUploader(),value.getIsPublic()?1:0,value.getDiretorio()));
+
 
 			//int i  = stm.executeUpdate(sql);
 			return value;

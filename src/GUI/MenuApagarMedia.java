@@ -8,6 +8,7 @@ package GUI;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 /**
@@ -57,7 +58,11 @@ public class MenuApagarMedia extends javax.swing.JFrame {
         jButton1.setText("Apagar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -108,7 +113,7 @@ public class MenuApagarMedia extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton1ActionPerformed
         mcF.apagarMedia(mcF.getMedia().get(jList1.getSelectedIndex()).getID());
         dm.remove(jList1.getSelectedIndex());
         jList1.setModel(dm);

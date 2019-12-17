@@ -2,6 +2,10 @@ package Diagrama_de_Classes;
 
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -85,7 +89,8 @@ public class SGCol {
 		this.colecaoTemp.getMedias().remove(idMedia);
 	}
 
-	public void removeMedia(int idMedia){
+	public void removeMedia(int idMedia) throws IOException {
+		Files.deleteIfExists(Paths.get(medias.get(idMedia).getDiretorio()));
 		this.medias.remove(idMedia);
 	}
 
@@ -98,6 +103,13 @@ public class SGCol {
 	public boolean alterarCategoria(int idCol, String categoria) {
 		colecoes.get(idCol).setCategoria(categoria);
 		return true;
+	}
+
+	public Integer getFirstAvailiableMediaID(){
+		Set<Integer> ids = medias.keySet();
+		Integer i = 1;
+		for(;ids.contains(i);i++);
+		return i;
 	}
 
 	public Integer getFirstAvailiableID(){
@@ -131,4 +143,9 @@ public class SGCol {
 	public List<Media> getMediaOfUser(String username){return medias.getMediaOfUtilizador(username);}
 
 	public void removeRelationship(Integer mediaID, Integer colID){colecoes.removeRelationship(mediaID,colID);}
+
+	public void addMediaToDB(String uploader,String titulo,String artista,String caminho,Boolean isPublic,Boolean isVideo){
+		if(isVideo) medias.put(getFirstAvailiableMediaID(),new Video(getFirstAvailiableMediaID(),titulo,-1,null,caminho,isPublic,uploader,null,-1));
+		else medias.put(getFirstAvailiableMediaID(),new Musica(getFirstAvailiableMediaID(),titulo, Arrays.stream(artista.split("&")).collect(Collectors.toList()), -1,null,caminho,isPublic,uploader, LocalDate.now()));
+	}
 }

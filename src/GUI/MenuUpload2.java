@@ -2,10 +2,15 @@ package GUI;
 
 import Diagrama_de_Classes.MediaCenterFacade;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.*;
+
 public class MenuUpload2 extends javax.swing.JFrame {
 
     private MediaCenterFacade mcF;
     private String caminho;
+    private Integer tipo;
     /**
      * Creates new form MenuUpload2
      */
@@ -16,6 +21,7 @@ public class MenuUpload2 extends javax.swing.JFrame {
     public MenuUpload2(String caminho, int tipoFile) {
         this.mcF = MediaCenterFacade.getInstance();
         this.caminho = caminho;
+        this.tipo = tipoFile;
         initComponents();
         if(tipoFile == 1){
             jTextField3.setEnabled(false);
@@ -52,6 +58,16 @@ public class MenuUpload2 extends javax.swing.JFrame {
         });
 
         jButton2.setText("Confirmar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton2ActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +115,14 @@ public class MenuUpload2 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+        if(tipo == 0) {
+            mcF.transferenciaMedia(caminho, String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
+            mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, false);
+        }else {
+            mcF.transferenciaMedia(caminho, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
+            mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), null, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, true);
+        }}
 
     /**
      * @param args the command line arguments

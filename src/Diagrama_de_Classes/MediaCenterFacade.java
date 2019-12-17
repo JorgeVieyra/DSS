@@ -4,13 +4,15 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
+import static java.nio.file.StandardCopyOption.*;
 
 public class MediaCenterFacade {
 
 	public static final String uploadsPath = "C:\\Users\\pedro\\Documents\\MediaCenterUNI";
-	public static final String vlcPath = "/Applications/VLC.app/Contents/MacOS/VLC";
+	public static final String vlcPath = "vlc";
 
 	private static SGContas contas;
 	private static SGCol sgcol;
@@ -47,7 +49,6 @@ public class MediaCenterFacade {
 			contas.login(username,password);
 			return true;
 		}catch(Exception e){
-			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -164,6 +165,8 @@ public class MediaCenterFacade {
 		}
 	}
 
+	public void transferenciaMedia(String in, String out) throws IOException {	Files.copy(Paths.get(in), Paths.get(out), StandardCopyOption.REPLACE_EXISTING);}
+
 	/**
 	 *
 	 * @param media
@@ -184,7 +187,7 @@ public class MediaCenterFacade {
 	 *
 	 * @param id
 	 */
-	public boolean apagarMedia(int id) {
+	public boolean apagarMedia(int id) throws IOException {
 		//TODO FIX
 		sgcol.removeMedia(id);
 		return true;
@@ -192,13 +195,29 @@ public class MediaCenterFacade {
 
 	/**
 	 *
-	 * @param media
+	 * @param diretorio
 	 */
-	public void reproduzir(Media media) {
+	public void reproduzir(List<String> diretorio) {
 		//TODO FIX
 		try{
+			List<String> command = new ArrayList<>();
+			command.add(vlcPath);command.add("--started-from-file");command.add("--playlist-enqueue");
+			for(String s : diretorio) command.add(s);
+			ProcessBuilder pb = new ProcessBuilder(command);
 
-			ProcessBuilder pb = new ProcessBuilder(vlcPath, media.getDiretorio());
+			Process start = pb.start();
+		}catch(Exception e){
+			return;
+		}
+	}
+
+	public void reproduzir(String diretorio) {
+		//TODO FIX
+		try{
+			List<String> command = new ArrayList<>();
+			command.add(vlcPath);command.add("--started-from-file");command.add("--playlist-enqueue");
+			command.add(diretorio);
+			ProcessBuilder pb = new ProcessBuilder(command);
 
 			Process start = pb.start();
 		}catch(Exception e){
@@ -214,20 +233,6 @@ public class MediaCenterFacade {
 	 * @param id
 	 * @param colecao
 	 */
-	public void reproduzirFrom(int id, List<Media> colecao) {
-		//TODO FIX
-		reproduzir(colecao.get(id));
-	}
-
-	/**
-	 *
-	 * @param c
-	 */
-	public void reproduzirRandom(List<Media> c) {
-		//TODO FIX
-		Random r = new Random();
-		reproduzir(c.get(r.nextInt(c.size())));
-	}
 
 	/**
 	 *
@@ -368,11 +373,6 @@ public class MediaCenterFacade {
 		}
 	}
 
-	public String checkType(String location){
-		List<String> AudioExtensions = new ArrayList<>(Arrays.asList(".mp3"));
-		return "yes";
-	}
-
 	/**
 	 *
 	 * @param username
@@ -396,4 +396,6 @@ public class MediaCenterFacade {
 	public void removeRelationship(Integer mediaID, Integer colID){sgcol.removeRelationship(mediaID,colID);}
 
 	public void apagarConta(String username) throws InvalidUsernameException {contas.apagarConta(username);}
+
+	public void addMediaToDB(String uploader,String titulo,String artista,String caminho,Boolean isPublic,Boolean isVideo){sgcol.addMediaToDB(uploader,titulo,artista,caminho,isPublic,isVideo);}
 }
