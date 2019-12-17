@@ -78,7 +78,7 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
             String sql = String.format("SELECT * FROM Colecao WHERE idColecao='%s'", id);
             ResultSet rs = stm.executeQuery(sql);
             if(rs.next()){
-                return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),true,listaMedia);
+                return new Colecao(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getBoolean(5),listaMedia);
             } else return null;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -136,6 +136,16 @@ public class ColecaoDAO implements Map<Integer, Colecao>{
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
             Statement stm = conn.createStatement();
             String sql = String.format(String.format("INSERT INTO MediaCenter.ColMed(idColMed,idMedia,idColecao) VALUES('%s','%s','%s')",key,mediaID,colID));
+            stm.executeUpdate(sql);
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+
+    }
+
+    public void removeRelationship(Integer mediaID, Integer colID){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123")) {
+            Statement stm = conn.createStatement();
+            String sql = String.format(String.format("Delete From MediaCenter.ColMed where idMedia = %s and idColecao = %s",mediaID,colID));
             stm.executeUpdate(sql);
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}

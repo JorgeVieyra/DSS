@@ -89,15 +89,18 @@ public class MenuCols extends javax.swing.JFrame {
                 if (evt.getClickCount() == 2) {
                     int index = list.locationToIndex(evt.getPoint());
                     if(isPrivate) {
-                        if(mcF.contaIsAdmin() || mcF.getTemp().getUsername().equals(mcF.getColecao(idsPriv.get(index)).getCriador()))
+                        if(mcF.contaIsAdmin() || mcF.getTemp().getUsername().equals(mcF.getColecao(idsPriv.get(index)).getCriador())){
                             new MenuColecao(idsPriv.get(index)).setVisible(true);
+                            close();}
                         else  new MenuColConv(idsPriv.get(index)).setVisible(true);
                     }
                     else {
-                        if(mcF.contaIsAdmin() || mcF.getTemp().getUsername().equals(mcF.getColecao(idsPub.get(index)).getCriador()))
+                        if(mcF.contaIsAdmin() || mcF.getTemp().getUsername().equals(mcF.getColecao(idsPub.get(index)).getCriador())){
                             new MenuColecao(idsPub.get(index)).setVisible(true);
+                            close();}
                         else  new MenuColConv(idsPub.get(index)).setVisible(true);
                     }
+
                 } else if (evt.getClickCount() == 3) {
 
                     // Triple-click detected
@@ -240,7 +243,9 @@ public class MenuCols extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-
+    private void close(){
+        this.dispose();
+    }
 
 
     /**

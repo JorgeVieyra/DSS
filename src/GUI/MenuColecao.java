@@ -6,9 +6,11 @@
 package GUI;
 
 import Diagrama_de_Classes.Colecao;
+import Diagrama_de_Classes.Media;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -80,8 +82,19 @@ public class MenuColecao extends javax.swing.JFrame {
         });
 
         jButton2.setText("Remover");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
 
         jButton3.setText("Alterar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText(String.format("Categoria: %s", col.getCategoria()));
 
@@ -106,8 +119,8 @@ public class MenuColecao extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList2);
 
         jLabel4.setText("Visibilidade:");
-
-        jLabel5.setText(col.getisPublic()?"Public":"Private");
+        System.out.println(col.getisPublic());
+        jLabel5.setText(col.getisPublic()?"Publico":"Privado");
 
         jButton7.setText("Alterar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +204,24 @@ public class MenuColecao extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mcF.removeRelationship(col.getMedias().get(jList2.getSelectedIndex()).getID(),col.getID());
+        List<Media> media = col.getMedias();
+        media.remove(jList2.getSelectedIndex());
+        col.setMedias(media);
+        dmCol.remove(jList2.getSelectedIndex());
+        System.out.println(col.getMedias());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new MenuNovaCategoria(col).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        mcF.updateColecao(col);
+        new MenuCols().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -200,7 +230,9 @@ public class MenuColecao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        if(col.getisPublic())col.setPublic(false);
+        else col.setPublic(true);
+        jLabel5.setText(col.getisPublic()?"Publico":"Privado");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

@@ -239,6 +239,11 @@ public class MediaCenterFacade {
 		return true;
 	}
 
+	public boolean updateColecao(Colecao col) {
+		sgcol.addColecao(col.getID(),col);
+		return true;
+	}
+
 	/**
 	 *
 	 * @param mediaID, colID
@@ -387,4 +392,8 @@ public class MediaCenterFacade {
 	public List<String> getNonFriends(){return contas.getNonFriends();}
 
 	public void addAmizade(String username1,String username2){contas.addFriend(username1,username2);}
+
+	public void removeRelationship(Integer mediaID, Integer colID){sgcol.removeRelationship(mediaID,colID);}
+
+	public void apagarConta(String username) throws InvalidUsernameException {contas.apagarConta(username);}
 }

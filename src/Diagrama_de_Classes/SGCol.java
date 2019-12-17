@@ -23,6 +23,8 @@ public class SGCol {
 	 */
 	public void addColecao(int id, Colecao colecao) {
 		colecoes.put(id,colecao);
+		for(Media m : colecao.getMedias())
+			addToCol(m.getID(),colecao.getID());
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class SGCol {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 */
 	public Colecao getColecao(int id) {
@@ -127,4 +129,6 @@ public class SGCol {
 	public List<Media> getAvailiableMedia(String username){return medias.Availiablevalues(username);}
 
 	public List<Media> getMediaOfUser(String username){return medias.getMediaOfUtilizador(username);}
+
+	public void removeRelationship(Integer mediaID, Integer colID){colecoes.removeRelationship(mediaID,colID);}
 }

@@ -6,6 +6,7 @@
 package GUI;
 
 import Diagrama_de_Classes.Conta;
+import Diagrama_de_Classes.InvalidUsernameException;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class MenuGerirContas extends javax.swing.JFrame {
 
     private MediaCenterFacade mcF;
     private List<Conta> contas;
+    DefaultListModel dm = new DefaultListModel();
     /**
      * Creates new form MenuGerirContas
      */
@@ -54,6 +56,15 @@ public class MenuGerirContas extends javax.swing.JFrame {
         jLabel1.setText("Contas:");
 
         jButton1.setText("ApagarConta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (InvalidUsernameException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         jButton2.setText("Editar Conta");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -61,12 +72,8 @@ public class MenuGerirContas extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = contas.stream().map(e -> e.getUsername()).toArray(String[]::new);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        setMModel();
+        jList1.setModel(dm);
         jScrollPane1.setViewportView(jList1);
 
         jButton3.setText("Fechar");
@@ -121,6 +128,11 @@ public class MenuGerirContas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws InvalidUsernameException {//GEN-FIRST:event_jButton1ActionPerformed
+        mcF.apagarConta(jList1.getSelectedValue().toString());
+        dm.remove(jList1.getSelectedIndex());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.out.println(contas.get(jList1.getSelectedIndex()).getUsername());
         new MenuEditarConta(contas.get(jList1.getSelectedIndex()).getUsername()).setVisible(true);
@@ -165,6 +177,10 @@ public class MenuGerirContas extends javax.swing.JFrame {
         });
     }
 
+    public void setMModel(){
+        for(String conta : mcF.getContas().stream().map(e ->e.getUsername()).toArray(String[]::new))
+            dm.addElement(conta);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

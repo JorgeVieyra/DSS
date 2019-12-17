@@ -116,7 +116,6 @@ public class MenuAdd extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO CONTINUAR
         for(Integer i : jList2.getSelectedIndices())
         mcF.adicionarMediaColecao(mcF.Availiablemedia().get(i).getID(),colecao.getID());
         new MenuColecao(colecao.getID()).setVisible(true);

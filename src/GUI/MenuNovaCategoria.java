@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Diagrama_de_Classes.Colecao;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 /**
@@ -14,13 +15,15 @@ import Diagrama_de_Classes.MediaCenterFacade;
 public class MenuNovaCategoria extends javax.swing.JFrame {
 
     private MediaCenterFacade mcF;
+    private Colecao col;
     /**
      * Creates new form MenuNovaCategoria
      */
-    public MenuNovaCategoria() {
+    public MenuNovaCategoria(Colecao col) {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            this.col = col;
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -49,6 +52,11 @@ public class MenuNovaCategoria extends javax.swing.JFrame {
         });
 
         jButton1.setText("Confirmar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Insira a nova Categoria da Coleção:");
 
@@ -97,6 +105,13 @@ public class MenuNovaCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        col.setCategoria(jTextField1.getText());
+        mcF.updateColecao(col);
+        new MenuColecao(col.getID()).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -128,12 +143,7 @@ public class MenuNovaCategoria extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuNovaCategoria().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
