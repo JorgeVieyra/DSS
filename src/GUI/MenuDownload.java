@@ -149,7 +149,8 @@ public class MenuDownload extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton3ActionPerformed
         String in = mcF.Availiablemedia().get(jList2.getSelectedIndex()).getDiretorio();
-        mcF.transferenciaMedia(in, String.format("%s/%s", jTextField1.getText(),in.substring(in.lastIndexOf('/'))));
+        try {mcF.transferenciaMedia(in, String.format("%s/%s", jTextField1.getText(),in.substring(in.lastIndexOf('/'))));}
+        catch(Exception e){mcF.transferenciaMedia(in, String.format("%s\\%s", jTextField1.getText(),in.substring(in.lastIndexOf('\\'))));}
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

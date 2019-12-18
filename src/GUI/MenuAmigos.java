@@ -8,6 +8,7 @@ package GUI;
 import Diagrama_de_Classes.MediaCenterFacade;
 
 import javax.swing.*;
+import java.util.List;
 
 /**
  *
@@ -24,6 +25,7 @@ public class MenuAmigos extends javax.swing.JFrame {
     public MenuAmigos() {
         try{
             this.mcF = MediaCenterFacade.getInstance();
+            mcF.updateTemp();
             initComponents();
         }catch(Exception e){
             e.printStackTrace();
@@ -123,6 +125,9 @@ public class MenuAmigos extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         mcF.remAmizade(mcF.getTemp().getUsername(),jList1.getSelectedValue().toString());
+        List<String> migos = mcF.getTemp().getListaAmigos();
+        migos.remove(jList1.getSelectedIndex());
+        mcF.getTemp().setListaAmigos(migos);
         dm.remove(jList1.getSelectedIndex());
     }//GEN-LAST:event_jButton2ActionPerformed
 
