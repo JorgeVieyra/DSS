@@ -227,6 +227,18 @@ public class ContaDAO implements Map<String,Conta> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
+    public void remAmizade(String username1,String username2){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
+            Statement stm = conn.createStatement();
+            stm.executeUpdate(String.format("Delete from Amizade where (user2 = 'Tonecas' and user1 = 'admin') or (user1 = 'Tonecas' and user2 = 'admin');",username1,username2,username1,username2));
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+
+
+
+
 
 }
 

@@ -7,6 +7,8 @@ package GUI;
 
 import Diagrama_de_Classes.MediaCenterFacade;
 
+import javax.swing.*;
+
 /**
  *
  * @author jorgevieira
@@ -15,6 +17,7 @@ public class MenuAmigos extends javax.swing.JFrame {
 
 
     private MediaCenterFacade mcF;
+    private DefaultListModel dm = new DefaultListModel();
     /**
      * Creates new form MenuAmigos
      */
@@ -46,12 +49,8 @@ public class MenuAmigos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Lista de Amigos:");
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = mcF.getTemp().getListaAmigos().toArray(new String[0]);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        setModel();
+        jList1.setModel(dm);
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Adicionar Amigo");
@@ -62,6 +61,11 @@ public class MenuAmigos extends javax.swing.JFrame {
         });
 
         jButton2.setText("Remover Amigo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Fechar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +121,11 @@ public class MenuAmigos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mcF.remAmizade(mcF.getTemp().getUsername(),jList1.getSelectedValue().toString());
+        dm.remove(jList1.getSelectedIndex());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         new MenuAddAmigo().setVisible(true);
         this.dispose();
@@ -157,6 +166,10 @@ public class MenuAmigos extends javax.swing.JFrame {
         });
     }
 
+    private void setModel() {
+    for(String s : mcF.getTemp().getListaAmigos().toArray(new String[0]))
+        dm.addElement(s);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

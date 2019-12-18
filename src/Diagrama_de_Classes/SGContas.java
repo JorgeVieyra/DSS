@@ -141,6 +141,7 @@ public class SGContas {
 
 	public void addFriend(String username1,String username2){ contas.addAmizade(username1,username2);}
 
+	public void remFriend(String username1,String username2){ contas.remAmizade(username1,username2);}
 	//endregion
 
 }

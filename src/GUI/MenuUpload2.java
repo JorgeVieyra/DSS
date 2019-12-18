@@ -122,7 +122,9 @@ public class MenuUpload2 extends javax.swing.JFrame {
         }else {
             mcF.transferenciaMedia(caminho, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
             mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), null, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, true);
-        }}
+        }
+    this.dispose();
+    }
 
     /**
      * @param args the command line arguments

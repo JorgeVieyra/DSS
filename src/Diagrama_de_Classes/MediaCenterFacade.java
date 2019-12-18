@@ -393,6 +393,8 @@ public class MediaCenterFacade {
 
 	public void addAmizade(String username1,String username2){contas.addFriend(username1,username2);}
 
+	public void remAmizade(String username1,String username2){contas.remFriend(username1,username2);}
+
 	public void removeRelationship(Integer mediaID, Integer colID){sgcol.removeRelationship(mediaID,colID);}
 
 	public void apagarConta(String username) throws InvalidUsernameException {contas.apagarConta(username);}
