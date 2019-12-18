@@ -60,7 +60,7 @@ public class MenuAdd extends javax.swing.JFrame {
 
         jLabel1.setText("Media disponivel:");
 
-        jButton1.setText("Adicionar à Coleção");
+        jButton1.setText("Adicionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -110,8 +110,8 @@ public class MenuAdd extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                                 .addComponent(jButton2))
         );
-
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>
 
 

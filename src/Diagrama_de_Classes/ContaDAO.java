@@ -165,7 +165,7 @@ public class ContaDAO implements Map<String,Conta> {
             stm.executeUpdate(String.format("DELETE FROM Conta where username ='%s'",key));
             return al;
         }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        catch (Exception e) {e.printStackTrace();throw new NullPointerException(e.getMessage());}
     }
 
     public int size() {
@@ -230,7 +230,7 @@ public class ContaDAO implements Map<String,Conta> {
     public void remAmizade(String username1,String username2){
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/MediaCenter?user=root&password=frango123&serverTimezone=UTC")) {
             Statement stm = conn.createStatement();
-            stm.executeUpdate(String.format("Delete from Amizade where (user2 = 'Tonecas' and user1 = 'admin') or (user1 = 'Tonecas' and user2 = 'admin');",username1,username2,username1,username2));
+            stm.executeUpdate(String.format("Delete from Amizade where (user2 = '%s' and user1 = '%s') or (user1 = '%s' and user2 = '%s');",username1,username2,username1,username2));
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
