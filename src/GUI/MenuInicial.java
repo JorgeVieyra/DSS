@@ -7,7 +7,11 @@ package GUI;
 
 import Diagrama_de_Classes.MediaCenterFacade;
 
+
 import javax.swing.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -144,6 +148,10 @@ public class MenuInicial extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+
+    public void close() {
+        this.dispose();
+    }
     /**
      * @param args the command line arguments
      */
@@ -175,6 +183,9 @@ public class MenuInicial extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuInicial().setVisible(true);
+                if(Files.notExists(Paths.get("VLCPath"))) {
+                    new MenuVLC().setVisible(true);
+                }
             }
         });
     }

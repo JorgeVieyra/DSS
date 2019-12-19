@@ -11,8 +11,6 @@ import static java.nio.file.StandardCopyOption.*;
 
 public class MediaCenterFacade {
 
-	public static final String uploadsPath = "C:\\Users\\pedro\\Documents\\MediaCenterUNI";
-	public static final String vlcPath = "vlc";
 
 	private static SGContas contas;
 	private static SGCol sgcol;
@@ -127,44 +125,6 @@ public class MediaCenterFacade {
 		}
 	}
 
-	/**
-	 *  Upload de uma media atraves de uma media ainda não criada
-	 * @param id ...
-	 * @param titulo ...
-	 * @param diretorio ...
-	 * @param isPublic ...
-	 * @param uploader ...
-	 * @return ...
-	 */
-	public boolean upload(int id, String titulo, String diretorio, boolean isPublic, String uploader) {
-		try{
-			Media m = new Media(id,titulo,-1,null,diretorio,isPublic,uploader);
-			sgcol.addMediaColTemp(m);
-			byte[] bytes = Files.readAllBytes(Paths.get(m.getDiretorio()));
-			Path newPath = Paths.get(uploadsPath+id+titulo);
-			Files.write(newPath,bytes);
-			return true;
-		}catch(Exception e){
-			return false;
-		}
-	}
-
-	/**
-	 * Upload de media atraves de uma media já existente
-	 * @param m ...
-	 * @return ...
-	 */
-	public boolean upload(Media m){
-		try{
-			byte[] bytes = Files.readAllBytes(Paths.get(m.getDiretorio()));
-			Path newPath = Paths.get(uploadsPath+m.getID()+m.getTitulo());
-			Files.write(newPath,bytes);
-			return true;
-		}catch (Exception e){
-			return false;
-		}
-	}
-
 	public void transferenciaMedia(String in, String out) throws IOException {	Files.copy(Paths.get(in), Paths.get(out), StandardCopyOption.REPLACE_EXISTING);}
 
 	/**
@@ -201,10 +161,10 @@ public class MediaCenterFacade {
 		//TODO FIX
 		try{
 			List<String> command = new ArrayList<>();
-			command.add(vlcPath);command.add("--started-from-file");command.add("--playlist-enqueue");
-			for(String s : diretorio) command.add(s);
+			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));command.add("--started-from-file");command.add("--playlist-enqueue");
+			for(String s : diretorio) command.add(String.format("\"%s\"",s));
 			ProcessBuilder pb = new ProcessBuilder(command);
-
+			System.out.println(String.join(" ",command));
 			Process start = pb.start();
 		}catch(Exception e){
 			return;
@@ -215,7 +175,7 @@ public class MediaCenterFacade {
 		//TODO FIX
 		try{
 			List<String> command = new ArrayList<>();
-			command.add(vlcPath);command.add("--started-from-file");command.add("--playlist-enqueue");
+			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));command.add("--started-from-file");command.add("--playlist-enqueue");
 			command.add(diretorio);
 			ProcessBuilder pb = new ProcessBuilder(command);
 

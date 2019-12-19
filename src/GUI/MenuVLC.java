@@ -1,6 +1,13 @@
 package GUI;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JFileChooser;
 
 /**
@@ -54,6 +61,15 @@ public class MenuVLC extends javax.swing.JFrame {
         });
 
         jButton2.setText("Confirmar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton2ActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +117,13 @@ public class MenuVLC extends javax.swing.JFrame {
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
         jTextField1.setText(filename);
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+        Path file = Paths.get("VLCPath");
+        if(System.getProperty("os.name").contains("Windows"))
+            Files.write(file,new ArrayList<String>(Arrays.asList(jTextField1.getText().replace("\\","\\\\"))),StandardCharsets.UTF_8);
+        else Files.write(file,new ArrayList<String>(Arrays.asList(jTextField1.getText())),StandardCharsets.UTF_8);
     }
 
     /**
