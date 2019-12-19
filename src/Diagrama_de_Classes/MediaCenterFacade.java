@@ -163,7 +163,7 @@ public class MediaCenterFacade {
 			List<String> command = new ArrayList<>();
 			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));
 			//TODO Mudar para o nome do MAC OS
-			if(System.getProperty("os.name").contains("Linux") || System.getProperty("os.name").contains("Windows")){
+			if(!System.getProperty("os.name").contains("Mac")) {
 				command.add("--started-from-file");
 				command.add("--playlist-enqueue");
 			}
