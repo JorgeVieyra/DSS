@@ -9,7 +9,7 @@ import Diagrama_de_Classes.MediaCenterFacade;
 
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 /**
  *
@@ -151,6 +151,7 @@ public class MenuDownload extends javax.swing.JFrame {
         String in = mcF.Availiablemedia().get(jList2.getSelectedIndex()).getDiretorio();
         try {mcF.transferenciaMedia(in, String.format("%s/%s", jTextField1.getText(),in.substring(in.lastIndexOf('/'))));}
         catch(Exception e){mcF.transferenciaMedia(in, String.format("%s\\%s", jTextField1.getText(),in.substring(in.lastIndexOf('\\'))));}
+        JOptionPane.showMessageDialog(this, "Media Transferida com Sucesso");
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

@@ -102,6 +102,8 @@ public class MenuColecao extends javax.swing.JFrame {
         jLabel2.setText(String.format("Categoria: %s", col.getCategoria()));
 
         jButton4.setText("Reproduzir do inicio");
+        if(System.getProperty("os.name").contains("Mac"))
+            jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
