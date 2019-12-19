@@ -124,6 +124,7 @@ public class MenuVLC extends javax.swing.JFrame {
         if(System.getProperty("os.name").contains("Windows"))
             Files.write(file,new ArrayList<String>(Arrays.asList(jTextField1.getText().replace("\\","\\\\"))),StandardCharsets.UTF_8);
         else Files.write(file,new ArrayList<String>(Arrays.asList(jTextField1.getText())),StandardCharsets.UTF_8);
+        this.dispose();
     }
 
     /**
