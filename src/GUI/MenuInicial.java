@@ -9,6 +9,8 @@ import Diagrama_de_Classes.MediaCenterFacade;
 
 
 import javax.swing.*;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Time;
@@ -184,6 +186,12 @@ public class MenuInicial extends javax.swing.JFrame {
             public void run() {
                 new MenuInicial().setVisible(true);
                 if(Files.notExists(Paths.get("VLCPath"))) {
+                    if(System.getProperty("os.name").contains("Linux")) {
+                        try {
+                            Files.write(Paths.get("VLCPath"),Arrays.asList("vlc"), StandardCharsets.UTF_8);
+                        } catch (IOException e) {
+                        }
+                    }else
                     new MenuVLC().setVisible(true);
                 }
             }

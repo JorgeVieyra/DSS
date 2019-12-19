@@ -169,7 +169,6 @@ public class MediaCenterFacade {
 			}
 			for(String s : diretorio) command.add(s);
 			ProcessBuilder pb = new ProcessBuilder(command);
-			System.out.println(String.join(" ",command));
 			Process start = pb.start();
 		}catch(Exception e){
 			return;
