@@ -162,9 +162,8 @@ public class MediaCenterFacade {
 		try{
 			List<String> command = new ArrayList<>();
 			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));command.add("--started-from-file");command.add("--playlist-enqueue");
-			for(String s : diretorio) command.add(String.format("\"%s\"",s));
+			for(String s : diretorio) command.add(s);
 			ProcessBuilder pb = new ProcessBuilder(command);
-			System.out.println(String.join(" ",command));
 			Process start = pb.start();
 		}catch(Exception e){
 			return;
