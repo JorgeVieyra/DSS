@@ -19,8 +19,8 @@ public class MenuInicialUser extends javax.swing.JFrame {
      */
     public MenuInicialUser() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
