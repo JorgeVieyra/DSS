@@ -74,7 +74,7 @@ public class MenuInicialUser extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Nome do Utilizador");
+        jLabel2.setText(String.format("Logged in como User: %s", mcF.getTemp().getUsername()));
 
         jButton5.setText("Download");
         jButton5.addActionListener(new java.awt.event.ActionListener() {

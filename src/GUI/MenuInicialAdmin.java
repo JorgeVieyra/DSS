@@ -19,8 +19,8 @@ public class MenuInicialAdmin extends javax.swing.JFrame {
      */
     public MenuInicialAdmin() {
         try{
-            initComponents();
             this.mcF = MediaCenterFacade.getInstance();
+            initComponents();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class MenuInicialAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Nome do Admin");
+        jLabel1.setText(String.format("Logged in como Admin: %s", mcF.getTemp().getUsername()));
 
         jButton1.setText("Coleções");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

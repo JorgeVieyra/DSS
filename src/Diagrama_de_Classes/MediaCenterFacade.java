@@ -161,8 +161,13 @@ public class MediaCenterFacade {
 		//TODO FIX
 		try{
 			List<String> command = new ArrayList<>();
-			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));command.add("--started-from-file");command.add("--playlist-enqueue");
-			for(String s : diretorio) command.add(String.format("\"%s\"",s));
+			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));
+			//TODO Mudar para o nome do MAC OS
+			if(System.getProperty("os.name").contains("Linux") || System.getProperty("os.name").contains("Windows")){
+				command.add("--started-from-file");
+				command.add("--playlist-enqueue");
+			}
+			for(String s : diretorio) command.add(s);
 			ProcessBuilder pb = new ProcessBuilder(command);
 			System.out.println(String.join(" ",command));
 			Process start = pb.start();
@@ -175,9 +180,10 @@ public class MediaCenterFacade {
 		//TODO FIX
 		try{
 			List<String> command = new ArrayList<>();
-			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));command.add("--started-from-file");command.add("--playlist-enqueue");
+			command.add(Files.readAllLines(Paths.get("VLCPath")).get(0));
 			command.add(diretorio);
 			ProcessBuilder pb = new ProcessBuilder(command);
+			System.out.println(String.join(" ",command));
 
 			Process start = pb.start();
 		}catch(Exception e){

@@ -122,9 +122,8 @@ public class MenuUpload2 extends javax.swing.JFrame {
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, false);
             }
             catch(Exception e) {
-                e.printStackTrace();
                 mcF.transferenciaMedia(caminho, String.format("%s\\Media\\Musica\\%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('\\'))));
-                mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s\\Media\\Musica\\%s", System.getProperty("user.dir").replace("\\","\\\\"), caminho.substring(caminho.lastIndexOf('\\'))), true, false);
+                mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s\\\\Media\\\\Musica\\%s", System.getProperty("user.dir").replace("\\","\\\\"), caminho.substring(caminho.lastIndexOf('\\'))), true, false);
             }
         }else {
             try{
