@@ -69,11 +69,6 @@ public class SGCol {
 		return colecoes.getPublicCols();
 	}
 
-	public List<Media> getMediaColecao(int id) {
-		return new ArrayList<Media>(colecoes.get(id).getMedias());
-		// SE FOR A DA TEMPORARIA // return new ArrayList<>(this.colecaoTemp.getMedias().values());
-	}
-
 	/**
 	 * @param novaMedia
 	 */
@@ -95,15 +90,6 @@ public class SGCol {
 	}
 
 	public List<Media> getAllMedia(){return medias.valuesList();}
-	/**
-	 * 
-	 * @param idCol
-	 * @param categoria
-	 */
-	public boolean alterarCategoria(int idCol, String categoria) {
-		colecoes.get(idCol).setCategoria(categoria);
-		return true;
-	}
 
 	public Integer getFirstAvailiableMediaID(){
 		Set<Integer> ids = medias.keySet();

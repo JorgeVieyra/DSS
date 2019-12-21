@@ -129,12 +129,12 @@ public class MenuGerirContas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws InvalidUsernameException {//GEN-FIRST:event_jButton1ActionPerformed
-        mcF.apagarConta(jList1.getSelectedValue().toString());
+        mcF.eliminarConta(jList1.getSelectedValue().toString());
         dm.remove(jList1.getSelectedIndex());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new MenuEditarConta(contas.get(jList1.getSelectedIndex()).getUsername()).setVisible(true);
+        new MenuEditarConta(jList1.getSelectedValue().toString()).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -177,7 +177,7 @@ public class MenuGerirContas extends javax.swing.JFrame {
     }
 
     public void setMModel(){
-        for(String conta : mcF.getContas().stream().map(e ->e.getUsername()).toArray(String[]::new))
+        for(String conta : mcF.getContas().stream().map(e ->e.getUsername()).sorted().toArray(String[]::new))
             dm.addElement(conta);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

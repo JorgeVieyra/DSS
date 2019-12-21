@@ -112,19 +112,6 @@ public class MediaCenterFacade {
 		}
 	}
 
-	/**
-	 *
-	 * @param username
-	 */
-	public boolean adicionarAmigo(String username) {
-		try {
-			contas.adicionarAmigo(username);
-			return true;
-		}catch(Exception e){
-			return false;
-		}
-	}
-
 	public void transferenciaMedia(String in, String out) throws IOException {	Files.copy(Paths.get(in), Paths.get(out), StandardCopyOption.REPLACE_EXISTING);}
 
 	/**
@@ -238,17 +225,6 @@ public class MediaCenterFacade {
 
 	/**
 	 *
-	 * @param classificacao
-	 * @param col
-	 */
-	public boolean calssificarColecao(String classificacao, int col) {
-		sgcol.alterarCategoria(col, classificacao);
-		return true;
-
-	}
-
-	/**
-	 *
 	 * @param id
 	 */
 	public boolean apagarColecao(int id) {
@@ -279,32 +255,10 @@ public class MediaCenterFacade {
 
 	/**
 	 *
-	 * @param username
-	 * @param pass
-	 */
-	public boolean verificaPassword(String username, String pass) {
-		try{
-			return contas.getConta(username).getPassword().equals(pass);
-		}catch (Exception e){
-			return false;
-		}
-	}
-
-	public boolean loginConvidado() {
-		return true;
-	}
-
-	public boolean logoutConvidado() {
-		return true;
-	}
-
-	/**
-	 *
 	 * @param diretorio
 	 */
 
 	public javafx.util.Duration checkTempoMedia(String diretorio) {
-		//TODO FIX
 		try {
 			File filestring = new File(diretorio);
 			javafx.scene.media.Media file = new javafx.scene.media.Media (filestring.toURI().toString());
@@ -331,19 +285,11 @@ public class MediaCenterFacade {
 	 */
 	public String checkTituloMedia(String location) {
 		File f = new File(location);
-		if(f.exists()){
+		if (f.exists()) {
 			return f.getName();
-		}else{
+		} else {
 			return "Invalid File Path";
 		}
-	}
-
-	/**
-	 *
-	 * @param username
-	 */
-	public boolean verificaUsername(String username) {
-		return contas.usernameExiste(username);
 	}
 
 	public int findColFreeID() {return sgcol.getFirstAvailiableID();}
@@ -361,8 +307,6 @@ public class MediaCenterFacade {
 	public void remAmizade(String username1,String username2){contas.remFriend(username1,username2);}
 
 	public void removeRelationship(Integer mediaID, Integer colID){sgcol.removeRelationship(mediaID,colID);}
-
-	public void apagarConta(String username) throws InvalidUsernameException {contas.apagarConta(username);}
 
 	public void addMediaToDB(String uploader,String titulo,String artista,String caminho,Boolean isPublic,Boolean isVideo){sgcol.addMediaToDB(uploader,titulo,artista,caminho,isPublic,isVideo);}
 }
