@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuVLC extends javax.swing.JFrame {
 

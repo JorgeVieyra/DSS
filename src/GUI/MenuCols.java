@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuCols extends javax.swing.JFrame {
 

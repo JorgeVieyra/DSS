@@ -10,7 +10,7 @@ import Logica_De_Negocio.MediaCenterFacade;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 
 public class MenuAdd extends javax.swing.JFrame {

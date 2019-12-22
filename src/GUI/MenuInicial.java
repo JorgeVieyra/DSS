@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuInicial extends javax.swing.JFrame {
 

@@ -9,7 +9,7 @@ import Logica_De_Negocio.MediaCenterFacade;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuCriaCol extends javax.swing.JFrame {
 

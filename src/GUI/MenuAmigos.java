@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuAmigos extends javax.swing.JFrame {
 

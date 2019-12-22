@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuColConv extends javax.swing.JFrame {
     private MediaCenterFacade mcF;

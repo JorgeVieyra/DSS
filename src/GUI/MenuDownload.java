@@ -13,7 +13,7 @@ import javax.swing.*;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuDownload extends javax.swing.JFrame {
 

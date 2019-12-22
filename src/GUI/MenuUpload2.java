@@ -2,6 +2,7 @@ package GUI;
 
 import Logica_De_Negocio.MediaCenterFacade;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.file.StandardCopyOption.*;
@@ -118,18 +119,22 @@ public class MenuUpload2 extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         if(tipo == 0) {
             try {
+                new File(String.format("%s/Media/Musica/%s", System.getProperty("user.dir"))).mkdirs();
                 mcF.transferenciaMedia(caminho, String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, false);
             }
             catch(Exception e) {
+                new File(String.format("%s\\Media\\Musica\\", System.getProperty("user.dir"))).mkdirs();
                 mcF.transferenciaMedia(caminho, String.format("%s\\Media\\Musica\\%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('\\'))));
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s\\\\Media\\\\Musica\\%s", System.getProperty("user.dir").replace("\\","\\\\"), caminho.substring(caminho.lastIndexOf('\\'))), true, false);
             }
         }else {
             try{
+                new File(String.format("%s/Media/Video/%s", System.getProperty("user.dir"))).mkdirs();
                 mcF.transferenciaMedia(caminho, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), null, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, true);
             }catch(Exception e) {
+                new File(String.format("%s\\Media\\Video\\", System.getProperty("user.dir"))).mkdirs();
                 mcF.transferenciaMedia(caminho, String.format("%s\\Media\\Video\\%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('\\'))));
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), null, String.format("%s\\\\Media\\\\Video\\%s", System.getProperty("user.dir").replace("\\","\\\\"), caminho.substring(caminho.lastIndexOf('\\'))), true, true);}
         }

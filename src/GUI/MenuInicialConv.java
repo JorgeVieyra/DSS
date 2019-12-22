@@ -9,7 +9,7 @@ import Logica_De_Negocio.MediaCenterFacade;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuInicialConv extends javax.swing.JFrame {
 

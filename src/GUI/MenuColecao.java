@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuColecao extends javax.swing.JFrame {
 

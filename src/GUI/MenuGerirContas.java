@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuGerirContas extends javax.swing.JFrame {
 

@@ -14,7 +14,7 @@ import javax.swing.*;
 
 /**
  *
- * @author jorgevieira
+ * @author Grupo34
  */
 public class MenuUpload extends javax.swing.JFrame {
 
