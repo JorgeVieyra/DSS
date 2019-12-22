@@ -119,7 +119,7 @@ public class MenuUpload2 extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         if(tipo == 0) {
             try {
-                new File(String.format("%s/Media/Musica/%s", System.getProperty("user.dir"))).mkdirs();
+                new File(String.format("%s/Media/Musica/", System.getProperty("user.dir"))).mkdirs();
                 mcF.transferenciaMedia(caminho, String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), jTextField3.getText(), String.format("%s/Media/Musica/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, false);
             }
@@ -130,7 +130,7 @@ public class MenuUpload2 extends javax.swing.JFrame {
             }
         }else {
             try{
-                new File(String.format("%s/Media/Video/%s", System.getProperty("user.dir"))).mkdirs();
+                new File(String.format("%s/Media/Video/", System.getProperty("user.dir"))).mkdirs();
                 mcF.transferenciaMedia(caminho, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))));
                 mcF.addMediaToDB(mcF.getTemp().getUsername(), jTextField1.getText(), null, String.format("%s/Media/Video/%s", System.getProperty("user.dir"), caminho.substring(caminho.lastIndexOf('/'))), true, true);
             }catch(Exception e) {
