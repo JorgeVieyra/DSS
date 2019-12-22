@@ -193,12 +193,14 @@ public class MenuCols extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         isPrivate = false;
+        if(!mcF.contaIsAdmin())jButton5.setEnabled(false);
         jList2.setModel(dmPublic);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         isPrivate = true;
+        if(!mcF.contaIsAdmin())jButton5.setEnabled(true);
         jList2.setModel(dmPrivate);
 
     }//GEN-LAST:event_jButton4ActionPerformed
