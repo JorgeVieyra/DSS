@@ -5,9 +5,9 @@
  */
 package GUI;
 
-import Diagrama_de_Classes.Colecao;
-import Diagrama_de_Classes.Media;
-import Diagrama_de_Classes.MediaCenterFacade;
+import Logica_De_Negocio.Colecao;
+import Logica_De_Negocio.Media;
+import Logica_De_Negocio.MediaCenterFacade;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;

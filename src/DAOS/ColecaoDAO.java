@@ -1,4 +1,6 @@
-package Diagrama_de_Classes;
+package DAOS;
+
+import Logica_De_Negocio.Colecao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

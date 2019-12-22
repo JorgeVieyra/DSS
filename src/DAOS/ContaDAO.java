@@ -1,11 +1,14 @@
-package Diagrama_de_Classes;
+package DAOS;
+
+import Logica_De_Negocio.Conta;
+import Logica_De_Negocio.Conta_Admin;
 
 import java.util.*;
 import java.sql.*;
 import java.sql.DriverManager;
 
 
-public class ContaDAO implements Map<String,Conta> {
+public class ContaDAO implements Map<String, Conta> {
 
     private static ContaDAO inst = null;
 

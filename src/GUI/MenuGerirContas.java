@@ -5,9 +5,9 @@
  */
 package GUI;
 
-import Diagrama_de_Classes.Conta;
-import Diagrama_de_Classes.InvalidUsernameException;
-import Diagrama_de_Classes.MediaCenterFacade;
+import Logica_De_Negocio.Conta;
+import Logica_De_Negocio.InvalidUsernameException;
+import Logica_De_Negocio.MediaCenterFacade;
 
 import javax.swing.*;
 import java.util.ArrayList;
