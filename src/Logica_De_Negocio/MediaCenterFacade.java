@@ -1,4 +1,4 @@
-package Diagrama_de_Classes;
+package Logica_De_Negocio;
 
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;

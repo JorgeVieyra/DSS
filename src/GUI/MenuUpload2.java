@@ -1,6 +1,6 @@
 package GUI;
 
-import Diagrama_de_Classes.MediaCenterFacade;
+import Logica_De_Negocio.MediaCenterFacade;
 
 import java.io.IOException;
 import java.nio.file.Files;

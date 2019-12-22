@@ -1,4 +1,6 @@
-package Diagrama_de_Classes;
+package Logica_De_Negocio;
+
+import DAOS.MediaDAO;
 
 import java.util.*;
 import java.util.stream.Collectors;

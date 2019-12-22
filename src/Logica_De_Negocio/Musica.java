@@ -1,4 +1,4 @@
-package Diagrama_de_Classes;
+package Logica_De_Negocio;
 
 import java.time.LocalDate;
 import java.util.*;

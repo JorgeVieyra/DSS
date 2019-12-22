@@ -1,6 +1,6 @@
 package GUI;
 
-import Diagrama_de_Classes.MediaCenterFacade;
+import Logica_De_Negocio.MediaCenterFacade;
 
 public class MenuAddAmigo extends javax.swing.JFrame {
 

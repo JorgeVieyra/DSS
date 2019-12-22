@@ -1,5 +1,6 @@
-package Diagrama_de_Classes;
+package DAOS;
 
+import Logica_De_Negocio.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.util.*;
 import java.time.LocalDate;
 
 
-public class MediaDAO implements Map<Integer,Media>{
+public class MediaDAO implements Map<Integer, Media>{
 	private static MediaDAO inst = null;
 
 	private MediaDAO () {

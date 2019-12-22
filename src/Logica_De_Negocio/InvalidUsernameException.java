@@ -1,4 +1,4 @@
-package Diagrama_de_Classes;
+package Logica_De_Negocio;
 
 public class InvalidUsernameException extends Exception {
 

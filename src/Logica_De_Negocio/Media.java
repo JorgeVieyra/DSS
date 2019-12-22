@@ -1,4 +1,4 @@
-package Diagrama_de_Classes;
+package Logica_De_Negocio;
 
 import java.io.File;
 import java.io.FileNotFoundException;
